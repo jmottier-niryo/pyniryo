@@ -2,7 +2,7 @@
 This script shows few functions you can use with PyNiryo
 """
 
-from pyniryo import *
+from pyniryo import NiryoRobot, CalibrateMode, RobotAxis
 
 simulation_mode = True
 
@@ -46,3 +46,22 @@ if not simulation_mode:
 niryo_robot.set_learning_mode(True)
 
 niryo_robot.close_connection()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

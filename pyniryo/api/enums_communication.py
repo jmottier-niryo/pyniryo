@@ -150,6 +150,8 @@ class Command(Enum):
     GET_LEARNING_MODE = 2
     SET_ARM_MAX_VELOCITY = 3
     SET_JOG_CONTROL = 4
+    GET_COLLISION_DETECTED = 5
+    CLEAR_COLLISION_DETECTED = 6
 
     # - Move
     # Pose
@@ -171,6 +173,8 @@ class Command(Enum):
     FORWARD_KINEMATICS = 27
     INVERSE_KINEMATICS = 28
 
+    MOVE = 29
+
     # Saved Pose
     GET_POSE_SAVED = 50
     SAVE_POSE = 51
@@ -182,8 +186,10 @@ class Command(Enum):
     PICK_FROM_POSE = 60
     PLACE_FROM_POSE = 61
     PICK_AND_PLACE = 62
+    PICK = 63
+    PLACE = 64
 
-   # Trajectories
+    # Trajectories
     GET_TRAJECTORY_SAVED = 80
     GET_SAVED_TRAJECTORY_LIST = 81
     EXECUTE_REGISTERED_TRAJECTORY = 82
