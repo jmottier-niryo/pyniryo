@@ -110,7 +110,9 @@ class TestJointsPoseFunctions(BaseTestTcpApi):
         self.assertIsNone(
             self.niryo_robot.move_pose(0.15, 0.0, 0.25, 0.0, 0.0, 0.0))
         self.assertIsNone(self.niryo_robot.move_pose([0.2, 0, 0.25, 0, 0, 0]))
-        self.assertIsNone(setter_pose(PoseObject(0.2, 0, 0.3, 0, 0, 0)))
+        self.assertIsNone(
+            setter_pose(
+                PoseObject(0.2, 0, 0.3, 0, 0, 0, metadata=PoseMetadata.v1())))
         self.assertAlmostEqualVector(self.niryo_robot.get_pose().to_list(),
                                      [0.2, 0.0, 0.3, 0.0, 0.0, 0.0])
         self.assertAlmostEqualVector(self.niryo_robot.pose.to_list(),
@@ -247,7 +249,14 @@ class TestSavedPose(BaseTestTcpApi):
             else:
                 self.assertIsNone(
                     self.niryo_robot.save_pose(
-                        new_name, PoseObject(0.2, 0.0, 0.3, 0.0, 0.0, 0.0)))
+                        new_name,
+                        PoseObject(0.2,
+                                   0.0,
+                                   0.3,
+                                   0.0,
+                                   0.0,
+                                   0.0,
+                                   metadata=PoseMetadata.v1())))
             if new_name not in new_list:
                 new_list.append(new_name)
                 list_names_saved.append(new_name)
@@ -293,7 +302,8 @@ class TestPickPlaceFunction(BaseTestTcpApi):
     def test_pick_n_place_individually(self):
         # Picking
         self.assertIsNone(
-            self.niryo_robot.pick_from_pose(PoseObject(*self.pose_1)))
+            self.niryo_robot.pick_from_pose(
+                PoseObject(*self.pose_1, metadata=PoseMetadata.v1())))
         # Placing
         self.assertIsNone(self.niryo_robot.place_from_pose(*self.pose_2))
         # Testing random values
@@ -303,8 +313,9 @@ class TestPickPlaceFunction(BaseTestTcpApi):
 
     def test_pick_n_place_in_one(self):
         self.assertIsNone(
-            self.niryo_robot.pick_and_place(PoseObject(*self.pose_2),
-                                            self.pose_1))
+            self.niryo_robot.pick_and_place(
+                PoseObject(*self.pose_2, metadata=PoseMetadata.v1()),
+                self.pose_1))
 
 
 class TestTrajectoryMethods(BaseTestTcpApi):
@@ -534,7 +545,7 @@ class TestDynamicFrame(BaseTestTcpApi):
                                               "unitEditTestFramePose_000"))
 
         # Move frame 001
-        pose1 = PoseObject(0, 0, 0, 0, 1.57, 0)
+        pose1 = PoseObject(0, 0, 0, 0, 1.57, 0, metadata=PoseMetadata.v1())
         self.assertIsNone(
             self.niryo_robot.move_pose(pose1, "unitEditTestFramePose_001"))
         self.assertIsNone(
@@ -553,7 +564,7 @@ class TestDynamicFrame(BaseTestTcpApi):
                 [-0.05, -0.05, -0.05, 0, 0, 0], "unitEditTestFramePose_002"))
 
         # Move frame 003
-        pose3 = PoseObject(0, 0, 0, 0, 1.57, 0)
+        pose3 = PoseObject(0, 0, 0, 0, 1.57, 0, metadata=PoseMetadata.v1())
         self.assertIsNone(
             self.niryo_robot.move_pose(pose3, "unitEditTestFramePose_003"))
         self.assertIsNone(
@@ -847,7 +858,9 @@ class TestWorkspaceMethods(BaseTestTcpApi):
                    [0.1, -0.1, 0.1, 0., 1.57, 0.],
                    [0.1, 0.1, 0.1, 0., 1.57, 0.]]
     points = [[p[0], p[1], p[2] + 0.05] for p in robot_poses]
-    robot_poses_obj = [PoseObject(*pose) for pose in robot_poses]
+    robot_poses_obj = [
+        PoseObject(*pose, metadata=PoseMetadata.v1()) for pose in robot_poses
+    ]
 
     def test_creation_delete_workspace(self):
         # Get saved workspace list & copy it
