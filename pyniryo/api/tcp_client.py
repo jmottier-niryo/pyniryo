@@ -842,6 +842,17 @@ class NiryoRobot(object):
         self.__send_n_receive(Command.EXECUTE_REGISTERED_TRAJECTORY,
                               trajectory_name)
 
+    def execute_trajectory(self, robot_positions, dist_smoothing=0.0):
+        dict_positions = []
+        for robot_position in robot_positions:
+            position_dict = robot_position.to_dict()
+            position_dict['obj_type'] = 'JOINTS' if isinstance(
+                robot_position, JointsPosition) else 'POSE'
+            dict_positions.append(robot_position)
+        self.__send_n_receive(Command.EXECUTE_TRAJECTORY, robot_positions,
+                              dist_smoothing)
+
+    @deprecated(reason='Use execute_trajectory with Pose objects instead')
     def execute_trajectory_from_poses(self, list_poses, dist_smoothing=0.0):
         """
         Execute trajectory from list of poses
@@ -862,6 +873,9 @@ class NiryoRobot(object):
         self.__send_n_receive(Command.EXECUTE_TRAJECTORY_FROM_POSES,
                               list_poses, dist_smoothing)
 
+    @deprecated(
+        reason=
+        'Use execute_trajectory with JointsPosition and Pose objects instead')
     def execute_trajectory_from_poses_and_joints(self,
                                                  list_pose_joints,
                                                  list_type=None,
