@@ -848,8 +848,8 @@ class NiryoRobot(object):
             position_dict = robot_position.to_dict()
             position_dict['obj_type'] = 'JOINTS' if isinstance(
                 robot_position, JointsPosition) else 'POSE'
-            dict_positions.append(robot_position)
-        self.__send_n_receive(Command.EXECUTE_TRAJECTORY, robot_positions,
+            dict_positions.append(position_dict)
+        self.__send_n_receive(Command.EXECUTE_TRAJECTORY, dict_positions,
                               dist_smoothing)
 
     @deprecated(reason='Use execute_trajectory with Pose objects instead')
