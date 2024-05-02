@@ -454,8 +454,8 @@ class NiryoRobot(object):
         pose_array = self.__map_list(data, float)
         return pose_array
 
-    @deprecated(reason='Use move with a JointPosition object instead')
     @joints.setter
+    @deprecated(reason='Use move with a JointPosition object instead')
     def joints(self, *args):
         joints = self.__args_joints_to_list(*args)
         joints_position = JointsPosition(*joints)
@@ -479,8 +479,8 @@ class NiryoRobot(object):
         joints = self.__args_joints_to_list(*args)
         self.__send_n_receive(Command.MOVE_JOINTS, *joints)
 
-    @deprecated(reason='Use move with a PoseObject instead')
     @pose.setter
+    @deprecated(reason='Use move with a PoseObject instead')
     def pose(self, *args):
         self.move_pose(*args)
 
