@@ -399,7 +399,7 @@ class NiryoRobot(object):
 
     @property
     def collision_detected(self):
-        return self.__send_n_receive(Command.GET_COLLISION_DETECTED)
+        return eval(self.__send_n_receive(Command.GET_COLLISION_DETECTED))
 
     def clear_collision_detected(self):
         return self.__send_n_receive(Command.CLEAR_COLLISION_DETECTED)
