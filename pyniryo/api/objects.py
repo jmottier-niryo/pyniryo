@@ -106,6 +106,16 @@ class PoseObject:
                           self.z + z_offset, self.roll + roll_offset,
                           self.pitch + pitch_offset, self.yaw + yaw_offset)
 
+    def __iter__(self):
+        for attr in self.to_list():
+            yield attr
+
+    def __getitem__(self, value):
+        return self.to_list()[value]
+
+    def __len__(self):
+        return 6
+
     def to_list(self):
         """
         Return a list [x, y, z, roll, pitch, yaw] corresponding to the pose's parameters
@@ -162,6 +172,9 @@ class JointsPosition:
 
     def __getitem__(self, item):
         return self.__joints[item]
+
+    def __len__(self):
+        return len(self.__joints)
 
     def to_dict(self):
         d = {'joint_' + str(n): joint for n, joint in enumerate(self.__joints)}
