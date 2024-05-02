@@ -394,10 +394,23 @@ class TestTrajectoryMethods(BaseTestTcpApi):
             self.assertEqual(result["description_list"], list_description)
 
     def test_execute_trajectory(self):
+        robot_positions = []
+        robot_positions += [
+            JointsPosition(*joints) for joints in self.joints_list
+        ]
+        robot_positions += [
+            PoseObject(*pose[:6], metadata=PoseMetadata.v1())
+            for pose in self.robot_poses
+        ]
+        self.niryo_robot.clear_collision_detected()
+        self.assertIsNone(self.niryo_robot.execute_trajectory(robot_positions))
+
+    def test_execute_trajectory_from_poses(self):
         # Testing trajectory from poses
         self.assertIsNone(
             self.niryo_robot.execute_trajectory_from_poses(self.robot_poses))
 
+    def test_save_and_execute_trajectory(self):
         # Create & save a trajectory, then execute it & eventually delete it
         traj_name = "test_trajectory_save_and_execute"
         traj_description = "test_description_trajectory_save_and_execute"
