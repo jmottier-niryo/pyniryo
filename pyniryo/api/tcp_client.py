@@ -555,9 +555,9 @@ class NiryoRobot(object):
 
         Examples ::
 
-            robot.move_pose(PoseObject(0.2, 0.1, 0.3, 0.0, 0.5, 0.0), metadata=PoseMetadata.v2(frame="frame"))
-            robot.move_pose(PoseObject(0.2, 0.1, 0.3, 0.0, 0.5, 0.0), metadata=PoseMetadata.v2(frame="frame"), move_cmd=Command.MOVE_LINEAR_POSE)
-            robot.move_joints(JointsPosition(0.2, 0.1, 0.3, 0.0, 0.5, 0.0))
+            robot.move(PoseObject(0.2, 0.1, 0.3, 0.0, 0.5, 0.0), metadata=PoseMetadata.v2(frame="frame"))
+            robot.move(PoseObject(0.2, 0.1, 0.3, 0.0, 0.5, 0.0), metadata=PoseMetadata.v2(frame="frame"), move_cmd=Command.MOVE_LINEAR_POSE)
+            robot.move(JointsPosition(0.2, 0.1, 0.3, 0.0, 0.5, 0.0))
 
         :param robot_position: either a joints position or a pose
         :type robot_position: Union[PoseObject, JointsPosition]
@@ -697,7 +697,7 @@ class NiryoRobot(object):
         self.__check_type(pose_name, str)
 
         pose_list = self.__send_n_receive(Command.GET_POSE_SAVED, pose_name)
-        return PoseObject(*pose_list)
+        return PoseObject.from_dict(pose_list)
 
     def save_pose(self, pose_name, *args):
         """
@@ -828,7 +828,12 @@ class NiryoRobot(object):
         pick_type = self.__differentiate_robot_position(pick_pose)
         place_type = self.__differentiate_robot_position(place_pos)
 
-        self.__send_n_receive(Command.PICK_AND_PLACE, pick_pose, place_pos, pick_type, place_type, dist_smoothing)
+        self.__send_n_receive(Command.PICK_AND_PLACE,
+                              pick_pose.to_dict(),
+                              place_pos.to_dict(),
+                              dist_smoothing,
+                              pick_type,
+                              place_type)
 
     # - Trajectories
     def get_trajectory_saved(self, trajectory_name):
@@ -940,15 +945,14 @@ class NiryoRobot(object):
         self.__check_type(trajectory_name, str)
         self.__check_type(trajectory_description, str)
         self.__check_type(trajectory, list)
+        dict_joints = []
         for joints in trajectory:
-            self.__check_type(joints, list)
-            length = len(joints)
-            if length != 6:
-                self.__raise_exception(
-                    "Expect 6 joint values per waypoint [j1,j2,j3,j4,j5,j6], but {} parameters given: {} ".format(
-                        length, joints))
+            if isinstance(joints, PoseObject):
+                dict_joints.append(joints.to_dict())
+            else:
+                dict_joints.append(JointsPosition(*joints).to_dict())
 
-        self.__send_n_receive(Command.SAVE_TRAJECTORY, trajectory, trajectory_name, trajectory_description)
+        self.__send_n_receive(Command.SAVE_TRAJECTORY, dict_joints, trajectory_name, trajectory_description)
 
     def save_last_learned_trajectory(self, name, description):
         """
@@ -960,7 +964,7 @@ class NiryoRobot(object):
         """
         self.__check_type(name, str)
         self.__check_type(description, str)
-        self.__send_n_receive(Command.SAVE_LAST_LEARNED_TRAJECTORY)
+        self.__send_n_receive(Command.SAVE_LAST_LEARNED_TRAJECTORY, name, description)
 
     def update_trajectory_infos(self, name, new_name, new_description):
         """"
@@ -977,7 +981,7 @@ class NiryoRobot(object):
         self.__check_type(name, str)
         self.__check_type(new_name, str)
         self.__check_type(new_description, str)
-        self.__send_n_receive(Command.UPDATE_TRAJECTORY_INFOS)
+        self.__send_n_receive(Command.UPDATE_TRAJECTORY_INFOS, name, new_name, new_description)
 
     def delete_trajectory(self, trajectory_name):
         """

@@ -259,16 +259,16 @@ class TestSavedPose(BaseTestTcpApi):
 
     def test_execute_pose_saved(self):
         pose_name = "test_pose_save_and_execute"
-        pose_target = [0.2, 0.0, 0.3, 0.0, 0.0, 0.0]
+        pose_target = PoseObject(0.2, 0, 0.3, 0, -1.56, 3.14)
         # Saving pose
         self.assertIsNone(self.niryo_robot.save_pose(pose_name, pose_target))
 
         # Recovering pose
         pose_recup = self.niryo_robot.get_pose_saved(pose_name)
-        self.assertEqual(pose_target, pose_recup.to_list())
+        self.assertAlmostEqualPose(pose_target, pose_recup)
 
         # Moving to the pose
-        self.assertIsNone(self.niryo_robot.move_pose(pose_recup))
+        self.assertIsNone(self.niryo_robot.move(pose_recup))
 
         # Deleting the pose
         self.assertIsNone(self.niryo_robot.delete_pose(pose_name))
@@ -312,64 +312,40 @@ class TestTrajectoryMethods(BaseTestTcpApi):
             self.assertIsNone(self.niryo_robot.save_trajectory(self.joints_list, new_name, new_description))
         self.assertIsNone(self.niryo_robot.clean_trajectory_memory())
         result = self.niryo_robot.get_saved_trajectory_list()
-        self.assertEqual(result["name_list"], [])
-        self.assertEqual(result["description_list"], [])
+        self.assertEqual(result, [])
 
         self.assertIsNone(self.niryo_robot.save_trajectory(self.joints_list, "last_executed_trajectory", ""))
         self.assertIsNone(self.niryo_robot.save_last_learned_trajectory("unittest_name", "unittest_description"))
         result = self.niryo_robot.get_saved_trajectory_list()
-        self.assertEqual(result["name_list"], ["unittest_name"])
-        self.assertEqual(result["description_list"], ["unittest_description"])
+        self.assertEqual(result, ["unittest_name"])
 
     def test_creation_delete_trajectory(self):
         # Get saved trajectory list & copy it
 
         self.assertIsNone(self.niryo_robot.clean_trajectory_memory())
         result = self.niryo_robot.get_saved_trajectory_list()
-        self.assertEqual(result["name_list"], [])
-        self.assertEqual(result["description_list"], [])
+        self.assertEqual(result, [])
 
-        new_list = []
-        list_description = []
-
-        # Create new trajectories
-        list_names_saved = []
-        for i in range(3):
-            new_name = 'test_{:03d}'.format(i)
-            new_description = 'test_description_{:03d}'.format(i)
-            self.assertIsNone(self.niryo_robot.save_trajectory(self.joints_list, new_name, new_description))
-            if new_name not in new_list:
-                list_names_saved.append(new_name)
-                list_description.append(new_description)
+        trajectories = [self.joints_list, [JointsPosition(*joints) for joints in self.joints_list]]
+        for trajectory in trajectories:
+            # Create new trajectory
+            name = 'test_trajectory'
+            description = 'test_description'
+            self.assertIsNone(self.niryo_robot.save_trajectory(trajectory, name, description))
             result = self.niryo_robot.get_saved_trajectory_list()
-            self.assertEqual(result["name_list"], new_list)
-            self.assertEqual(result["description_list"], list_description)
+            self.assertEqual(result, [name])
 
-        # Update Trajectories
-        old_names = list(list_names_saved)
-        for i in range(3):
-            old_name = old_names[i]
-            new_name = 'test_update_{:03d}'.format(i)
-            new_description = 'test_update_description_{:03d}'.format(i)
-            self.assertIsNone(self.niryo_robot.update_trajectory_infos(old_name, new_name, new_description))
-            if new_name not in new_list:
-                list_names_saved.append(new_name)
-                list_names_saved.remove(old_name)
-                list_description.append(new_description)
-                list_description.pop(0)
+            # Update Trajectory
+            new_name = 'test_update_pose'
+            new_description = 'test_update_description'
+            self.assertIsNone(self.niryo_robot.update_trajectory_infos(name, new_name, new_description))
             result = self.niryo_robot.get_saved_trajectory_list()
-            self.assertEqual(result["name_list"], new_list)
-            self.assertEqual(result["description_list"], list_description)
+            self.assertEqual(result, [new_name])
 
-        # Delete created trajectories
-        list_names = list(list_names_saved)
-        for name in list_names:
-            self.assertIsNone(self.niryo_robot.delete_trajectory(name))
-            list_names_saved.pop(list_names_saved.index(name))
-            list_description.pop(list_description.index(name))
+            # Delete created trajectory
+            self.assertIsNone(self.niryo_robot.delete_trajectory(new_name))
             result = self.niryo_robot.get_saved_trajectory_list()
-            self.assertEqual(result["name_list"], list_names_saved)
-            self.assertEqual(result["description_list"], list_description)
+            self.assertEqual(result, [])
 
     def test_execute_trajectory(self):
         robot_positions = []
