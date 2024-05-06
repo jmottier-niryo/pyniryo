@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # coding=utf-8
+import math
 import re
+
+import numpy as np
 from enum import Enum
 
 
@@ -19,11 +22,7 @@ class PoseMetadata:
     __DEFAULT_LENGTH_UNIT = LengthUnit.METERS
     __DEFAULT_FRAME = ''
 
-    def __init__(self,
-                 version,
-                 tcp_version,
-                 frame=__DEFAULT_FRAME,
-                 length_unit=__DEFAULT_LENGTH_UNIT):
+    def __init__(self, version, tcp_version, frame=__DEFAULT_FRAME, length_unit=__DEFAULT_LENGTH_UNIT):
         self.version = version
         self.tcp_version = tcp_version
         self.frame = frame
@@ -42,22 +41,15 @@ class PoseMetadata:
         if d['version'] == 1:
             return cls.v1()
         elif d['version'] == 2:
-            return cls.v2(TcpVersion[d['tcp_version']], d['frame'],
-                          LengthUnit[d['length_unit']])
+            return cls.v2(TcpVersion[d['tcp_version']], d['frame'], LengthUnit[d['length_unit']])
 
     @classmethod
     def v1(cls, frame=__DEFAULT_FRAME):
         return cls(1, TcpVersion.LEGACY, frame=frame)
 
     @classmethod
-    def v2(cls,
-           tcp_version=__DEFAULT_TCP_VERSION,
-           frame=__DEFAULT_FRAME,
-           length_unit=__DEFAULT_LENGTH_UNIT):
-        return cls(2,
-                   tcp_version=tcp_version,
-                   frame=frame,
-                   length_unit=length_unit)
+    def v2(cls, tcp_version=__DEFAULT_TCP_VERSION, frame=__DEFAULT_FRAME, length_unit=__DEFAULT_LENGTH_UNIT):
+        return cls(2, tcp_version=tcp_version, frame=frame, length_unit=length_unit)
 
 
 class PoseObject:
@@ -81,30 +73,25 @@ class PoseObject:
         self.metadata = metadata
 
     def __str__(self):
-        position = "x = {:.4f}, y = {:.4f}, z = {:.4f}".format(
-            self.x, self.y, self.z)
-        orientation = "roll = {:.3f}, pitch = {:.3f}, yaw = {:.3f}".format(
-            self.roll, self.pitch, self.yaw)
+        position = "x = {:.4f}, y = {:.4f}, z = {:.4f}".format(self.x, self.y, self.z)
+        orientation = "roll = {:.3f}, pitch = {:.3f}, yaw = {:.3f}".format(self.roll, self.pitch, self.yaw)
         return position + "\n" + orientation
 
     def __repr__(self):
         return self.__str__()
 
-    def copy_with_offsets(self,
-                          x_offset=0.,
-                          y_offset=0.,
-                          z_offset=0.,
-                          roll_offset=0.,
-                          pitch_offset=0.,
-                          yaw_offset=0.):
+    def copy_with_offsets(self, x_offset=0., y_offset=0., z_offset=0., roll_offset=0., pitch_offset=0., yaw_offset=0.):
         """
         Create a new pose from copying from copying actual pose with offsets
 
         :rtype: PoseObject
         """
-        return PoseObject(self.x + x_offset, self.y + y_offset,
-                          self.z + z_offset, self.roll + roll_offset,
-                          self.pitch + pitch_offset, self.yaw + yaw_offset)
+        return PoseObject(self.x + x_offset,
+                          self.y + y_offset,
+                          self.z + z_offset,
+                          self.roll + roll_offset,
+                          self.pitch + pitch_offset,
+                          self.yaw + yaw_offset)
 
     def __iter__(self):
         for attr in self.to_list():
@@ -140,8 +127,39 @@ class PoseObject:
     def from_dict(cls, d):
         args = [d['x'], d['y'], d['z'], d['roll'], d['pitch'], d['yaw']]
         if 'metadata' in d:
-            args.append(d['metadata'])
+            args.append(PoseMetadata.from_dict(d['metadata']))
         return cls(*args)
+
+    def quaternion(self, normalization_tolerance=0.00001):
+        # simplified version of the tf.transformations.quaternion_from_euler function
+        ai = self.roll / 2.0
+        aj = self.pitch / 2.0
+        ak = self.yaw / 2.0
+        ci = math.cos(ai)
+        si = math.sin(ai)
+        cj = math.cos(aj)
+        sj = math.sin(aj)
+        ck = math.cos(ak)
+        sk = math.sin(ak)
+        cc = ci * ck
+        cs = ci * sk
+        sc = si * ck
+        ss = si * sk
+
+        quaternion = np.array([
+            cj * sc - sj * cs,
+            cj * ss + sj * cc,
+            cj * cs - sj * sc,
+            cj * cc + sj * ss,
+        ])
+
+        # Normalize the quaternion
+        mag2 = np.square(quaternion).sum()
+        if mag2 <= normalization_tolerance:
+            return quaternion
+        mag = math.sqrt(mag2)
+        normalized_quaternion = quaternion / mag
+        return normalized_quaternion.tolist()
 
 
 class JointsPositionMetadata:
@@ -176,6 +194,9 @@ class JointsPosition:
     def __len__(self):
         return len(self.__joints)
 
+    def to_list(self):
+        return self.__joints
+
     def to_dict(self):
         d = {'joint_' + str(n): joint for n, joint in enumerate(self.__joints)}
         d['metadata'] = self.metadata.to_dict()
@@ -188,8 +209,8 @@ class JointsPosition:
         for name, value in d.items():
             if re.match(r'^joint_\d+$', name):
                 joints.append(value)
-            else:
-                other_args[name] = value
+        if 'metadata' in d:
+            other_args['metadata'] = JointsPositionMetadata.from_dict(d['metadata'])
         return cls(*joints, **other_args)
 
 
@@ -198,9 +219,17 @@ class HardwareStatusObject:
     Object used to store every hardware information
     """
 
-    def __init__(self, rpi_temperature, hardware_version, connection_up,
-                 error_message, calibration_needed, calibration_in_progress,
-                 motor_names, motor_types, motors_temperature, motors_voltage,
+    def __init__(self,
+                 rpi_temperature,
+                 hardware_version,
+                 connection_up,
+                 error_message,
+                 calibration_needed,
+                 calibration_in_progress,
+                 motor_names,
+                 motor_types,
+                 motors_temperature,
+                 motors_voltage,
                  hardware_errors):
         # Number representing the rpi temperature
         self.rpi_temperature = rpi_temperature
@@ -231,23 +260,17 @@ class HardwareStatusObject:
     def __str__(self):
         list_string_ret = list()
         list_string_ret.append("Temp (°C) : {}".format(self.rpi_temperature))
-        list_string_ret.append("Hardware version : {}".format(
-            self.hardware_version))
+        list_string_ret.append("Hardware version : {}".format(self.hardware_version))
         list_string_ret.append("Connection Up : {}".format(self.connection_up))
         list_string_ret.append("Error Message : {}".format(self.error_message))
-        list_string_ret.append("Calibration Needed : {}".format(
-            self.calibration_needed))
-        list_string_ret.append("Calibration in progress : {}".format(
-            self.calibration_in_progress))
-        list_string_ret.append(
-            "MOTORS INFOS : Motor1, Motor2, Motor3, Motor4, Motor5, Motor6,")
+        list_string_ret.append("Calibration Needed : {}".format(self.calibration_needed))
+        list_string_ret.append("Calibration in progress : {}".format(self.calibration_in_progress))
+        list_string_ret.append("MOTORS INFOS : Motor1, Motor2, Motor3, Motor4, Motor5, Motor6,")
         list_string_ret.append("Names : {}".format(self.motor_names))
         list_string_ret.append("Types : {}".format(self.motor_types))
-        list_string_ret.append("Temperatures : {}".format(
-            self.motors_temperature))
+        list_string_ret.append("Temperatures : {}".format(self.motors_temperature))
         list_string_ret.append("Voltages : {}".format(self.motors_voltage))
-        list_string_ret.append("Hardware errors : {}".format(
-            self.hardware_errors))
+        list_string_ret.append("Hardware errors : {}".format(self.hardware_errors))
         return "\n".join(list_string_ret)
 
     def __repr__(self):

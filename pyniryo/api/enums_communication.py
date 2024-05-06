@@ -152,6 +152,7 @@ class Command(Enum):
     SET_JOG_CONTROL = 4
     GET_COLLISION_DETECTED = 5
     CLEAR_COLLISION_DETECTED = 6
+    HANDSHAKE = 7
 
     # - Move
     # Pose
