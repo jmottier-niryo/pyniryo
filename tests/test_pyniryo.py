@@ -82,6 +82,8 @@ class TestMainPurpose(BaseTestTcpApi):
         def setter_learning_mode(state):
             self.niryo_robot.learning_mode = state
 
+        base_state = self.niryo_robot.learning_mode
+
         self.assertIsNone(self.niryo_robot.set_learning_mode(False))
         self.assertFalse(self.niryo_robot.learning_mode)
         with self.assertRaises(TcpCommandException):
@@ -92,6 +94,8 @@ class TestMainPurpose(BaseTestTcpApi):
             self.niryo_robot.set_learning_mode(ConveyorID.ID_1)
         self.assertIsNone(setter_learning_mode(True))
         self.assertTrue(self.niryo_robot.learning_mode)
+
+        self.niryo_robot.learning_mode = base_state
 
     def test_others(self):
         self.assertIsNone(self.niryo_robot.set_arm_max_velocity(95))
