@@ -164,7 +164,6 @@ class TestJointsPoseFunctions(BaseTestTcpApi):
             self.niryo_robot.shift_linear_pose(ConveyorID.ID_1, 0.9)
 
     def test_move(self):
-        self.niryo_robot.clear_collision_detected()
         test_positions = [
             PoseObject(0.2, 0, 0.3, 0, 0, 0, metadata=PoseMetadata.v1()),
             PoseObject(0.14, 0, 0.204, -0.017, 0.745, -0.001, metadata=PoseMetadata.v1()),
@@ -356,7 +355,6 @@ class TestTrajectoryMethods(BaseTestTcpApi):
         robot_positions = []
         robot_positions += [JointsPosition(*joints) for joints in self.joints_list]
         robot_positions += [PoseObject(*pose[:6], metadata=PoseMetadata.v1()) for pose in self.robot_poses]
-        self.niryo_robot.clear_collision_detected()
         self.assertIsNone(self.niryo_robot.execute_trajectory(robot_positions))
 
     def test_execute_trajectory_from_poses(self):
