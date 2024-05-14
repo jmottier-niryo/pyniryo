@@ -22,7 +22,6 @@ from pyniryo import (NiryoRobot,
                      NiryoRobotException,
                      PoseMetadata,
                      JointsPosition,
-                     TcpVersion,
                      Command)
 
 simulation = "-rpi" not in sys.argv
@@ -31,6 +30,8 @@ tool_used = ToolID.GRIPPER_1
 robot_ip_address_rpi = "10.10.10.10"
 robot_ip_address_gazebo = "127.0.0.1"
 robot_ip_address = robot_ip_address_gazebo if simulation else robot_ip_address_rpi
+
+#TODO: remove this hard-coded ip address
 robot_ip_address = '192.168.1.140'
 
 
@@ -371,14 +372,15 @@ class TestTrajectoryMethods(BaseTestTcpApi):
 
 
 class TestDynamicFrame(BaseTestTcpApi):
-    robot_poses = [[[0.2, 0.2, 0.1, 0, 0, 0], [0.4, 0.3, 0.1, 0, 0, 0], [0.3, 0.4, 0.1, 0, 0, 0]], [
-        [-0.2, -0.2, 0.1, 0, 0, 0],
-        [-0.4, -0.3, 0.1, 0, 0, 0],
-        [-0.3, -0.4, 0.1, 0, 0, 0],
-    ]]
+    robot_poses = [
+        [[0.2, 0.2, 0.1, 0, 0, 0], [0.4, 0.3, 0.1, 0, 0, 0], [0.3, 0.4, 0.1, 0, 0, 0]],
+        [[-0.2, -0.2, 0.1, 0, 0, 0], [-0.4, -0.3, 0.1, 0, 0, 0], [-0.3, -0.4, 0.1, 0, 0, 0]],
+    ]
 
-    robot_point = [[[-0.2, 0.2, 0.1], [0.4, 0.3, 0], [0.3, 0.4, 0]], [[0.2, -0.2, 0.1], [-0.4, -0.3, 0],
-                                                                      [-0.3, -0.4, 0]]]
+    robot_point = [
+        [[-0.2, 0.2, 0.1], [0.4, 0.3, 0], [0.3, 0.4, 0]],
+        [[0.2, -0.2, 0.1], [-0.4, -0.3, 0], [-0.3, -0.4, 0]],
+    ]
 
     def test_main_frame(self):
         self.__test_creation_edition_frame()
