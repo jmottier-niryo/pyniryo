@@ -38,6 +38,7 @@ class BaseTestTcpApi(unittest.TestCase):
 
     def setUp(self):
         self.niryo_robot = NiryoRobot(robot_ip_address, verbose=False, deprecation_msg=False)
+        self.niryo_robot.clear_collision_detected()
 
     def tearDown(self):
         self.niryo_robot.close_connection()
