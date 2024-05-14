@@ -1763,8 +1763,9 @@ class NiryoRobot(object):
         for pose in (pose_origin, pose_2, pose_3, pose_4):
             if isinstance(pose, PoseObject):
                 param_list.append(pose.to_dict())
-            pose_list = self.__args_pose_to_list(pose)
-            param_list.append(pose_list)
+            else:
+                pose_list = self.__args_pose_to_list(pose)
+                param_list.append(pose_list)
         self.__send_n_receive(Command.SAVE_WORKSPACE_FROM_POSES, *param_list)
 
     def save_workspace_from_points(self, workspace_name, point_origin, point_2, point_3, point_4):
@@ -1900,8 +1901,11 @@ class NiryoRobot(object):
 
         param_list = [frame_name, description]
         for pose in (pose_origin, pose_x, pose_y):
-            pose_list = self.__args_pose_to_list(pose)
-            param_list.append(pose_list)
+            if isinstance(pose, PoseObject):
+                param_list.append(pose.to_dict())
+            else:
+                pose_list = self.__args_pose_to_list(pose)
+                param_list.append(pose_list)
         param_list.append(belong_to_workspace)
         self.__send_n_receive(Command.SAVE_DYNAMIC_FRAME_FROM_POSES, *param_list)
 
@@ -1951,14 +1955,6 @@ class NiryoRobot(object):
         param_list.append(belong_to_workspace)
         self.__send_n_receive(Command.SAVE_DYNAMIC_FRAME_FROM_POINTS, *param_list)
 
-    def save_dynamic_frame(self, frame_name, origin, px, py):
-        self.__check_type(frame_name, str)
-        poses_dict = []
-        for pose in (origin, px, py):
-            self.__check_instance(pose, PoseObject)
-            poses_dict.append(pose.to_dict())
-        self.__send_n_receive(Command.SAVE_DYNAMIC_FRAME, frame_name, *poses_dict)
-
     def edit_dynamic_frame(self, frame_name, new_frame_name, new_description):
         """
         Modify a dynamic frame
@@ -2000,7 +1996,7 @@ class NiryoRobot(object):
         """
         self.__check_type(frame_name, str)
         self.__check_type(belong_to_workspace, bool)
-        self.__send_n_receive(Command.DELETE_DYNAMIC_FRAME, *[frame_name, belong_to_workspace])
+        self.__send_n_receive(Command.DELETE_DYNAMIC_FRAME, frame_name, belong_to_workspace)
 
     def move_relative(self, offset, frame="world"):
         """
