@@ -782,37 +782,70 @@ class TestSound(BaseTestTcpApi):
 
 class TestLedRing(BaseTestTcpApi):
 
-    def test_ledring(self):
+    N_LEDS = 30
 
-        def check_delay(function, **kwargs):
-            start_time = time.time()
-            self.assertIsNotNone(function(**kwargs))
-            self.assertGreaterEqual(time.time(), start_time + kwargs['period'] * kwargs['iterations'])
+    CYAN = [0, 255, 255]
+    MAGENTA = [255, 0, 255]
+    YELLOW = [255, 255, 0]
 
-        self.assertIsNotNone(self.niryo_robot.set_led_color(1, [0, 255, 255]))
-        self.assertIsNotNone(self.niryo_robot.led_ring_solid([255, 0, 255]))
-        self.assertIsNotNone(
-            self.niryo_robot.led_ring_custom(led_colors=[[i / 30. * 255, 0, 255 - i / 30.] for i in range(30)]))
+    def __init__(self, *args, **kwargs):
+        self.BLUE_TO_RED_GRADIENT = [[255 * (i / self.N_LEDS), 0, 255 - (255 * i / self.N_LEDS)]
+                                     for i in range(self.N_LEDS)]
+        super().__init__(*args, **kwargs)
 
-        check_delay(self.niryo_robot.led_ring_flashing, color=[255, 255, 0], period=0.5, iterations=5, wait=True)
+    def setUp(self):
+        super().setUp()
+        # The robot status takes some time before changing its status to running autonomous. This will cause the client
+        # to crash if the 1st command is a led ring command, because the status must be to autonomous in order to
+        # change the led ring. This is a quick and dirty fix to this problem
+        time.sleep(0.5)
 
-        check_delay(self.niryo_robot.led_ring_alternate,
-                    color_list=[[0, 255, 255], [255, 0, 255]],
-                    period=0.5,
-                    iterations=4,
-                    wait=True)
+    def assertBlocking(self, fn, period, iterations, fn_kwargs=None):
+        """
+        Run an animation function and ensure it blocks until the animation is complete.
+        """
+        if fn_kwargs is None:
+            fn_kwargs = {}
+        start_time = time.time()
+        self.assertIsNotNone(fn(**fn_kwargs, period=period, iterations=iterations, wait=True))
+        elapsed_time = time.time() - start_time
+        self.assertGreaterEqual(elapsed_time, period * iterations)
 
-        check_delay(self.niryo_robot.led_ring_chase, color=[255, 255, 0], period=1, iterations=2, wait=True)
-        check_delay(self.niryo_robot.led_ring_go_up, color=[0, 255, 255], period=0.5, iterations=4, wait=True)
-        check_delay(self.niryo_robot.led_ring_go_up_down, color=[255, 0, 255], period=0.5, iterations=4, wait=True)
-        check_delay(self.niryo_robot.led_ring_breath, color=[255, 255, 0], period=2, iterations=2, wait=True)
-        check_delay(self.niryo_robot.led_ring_snake, color=[0, 255, 255], period=0.5, iterations=4, wait=True)
+    def test_each_led(self):
+        for i, color in enumerate(self.BLUE_TO_RED_GRADIENT):
+            self.niryo_robot.set_led_color(i, color)
 
-        check_delay(self.niryo_robot.led_ring_rainbow, period=3, iterations=2, wait=True)
-        check_delay(self.niryo_robot.led_ring_rainbow_cycle, period=3, iterations=2, wait=True)
-        check_delay(self.niryo_robot.led_ring_rainbow_chase, period=5, iterations=1, wait=True)
-
+    def test_set_color(self):
+        self.assertIsNotNone(self.niryo_robot.set_led_color(1, self.CYAN))
+        self.assertIsNotNone(self.niryo_robot.led_ring_solid(self.MAGENTA))
+        self.assertIsNotNone(self.niryo_robot.led_ring_custom(led_colors=self.BLUE_TO_RED_GRADIENT))
         self.assertIsNotNone(self.niryo_robot.led_ring_turn_off())
+
+    def test_animations(self):
+
+        self.assertBlocking(self.niryo_robot.led_ring_flashing,
+                            period=0.5,
+                            iterations=5,
+                            fn_kwargs={'color': self.YELLOW})
+
+        self.assertBlocking(self.niryo_robot.led_ring_alternate,
+                            period=0.5,
+                            iterations=4,
+                            fn_kwargs={'color_list': [self.CYAN, self.MAGENTA]})
+
+        self.assertBlocking(self.niryo_robot.led_ring_chase, period=1, iterations=2, fn_kwargs={'color': self.YELLOW})
+        self.assertBlocking(self.niryo_robot.led_ring_go_up, period=0.5, iterations=4, fn_kwargs={'color': self.CYAN})
+        self.assertBlocking(self.niryo_robot.led_ring_go_up_down,
+                            period=0.5,
+                            iterations=4,
+                            fn_kwargs={'color': self.MAGENTA})
+        self.assertBlocking(self.niryo_robot.led_ring_breath, period=2, iterations=2, fn_kwargs={'color': self.YELLOW})
+        self.assertBlocking(self.niryo_robot.led_ring_snake, period=0.5, iterations=4, fn_kwargs={'color': self.CYAN})
+
+    def test_rainbow(self):
+        self.assertBlocking(self.niryo_robot.led_ring_rainbow, period=3, iterations=2)
+        self.assertBlocking(self.niryo_robot.led_ring_rainbow_cycle, period=3, iterations=2)
+        self.assertBlocking(self.niryo_robot.led_ring_rainbow_chase, period=5, iterations=1)
 
 
 if __name__ == '__main__':
