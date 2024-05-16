@@ -43,7 +43,8 @@ class BaseTestTcpApi(unittest.TestCase):
         cls.niryo_robot = NiryoRobot(robot_ip_address)
 
     def setUp(self):
-        self.niryo_robot.coll
+        # clean the flag to not impact the following test if the previous one failed
+        self.niryo_robot.clear_collision_detected()
 
     @classmethod
     def tearDownClass(cls):
@@ -522,6 +523,9 @@ class TestTools(BaseTestTcpApi):
     def test_select(self):
         # Set tool used and check
         self.assertIsNone(self.niryo_robot.update_tool())
+        # wait a bit to wait for the current tool to be updated
+        time.sleep(1)
+
         self.assertEqual(tool_used, self.niryo_robot.tool)
         self.assertEqual(tool_used, self.niryo_robot.get_current_tool_id())
         self.assertNotEqual(self.niryo_robot.get_current_tool_id(), tool_used.value)
@@ -701,7 +705,7 @@ class TestWorkspaceMethods(BaseTestTcpApi):
                 self.assertIsNone(self.niryo_robot.save_workspace_from_points(new_name, *self.points))
 
             # Checking ratio
-            self.assertAlmostEquals(self.niryo_robot.get_workspace_ratio(new_name), 1.0, places=2)
+            self.assertAlmostEqual(self.niryo_robot.get_workspace_ratio(new_name), 1.0, places=2)
 
             if new_name not in new_list:
                 new_list.append(new_name)
