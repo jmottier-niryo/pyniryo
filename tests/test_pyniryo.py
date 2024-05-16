@@ -25,11 +25,12 @@ from pyniryo import (NiryoRobot,
                      Command)
 
 simulation = "-rpi" not in sys.argv
-tool_used = ToolID.GRIPPER_1
+tool_used = ToolID.GRIPPER_2
 
 robot_ip_address_rpi = "10.10.10.10"
 robot_ip_address_gazebo = "127.0.0.1"
 robot_ip_address = robot_ip_address_gazebo if simulation else robot_ip_address_rpi
+robot_ip_address = '192.168.1.140'
 
 #TODO: remove this hard-coded ip address
 robot_ip_address = '192.168.1.140'
@@ -37,12 +38,16 @@ robot_ip_address = '192.168.1.140'
 
 class BaseTestTcpApi(unittest.TestCase):
 
-    def setUp(self):
-        self.niryo_robot = NiryoRobot(robot_ip_address, verbose=False, deprecation_msg=False)
-        self.niryo_robot.clear_collision_detected()
+    @classmethod
+    def setUpClass(cls):
+        cls.niryo_robot = NiryoRobot(robot_ip_address)
 
-    def tearDown(self):
-        self.niryo_robot.close_connection()
+    def setUp(self):
+        self.niryo_robot.coll
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.niryo_robot.close_connection()
 
     @staticmethod
     def assertAlmostEqualVector(a, b, decimal=1):
@@ -284,10 +289,6 @@ class TestPickPlaceFunction(BaseTestTcpApi):
     pose_1 = [0.2, 0.1, 0.1, 0., 1.57, 0.]
     pose_2 = [0.2, -0.1, 0.1, 0., 1.57, 0.]
 
-    def setUp(self):
-        super(TestPickPlaceFunction, self).setUp()
-        self.niryo_robot.update_tool()
-
     def test_pick_n_place_individually(self):
         self.assertIsNone(self.niryo_robot.pick_from_pose(PoseObject(*self.pose_1, metadata=PoseMetadata.v1())))
         self.assertIsNone(self.niryo_robot.place_from_pose(*self.pose_2))
@@ -517,16 +518,6 @@ class TestTools(BaseTestTcpApi):
     def setUpClass(cls):
         cls.niryo_robot = NiryoRobot(robot_ip_address)
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.niryo_robot.close_connection()
-
-    def setUp(self):
-        pass
-
-    def tearDown(self):
-        pass
-
     # noinspection PyTypeChecker
     def test_select(self):
         # Set tool used and check
@@ -577,16 +568,6 @@ class TestIOs(BaseTestTcpApi):
     @classmethod
     def setUpClass(cls):
         cls.niryo_robot = NiryoRobot(robot_ip_address)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.niryo_robot.close_connection()
-
-    def setUp(self):
-        pass
-
-    def tearDown(self):
-        pass
 
     def test_digital_ios(self):
         self.assertIsInstance(self.niryo_robot.get_digital_io_state(), list)
