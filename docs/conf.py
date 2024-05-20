@@ -17,7 +17,7 @@ author = shared_conf.author
 
 # The full version, including alpha/beta/rc tags
 with open('../pyniryo/version.py', 'r', encoding='utf-8') as f:
-    release = re.findall(r'__version__ = ["\']((\d+\.?){3})', f.read())[1]
+    release = re.match(r'__version__ = ["\']((\d+\.?){3})', f.read())[1]
 
 # The short X.Y version
 version = '.'.join(release.split('.')[:-1])

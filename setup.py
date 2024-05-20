@@ -4,7 +4,7 @@ from io import open
 from setuptools import find_packages, setup
 
 with open('pyniryo/version.py', 'r', encoding='utf-8') as f:
-    version = re.findall(r'__version__ = ["\']((\d+\.?){3})', f.read())[1]
+    version = re.match(r'__version__ = ["\']((\d+\.?){3})', f.read())[1]
 
 with open('README.rst', 'r', encoding='utf-8') as f:
     readme = f.read()
