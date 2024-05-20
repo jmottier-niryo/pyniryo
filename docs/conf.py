@@ -57,7 +57,7 @@ translation_object["en"]["PROJECT_NAME"] = "PyNiryo"
 
 html_context = {}
 
-html_context["BASE_FOLDER_URL"] = "https://docs.niryo.com/dev/pyniryo"
+html_context["BASE_FOLDER_URL"] = "https://archive-docs.niryo.com/dev/pyniryo"
 
 html_context["TRANSLATION"] = translation_object[language if language is not None else 'en']
 
