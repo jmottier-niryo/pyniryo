@@ -167,7 +167,7 @@ class NiryoRobot(object):
         if answer_status not in ["OK", "KO"]:
             raise InvalidAnswerException(answer_status)
         if received_dict["status"] != "OK":
-            raise NiryoRobotException("Command KO : {}".format(received_dict["message"]))
+            raise NiryoRobotException("Command {} KO : {}".format(received_dict['command'], received_dict["message"]))
         list_ret_param = received_dict["list_ret_param"]
         if len(list_ret_param) == 1:
             list_ret_param = list_ret_param[0]
@@ -1625,13 +1625,13 @@ class NiryoRobot(object):
             color_ret = 'ANY'
         return obj_found, pose_object, ObjectShape[shape_ret], ObjectColor[color_ret]
 
-    def __move_with_vision(self, command, workspace_name, height_offset, shape, color):
+    def __move_with_vision(self, command, workspace_name, height_offset, shape, color, **kwargs):
         self.__check_type(workspace_name, str)
         height_offset = self.__transform_to_type(height_offset, float)
         self.__check_enum_belonging(shape, ObjectShape)
         self.__check_enum_belonging(color, ObjectColor)
 
-        data_array = self.__send_n_receive(command, workspace_name, height_offset, shape, color)
+        data_array = self.__send_n_receive(command, workspace_name, height_offset, shape, color, **kwargs)
 
         obj_found = eval(data_array[0])
         if obj_found is True:
@@ -1642,7 +1642,12 @@ class NiryoRobot(object):
             color_ret = 'ANY'
         return obj_found, ObjectShape[shape_ret], ObjectColor[color_ret]
 
-    def vision_pick(self, workspace_name, height_offset=0.0, shape=ObjectShape.ANY, color=ObjectColor.ANY):
+    def vision_pick(self,
+                    workspace_name,
+                    height_offset=0.0,
+                    shape=ObjectShape.ANY,
+                    color=ObjectColor.ANY,
+                    obs_pose=None):
         """
         Picks the specified object from the workspace. This function has multiple phases: \n
         | 1. detect object using the camera 
@@ -1670,10 +1675,17 @@ class NiryoRobot(object):
         :type shape: ObjectShape
         :param color: color of the target
         :type color: ObjectColor
+        :param obs_pose: An optional observation pose
+        :type obs_pose: PoseObject
         :return: object_found, object_shape, object_color
         :rtype: (bool, ObjectShape, ObjectColor)
         """
-        return self.__move_with_vision(Command.VISION_PICK, workspace_name, height_offset, shape, color)
+        return self.__move_with_vision(Command.VISION_PICK,
+                                       workspace_name,
+                                       height_offset,
+                                       shape,
+                                       color,
+                                       obs_pose=obs_pose)
 
     def move_to_object(self, workspace_name, height_offset, shape, color):
         """
