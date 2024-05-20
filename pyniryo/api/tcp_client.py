@@ -1714,8 +1714,8 @@ class NiryoRobot(object):
         :type shape: ObjectShape
         :param color: color of the target
         :type color: ObjectColor
-        :return: object_found, object_pose, object_shape, object_color
-        :rtype: (bool, PoseObject, str, str)
+        :return: object_found, object_rel_pose, object_shape, object_color
+        :rtype: (bool, list, str, str)
         """
         self.__check_type(workspace_name, str)
         self.__check_enum_belonging(shape, ObjectShape)
