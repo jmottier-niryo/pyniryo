@@ -34,7 +34,7 @@ from .exceptions import (ClientNotConnectedException,
                          NiryoRobotException,
                          TcpCommandException)
 from .objects import PoseObject, HardwareStatusObject, DigitalPinObject, AnalogPinObject, JointsPosition, PoseMetadata
-from .version import __version__
+from ..version import __version__
 
 DEPRECATION_MSG = ("Starting pyniryo 1.2.0, the positions are no longer arrays of float but classes instead. "
                    "This allow a better handling of the robot poses. Therefore, the functions such as move_joints or "

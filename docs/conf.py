@@ -14,10 +14,12 @@ project = u'PyNiryo'
 copyright = shared_conf.copyright
 author = shared_conf.author
 
-# The short X.Y version
-version = u'v1.1'
+from pyniryo.version import __version__
+
 # The full version, including alpha/beta/rc tags
-release = u'v1.1.2'
+release = __version__
+# The short X.Y version
+version = '.'.join(release.split('.')[:-1])
 
 # -- General configuration ---------------------------------------------------
 
@@ -56,7 +58,6 @@ html_context = {}
 
 html_context["BASE_FOLDER_URL"] = "https://docs.niryo.com/dev/pyniryo"
 
-
 html_context["TRANSLATION"] = translation_object[language if language is not None else 'en']
 
 exclude_patterns = [u'_build', 'Thumbs.db', '.DS_Store']
@@ -64,7 +65,6 @@ exclude_patterns = [u'_build', 'Thumbs.db', '.DS_Store']
 pygments_style = None
 
 add_module_names = False
-
 
 # -- Options for HTML output -------------------------------------------------
 html_theme = shared_conf.html_theme
@@ -86,8 +86,7 @@ html_show_sphinx = shared_conf.html_show_sphinx
 # -- Options for intersphinx extension ---------------------------------------
 
 # Links
-extlinks = {
-}
+extlinks = {}
 
 # -- Internationalization --
 locale_dirs = ['locale/']  # path is example but recommended.
