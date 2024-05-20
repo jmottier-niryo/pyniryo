@@ -55,6 +55,9 @@ class BaseTestTcpApi(unittest.TestCase):
         np.testing.assert_almost_equal(a, b, decimal)
 
     def assertAlmostEqualPose(self, a, b, decimal=1):
+        """
+        Ensure the poses are compatible, then convert the euler angles to quaternions
+        """
         if isinstance(a, list):
             a = PoseObject(*a, metadata=PoseMetadata.v1())
         if isinstance(b, list):
@@ -635,51 +638,74 @@ class TestIOs(BaseTestTcpApi):
         self.assertIsInstance(self.niryo_robot.get_custom_button_state(), str)
 
 
-@unittest.skipUnless(simulation, "Vision test is only coded for Gazebo")
 class TestVision(BaseTestTcpApi):
-    workspace_name = "gazebo_1"
-    workspace_h = 0.001
-    point_1 = [0.3369, 0.087, workspace_h]
-    point_2 = [point_1[0], -point_1[1], workspace_h]
-    point_3 = [0.163, -point_1[1], workspace_h]
-    point_4 = [point_3[0], point_1[1], workspace_h]
+    workspace_name = "workspace_vision_test"
+    point_1 = [0.120, -0.085, 0]
+    point_2 = [0.120, 0.085, 0]
+    point_3 = [0.205, 0.085, 0]
+    point_4 = [0.205, -0.085, 0]
+    observation_pose = JointsPosition(0, 0.3, -0.8, 0, -1.35, 0)
 
-    def setUp(self):
-        super(TestVision, self).setUp()
-        self.assertIsNone(self.niryo_robot.move_joints(0.0, 0.0, 0.0, 0.0, -1.57, 0.0))
-        self.assertIsNone(self.niryo_robot.update_tool())
-        self.assertIsNone(
-            self.niryo_robot.save_workspace_from_points(self.workspace_name,
-                                                        self.point_1,
-                                                        self.point_2,
-                                                        self.point_3,
-                                                        self.point_4))
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.niryo_robot.update_tool()
+        cls.niryo_robot.save_workspace_from_points(cls.workspace_name,
+                                                   cls.point_1,
+                                                   cls.point_2,
+                                                   cls.point_3,
+                                                   cls.point_4)
 
-    def tearDown(self):
-        self.assertIsNone(self.niryo_robot.delete_workspace(self.workspace_name))
-        super(TestVision, self).tearDown()
+    @classmethod
+    def tearDownClass(cls):
+        cls.niryo_robot.delete_workspace(cls.workspace_name)
+        super().tearDownClass()
 
-    def test_vision_detect(self):
-        # Getting img compressed & calibration object
+    def test_get_data(self):
         self.assertIsNotNone(self.niryo_robot.get_img_compressed())
         self.assertIsNotNone(self.niryo_robot.get_camera_intrinsics())
 
-        # Getting target pose's from multiple ways
-        self.assertIsNotNone(self.niryo_robot.get_target_pose_from_rel(self.workspace_name, 0.1, 0.5, 0.5, 0.0))
+    def test_get_target_pose(self):
+        self.niryo_robot.move(self.observation_pose)
 
-        self.assertIsNotNone(
-            self.niryo_robot.get_target_pose_from_cam(self.workspace_name, 0.1, ObjectShape.ANY, ObjectColor.ANY))
+        object_found, object_rel_pose, shape_a, color_a = self.niryo_robot.detect_object(self.workspace_name,
+                                                                                         ObjectShape.ANY,
+                                                                                         ObjectColor.ANY)
+        self.assertTrue(object_found, 'No object found')
+        self.assertEqual(len(object_rel_pose), 3)
 
-        self.assertIsNotNone(self.niryo_robot.detect_object(self.workspace_name, ObjectShape.ANY, ObjectColor.RED))
+        target_pose_a = self.niryo_robot.get_target_pose_from_rel(self.workspace_name, 0.1, *object_rel_pose)
+
+        object_found, target_pose_b, shape_b, color_b = self.niryo_robot.get_target_pose_from_cam(self.workspace_name,
+                                                                                                  0.1,
+                                                                                                  ObjectShape.ANY,
+                                                                                                  ObjectColor.ANY)
+        self.assertTrue(object_found, 'No object found')
+
+        # Can't compare the poses because the vision isn't precise enough
+        # self.assertAlmostEqualPose(target_pose_a, target_pose_b)
+        self.assertEqual(shape_a, shape_b)
+        self.assertEqual(color_a, color_b)
 
     def test_vision_move(self):
         # Test to move to the object
-        self.assertIsNotNone(
-            self.niryo_robot.move_to_object(self.workspace_name, 0.1, ObjectShape.ANY, ObjectColor.GREEN))
+        self.assertIsNotNone(self.niryo_robot.move_to_object(self.workspace_name, 0, ObjectShape.ANY, ObjectColor.ANY))
         # Going back to observation pose
-        self.assertIsNone(self.niryo_robot.move_joints(0.0, 0.0, 0.0, 0.0, -1.57, 0.0))
+        self.assertIsNone(self.niryo_robot.move(self.observation_pose))
         # Vision Pick
-        self.assertIsNotNone(self.niryo_robot.vision_pick(self.workspace_name, 0.1, ObjectShape.ANY, ObjectColor.BLUE))
+        self.assertIsNotNone(self.niryo_robot.vision_pick(self.workspace_name, 0, ObjectShape.ANY, ObjectColor.ANY))
+
+    def test_pick(self):
+        self.assertIsNone(self.niryo_robot.move(self.observation_pose))
+        object_found, _, _, _ = self.niryo_robot.detect_object(self.workspace_name, ObjectShape.ANY, ObjectColor.ANY)
+        self.assertTrue(object_found, 'No object found')
+
+        # Vision Pick
+        self.assertIsNotNone(self.niryo_robot.vision_pick(self.workspace_name, 0, ObjectShape.ANY, ObjectColor.ANY))
+
+        self.assertIsNone(self.niryo_robot.move(self.observation_pose))
+        object_found, _, _, _ = self.niryo_robot.detect_object(self.workspace_name, ObjectShape.ANY, ObjectColor.ANY)
+        self.assertFalse(object_found, 'The object has not been picked')
 
 
 class TestWorkspaceMethods(BaseTestTcpApi):
