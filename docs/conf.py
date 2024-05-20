@@ -1,3 +1,4 @@
+import re
 import sys
 
 import os
@@ -14,10 +15,10 @@ project = u'PyNiryo'
 copyright = shared_conf.copyright
 author = shared_conf.author
 
-from pyniryo.version import __version__
-
 # The full version, including alpha/beta/rc tags
-release = __version__
+with open('../pyniryo/version.py', 'r', encoding='utf-8') as f:
+    release = re.findall(r'__version__ = ["\']((\d+\.?){3})', f.read())[1]
+
 # The short X.Y version
 version = '.'.join(release.split('.')[:-1])
 
