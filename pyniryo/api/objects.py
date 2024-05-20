@@ -195,7 +195,7 @@ class JointsPosition:
         return len(self.__joints)
 
     def to_list(self):
-        return self.__joints
+        return list(self.__joints)
 
     def to_dict(self):
         d = {'joint_' + str(n): joint for n, joint in enumerate(self.__joints)}
@@ -212,6 +212,12 @@ class JointsPosition:
         if 'metadata' in d:
             other_args['metadata'] = JointsPositionMetadata.from_dict(d['metadata'])
         return cls(*joints, **other_args)
+
+    def __repr__(self):
+        args = [str(joint) for joint in self.__joints]
+        args += [f'{name}={repr(value)}' for name, value in self.__dict__.items() if value != self.__joints]
+        repr_str = f'{self.__class__.__name__}({", ".join(args)})'
+        return repr_str
 
 
 class HardwareStatusObject:
