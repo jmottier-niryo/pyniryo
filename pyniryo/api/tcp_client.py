@@ -35,10 +35,6 @@ from .exceptions import (ClientNotConnectedException,
 from .objects import PoseObject, HardwareStatusObject, DigitalPinObject, AnalogPinObject, JointsPosition, PoseMetadata
 from ..version import __version__
 
-DEPRECATION_MSG = ("Starting pyniryo 1.2.0, the positions are no longer arrays of float but classes instead. "
-                   "This allow a better handling of the robot poses. Therefore, the functions such as move_joints or "
-                   "move_pose are no longer needed and are replaced by generic functions such as move")
-
 
 class NiryoRobot(object):
 
@@ -490,7 +486,7 @@ class NiryoRobot(object):
     def move_joints(self, *args):
         """
         .. deprecated:: 1.2.0
-           You should use :func:`move` with a `JointsPosition` object.
+           You should use :func:`move` with a :class:`JointsPosition` object.
 
         Move robot joints. Joints are expressed in radians.
 
@@ -517,7 +513,7 @@ class NiryoRobot(object):
     def move_pose(self, *args):
         """
         .. deprecated:: 1.2.0
-           You should use :func:`move` with a `PoseObject` object.
+           You should use :func:`move` with a :class:`PoseObject` object.
 
         Move robot end effector pose to a (x, y, z, roll, pitch, yaw, frame_name) pose
         in a particular frame (frame_name) if defined.
@@ -533,12 +529,12 @@ class NiryoRobot(object):
             robot.move_pose([0.2, 0.1, 0.3, 0.0, 0.5, 0.0], "frame")
             robot.move_pose(PoseObject(0.2, 0.1, 0.3, 0.0, 0.5, 0.0), "frame")
 
-        :param args: either 7 args (1 for each coordinates and 1 for the name of the frame) or a list of 6 coordinates or a ``PoseObject``
+        :param args: either 7 args (1 for each coordinates and 1 for the name of the frame) or a list of 6 coordinates or a `:class:`PoseObject``
          and 1 for the frame name
         :type args: Union[tuple[float], list[float], PoseObject, [tuple[float], str], [list[float], str], [PoseObject, str]]
         :rtype: None
         """
-        warnings.warn("You should use move with a PoseObject object.", DeprecationWarning)
+        warnings.warn("You should use move with a PoseObject object.", DeprecationWarning, stacklevel=2)
         if len(args) in [2, 7]:
             pose_list = list(self.__args_pose_to_list(*args[:-1])) + [args[-1]]
         else:
@@ -548,12 +544,12 @@ class NiryoRobot(object):
     def move_linear_pose(self, *args):
         """
         .. deprecated:: 1.2.0
-           You should use :func:`move` with a `PoseObject` object and `move_cmd=Command.MOVE_LINEAR_POSE`
+           You should use :func:`move` with a :class:`PoseObject` object and `move_cmd=Command.MOVE_LINEAR_POSE`
 
         Move robot end effector pose to a (x, y, z, roll, pitch, yaw) pose with a linear trajectory,
         in a particular frame (frame_name) if defined
 
-        :param args: either 7 args (1 for each coordinates and 1 for the name of the frame) or a list of 6 coordinates or a ``PoseObject``
+        :param args: either 7 args (1 for each coordinates and 1 for the name of the frame) or a list of 6 coordinates or a `:class:`PoseObject``
          and 1 for the frame name
         :type args: Union[tuple[float], list[float], PoseObject, [tuple[float], str], [list[float], str], [PoseObject, str]]
         :rtype: None
@@ -585,9 +581,9 @@ class NiryoRobot(object):
         :type linear: bool
         :rtype: None
         """
-        obj_type = self.__differentiate_robot_position(robot_position)
         robot_position_dict = robot_position.to_dict()
-        self.__send_n_receive(Command.MOVE, robot_position_dict, linear, obj_type)
+        robot_position_dict['obj_type'] = self.__differentiate_robot_position(robot_position)
+        self.__send_n_receive(Command.MOVE, robot_position_dict, linear)
 
     def shift_pose(self, axis, shift_value):
         """
@@ -644,13 +640,18 @@ class NiryoRobot(object):
         pose_offset = self.__args_joints_to_list(*args)
         self.__send_n_receive(Command.JOG_POSE, *pose_offset)
 
+    def jog(self, robot_position):
+        robot_position_dict = robot_position.to_dict()
+        robot_position_dict['obj_type'] = self.__differentiate_robot_position(robot_position)
+        self.__send_n_receive(Command.JOG, robot_position_dict)
+
     def move_to_home_pose(self):
         """
         Move to a position where the forearm lays on shoulder
 
         :rtype: None
         """
-        self.move_joints(0.0, 0.3, -1.3, 0.0, 0.0, 0.0)
+        self.move(JointsPosition(0.0, 0.3, -1.3, 0.0, 0.0, 0.0))
 
     def go_to_sleep(self):
         """
@@ -686,7 +687,7 @@ class NiryoRobot(object):
         """
         Compute inverse kinematics
 
-        :param args: either 6 args (1 for each coordinate) or a list of 6 coordinates or a ``PoseObject``
+        :param args: either 6 args (1 for each coordinate) or a list of 6 coordinates or a `:class:`PoseObject``
         :type args: Union[tuple[float], list[float], PoseObject]
 
         :return: List of joints value
@@ -759,7 +760,7 @@ class NiryoRobot(object):
     def pick_from_pose(self, *args):
         """
         .. deprecated:: 1.2.0
-           You should use :func:`pick` with a `PoseObject` object.
+           You should use :func:`pick` with a :class:`PoseObject` object.
 
         Execute a picking from a pose.
 
@@ -780,7 +781,7 @@ class NiryoRobot(object):
     def place_from_pose(self, *args):
         """
         .. deprecated:: 1.2.0
-           You should use :func:`place` with a `PoseObject` object.
+           You should use :func:`place` with a :class:`PoseObject` object.
 
         Execute a placing from a position.
 
@@ -812,8 +813,9 @@ class NiryoRobot(object):
         :type pick_position: Union[JointsPosition, PoseObject]
         :rtype: None
         """
-        obj_type = self.__differentiate_robot_position(pick_position)
-        self.__send_n_receive(Command.PICK, pick_position.to_dict(), obj_type)
+        obj_dict = pick_position.to_dict()
+        obj_dict['obj_type'] = self.__differentiate_robot_position(pick_position)
+        self.__send_n_receive(Command.PICK, obj_dict)
 
     def place(self, place_position):
         """
@@ -829,8 +831,9 @@ class NiryoRobot(object):
         :type place_position: Union[JointsPosition, PoseObject]
         :rtype: None
         """
-        obj_type = self.__differentiate_robot_position(place_position)
-        self.__send_n_receive(Command.PLACE, place_position.to_dict(), obj_type)
+        obj_dict = place_position.to_dict()
+        obj_dict['obj_type'] = self.__differentiate_robot_position(place_position)
+        self.__send_n_receive(Command.PLACE, obj_dict)
 
     def pick_and_place(self, pick_pose, place_pos, dist_smoothing=0.0):
         """
@@ -851,15 +854,13 @@ class NiryoRobot(object):
             place_pos_list = self.__args_pose_to_list(place_pos)
             place_pos = PoseObject(*place_pos_list, metadata=PoseMetadata.v1())
 
-        pick_type = self.__differentiate_robot_position(pick_pose)
-        place_type = self.__differentiate_robot_position(place_pos)
+        pick_pose_dict = pick_pose.to_dict()
+        pick_pose_dict['obj_type'] = self.__differentiate_robot_position(pick_pose)
 
-        self.__send_n_receive(Command.PICK_AND_PLACE,
-                              pick_pose.to_dict(),
-                              place_pos.to_dict(),
-                              dist_smoothing,
-                              pick_type,
-                              place_type)
+        place_pose_dict = place_pos.to_dict()
+        place_pose_dict['obj_type'] = self.__differentiate_robot_position(place_pos)
+
+        self.__send_n_receive(Command.PICK_AND_PLACE, pick_pose_dict, place_pose_dict, dist_smoothing)
 
     # - Trajectories
     def get_trajectory_saved(self, trajectory_name):
@@ -904,14 +905,14 @@ class NiryoRobot(object):
         dict_positions = []
         for robot_position in robot_positions:
             position_dict = robot_position.to_dict()
-            position_dict['obj_type'] = 'JOINTS' if isinstance(robot_position, JointsPosition) else 'POSE'
+            position_dict['obj_type'] = self.__differentiate_robot_position(robot_position)
             dict_positions.append(position_dict)
         self.__send_n_receive(Command.EXECUTE_TRAJECTORY, dict_positions, dist_smoothing)
 
     def execute_trajectory_from_poses(self, list_poses, dist_smoothing=0.0):
         """
         .. deprecated:: 1.2.0
-           You should use :func:`execute_trajectory` with `PoseObject` objects.
+           You should use :func:`execute_trajectory` with :class:`PoseObject` objects.
 
         Execute trajectory from list of poses
 
@@ -934,7 +935,7 @@ class NiryoRobot(object):
     def execute_trajectory_from_poses_and_joints(self, list_pose_joints, list_type=None, dist_smoothing=0.0):
         """
         .. deprecated:: 1.2.0
-           You should use :func:`execute_trajectory` with `PoseObject` and `JointsPosition` objects.
+           You should use :func:`execute_trajectory` with :class:`PoseObject` and :class:`JointsPosition` objects.
 
         Execute trajectory from list of poses and joints
 

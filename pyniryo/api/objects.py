@@ -4,25 +4,43 @@ import math
 import re
 
 import numpy as np
-from enum import Enum
 
-
-class TcpVersion(Enum):
-    LEGACY = 0
-    DH_CONVENTION = 1
-
-
-class LengthUnit(Enum):
-    METERS = 0
-    MILLIMETERS = 1
+from .enums_communication import TcpVersion, LengthUnit
 
 
 class PoseMetadata:
+    """
+    Represents all the metadatas of a PoseObject.
+
+    :ivar version: The version of the metadata. Each new version adds more attributes.
+                   (use :func:`v1` or :func:`v2` to quickly create a default metadata instance)
+    :type version: int
+    :ivar tcp_version: Represents the version of the robot's TCP orientation. The orientation of the TCP changed in
+                       v5.5.0 of the robot system in order to respect the Denavit-Hartenberg convention.
+                       The poses created before the change must have the TcpVersion to LEGACY.
+                       All the new poses starting the 5.5.0 must use the DH_CONVENTION.
+                       Default: :const:`TcpVersion.DH_CONVENTION`
+    :type tcp_version: TcpVersion
+    :ivar frame: Name of the frame if the pose is relative to a frame other than the world.
+    :type frame: str
+    :ivar length_unit: The length unit of the position (x, y, z). Default: :const:`LengthUnit.METERS`
+    :type length_unit: LengthUnit
+    """
     __DEFAULT_TCP_VERSION = TcpVersion.DH_CONVENTION
     __DEFAULT_LENGTH_UNIT = LengthUnit.METERS
     __DEFAULT_FRAME = ''
 
     def __init__(self, version, tcp_version, frame=__DEFAULT_FRAME, length_unit=__DEFAULT_LENGTH_UNIT):
+        """
+        :param version: The version of the metadata
+        :type version: int
+        :param tcp_version: The version of the robot's TCP orientation.
+        :type tcp_version: TcpVersion
+        :param frame: The frame of the pose.
+        :type frame: str
+        :param length_unit: The length unit of the position (x, y, z).
+        :type length_unit: LengthUnit
+        """
         self.version = version
         self.tcp_version = tcp_version
         self.frame = frame
@@ -163,6 +181,9 @@ class PoseObject:
 
 
 class JointsPositionMetadata:
+    """
+    Metadata for a JointsPosition object.
+    """
 
     def __init__(self, version):
         self.version = version

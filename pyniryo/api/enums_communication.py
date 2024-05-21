@@ -175,6 +175,7 @@ class Command(Enum):
     INVERSE_KINEMATICS = 28
 
     MOVE = 29
+    JOG = 30
 
     # Saved Pose
     GET_POSE_SAVED = 50
@@ -296,3 +297,13 @@ class Command(Enum):
     LED_RING_SNAKE = 262
     LED_RING_CUSTOM = 263
     LED_RING_SET_LED = 264
+
+
+class TcpVersion(Enum):
+    LEGACY = 0
+    DH_CONVENTION = 1
+
+
+class LengthUnit(Enum):
+    METERS = 0
+    MILLIMETERS = 1
