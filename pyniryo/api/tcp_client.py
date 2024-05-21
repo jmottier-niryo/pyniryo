@@ -547,7 +547,7 @@ class NiryoRobot(object):
             pose_list = list(self.__args_pose_to_list(*args)) + ['']
         self.__send_n_receive(Command.MOVE_LINEAR_POSE, *pose_list)
 
-    def move(self, robot_position, move_cmd=None):
+    def move(self, robot_position, linear=False):
         """
         Move the robot to the given position. The position can be expressed in joints or in pose coordinates.
         Distances are expressed in meters, and angles are expressed in radians.
@@ -556,18 +556,18 @@ class NiryoRobot(object):
         Examples ::
 
             robot.move(PoseObject(0.2, 0.1, 0.3, 0.0, 0.5, 0.0), metadata=PoseMetadata.v2(frame="frame"))
-            robot.move(PoseObject(0.2, 0.1, 0.3, 0.0, 0.5, 0.0), metadata=PoseMetadata.v2(frame="frame"), move_cmd=Command.MOVE_LINEAR_POSE)
+            robot.move(PoseObject(0.2, 0.1, 0.3, 0.0, 0.5, 0.0), metadata=PoseMetadata.v2(frame="frame"), linear=True)
             robot.move(JointsPosition(0.2, 0.1, 0.3, 0.0, 0.5, 0.0))
 
         :param robot_position: either a joints position or a pose
         :type robot_position: Union[PoseObject, JointsPosition]
-        :param move_cmd: move type for a move pose
-        :type move_cmd: Command
+        :param linear: do a linear move (works only with a PoseObject)
+        :type linear: bool
         :rtype: None
         """
         obj_type = self.__differentiate_robot_position(robot_position)
         robot_position_dict = robot_position.to_dict()
-        self.__send_n_receive(Command.MOVE, robot_position_dict, move_cmd, obj_type)
+        self.__send_n_receive(Command.MOVE, robot_position_dict, linear, obj_type)
 
     def shift_pose(self, axis, shift_value):
         """
