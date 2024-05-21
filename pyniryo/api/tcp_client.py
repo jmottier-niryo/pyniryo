@@ -8,7 +8,6 @@ import warnings
 
 from enum import Enum
 
-from deprecated.sphinx import deprecated
 import numpy as np
 import sys
 
@@ -44,6 +43,14 @@ DEPRECATION_MSG = ("Starting pyniryo 1.2.0, the positions are no longer arrays o
 class NiryoRobot(object):
 
     def __init__(self, ip_address=None, verbose=True, deprecation_msg=True):
+        """
+        :param ip_address: IP address of the robot
+        :type ip_address: str
+        :param verbose: Print information regarding the connection with the robot
+        :type verbose: bool
+        :param deprecation_msg: Print a deprecation message when a deprecated function is called
+        :type deprecation_msg: bool
+        """
         self.__ip_address = None
         self.__port = TCP_PORT
         self.__client_socket = None
@@ -473,15 +480,18 @@ class NiryoRobot(object):
         return pose_array
 
     @joints.setter
-    @deprecated(version='1.2.0', reason=DEPRECATION_MSG)
     def joints(self, *args):
+        warnings.warn("You should use move with a JointsPosition object.", DeprecationWarning)
+
         joints = self.__args_joints_to_list(*args)
         joints_position = JointsPosition(*joints)
         self.move(joints_position)
 
-    @deprecated(version='1.2.0', reason=DEPRECATION_MSG)
     def move_joints(self, *args):
         """
+        .. deprecated:: 1.2.0
+           You should use :func:`move` with a `JointsPosition` object.
+
         Move robot joints. Joints are expressed in radians.
 
         All lines of the next example realize the same operation: ::
@@ -494,17 +504,21 @@ class NiryoRobot(object):
         :type args: Union[list[float], tuple[float]]
         :rtype: None
         """
+        warnings.warn("You should use move with a JointsPosition object.", DeprecationWarning)
+
         joints = self.__args_joints_to_list(*args)
         self.__send_n_receive(Command.MOVE_JOINTS, *joints)
 
     @pose.setter
-    @deprecated(version='1.2.0', reason=DEPRECATION_MSG)
     def pose(self, *args):
+        warnings.warn("You should use move with a PoseObject object.", DeprecationWarning)
         self.move_pose(*args)
 
-    @deprecated(version='1.2.0', reason=DEPRECATION_MSG)
     def move_pose(self, *args):
         """
+        .. deprecated:: 1.2.0
+           You should use :func:`move` with a `PoseObject` object.
+
         Move robot end effector pose to a (x, y, z, roll, pitch, yaw, frame_name) pose
         in a particular frame (frame_name) if defined.
         x, y & z are expressed in meters / roll, pitch & yaw are expressed in radians
@@ -524,15 +538,18 @@ class NiryoRobot(object):
         :type args: Union[tuple[float], list[float], PoseObject, [tuple[float], str], [list[float], str], [PoseObject, str]]
         :rtype: None
         """
+        warnings.warn("You should use move with a PoseObject object.", DeprecationWarning)
         if len(args) in [2, 7]:
             pose_list = list(self.__args_pose_to_list(*args[:-1])) + [args[-1]]
         else:
             pose_list = list(self.__args_pose_to_list(*args)) + ['']
         self.__send_n_receive(Command.MOVE_POSE, *pose_list)
 
-    @deprecated(version='1.2.0', reason=DEPRECATION_MSG)
     def move_linear_pose(self, *args):
         """
+        .. deprecated:: 1.2.0
+           You should use :func:`move` with a `PoseObject` object and `move_cmd=Command.MOVE_LINEAR_POSE`
+
         Move robot end effector pose to a (x, y, z, roll, pitch, yaw) pose with a linear trajectory,
         in a particular frame (frame_name) if defined
 
@@ -541,6 +558,9 @@ class NiryoRobot(object):
         :type args: Union[tuple[float], list[float], PoseObject, [tuple[float], str], [list[float], str], [PoseObject, str]]
         :rtype: None
         """
+        warnings.warn("You should use move with a PoseObject object and move_cmd=Command.MOVE_LINEAR_POSE",
+                      DeprecationWarning)
+
         if len(args) in [2, 7]:
             pose_list = list(self.__args_pose_to_list(*args[:-1])) + [args[-1]]
         else:
@@ -736,9 +756,11 @@ class NiryoRobot(object):
 
     # - Pick/Place
 
-    @deprecated(version='1.2.0', reason=DEPRECATION_MSG)
     def pick_from_pose(self, *args):
         """
+        .. deprecated:: 1.2.0
+           You should use :func:`pick` with a `PoseObject` object.
+
         Execute a picking from a pose.
 
         A picking is described as : \n
@@ -751,12 +773,15 @@ class NiryoRobot(object):
         :type args: Union[list[float], tuple[float], PoseObject]
         :rtype: None
         """
+        warnings.warn("You should use pick with a PoseObject object.", DeprecationWarning)
         pose = self.__args_pose_to_list(*args)
         self.__send_n_receive(Command.PICK_FROM_POSE, *pose)
 
-    @deprecated(version='1.2.0', reason=DEPRECATION_MSG)
     def place_from_pose(self, *args):
         """
+        .. deprecated:: 1.2.0
+           You should use :func:`place` with a `PoseObject` object.
+
         Execute a placing from a position.
 
         A placing is described as : \n
@@ -769,6 +794,7 @@ class NiryoRobot(object):
         :type args: Union[list[float], tuple[float], PoseObject]
         :rtype: None
         """
+        warnings.warn("You should use place with a PoseObject object.", DeprecationWarning)
         pose = self.__args_pose_to_list(*args)
         self.__send_n_receive(Command.PLACE_FROM_POSE, *pose)
 
@@ -866,6 +892,15 @@ class NiryoRobot(object):
         self.__send_n_receive(Command.EXECUTE_REGISTERED_TRAJECTORY, trajectory_name)
 
     def execute_trajectory(self, robot_positions, dist_smoothing=0.0):
+        """
+        Execute trajectory from list of poses and / or joints
+
+        :param robot_positions: List of poses or joints
+        :type robot_positions: list[Union[JointsPosition, PoseObject]]
+        :param dist_smoothing: Distance from waypoints before smoothing trajectory
+        :type dist_smoothing: float
+        :rtype: None
+        """
         dict_positions = []
         for robot_position in robot_positions:
             position_dict = robot_position.to_dict()
@@ -873,9 +908,11 @@ class NiryoRobot(object):
             dict_positions.append(position_dict)
         self.__send_n_receive(Command.EXECUTE_TRAJECTORY, dict_positions, dist_smoothing)
 
-    @deprecated(version='1.2.0', reason=DEPRECATION_MSG)
     def execute_trajectory_from_poses(self, list_poses, dist_smoothing=0.0):
         """
+        .. deprecated:: 1.2.0
+           You should use :func:`execute_trajectory` with `PoseObject` objects.
+
         Execute trajectory from list of poses
 
         :param list_poses: List of [x,y,z,qx,qy,qz,qw] or list of [x,y,z,roll,pitch,yaw]
@@ -884,6 +921,7 @@ class NiryoRobot(object):
         :type dist_smoothing: float
         :rtype: None
         """
+        warnings.warn("You should use execute_trajectory with PoseObject objects.", DeprecationWarning)
         for i, pose in enumerate(list_poses):
             if len(pose) != 7 and len(pose) != 6:
                 self.__raise_exception(
@@ -893,9 +931,11 @@ class NiryoRobot(object):
 
         self.__send_n_receive(Command.EXECUTE_TRAJECTORY_FROM_POSES, list_poses, dist_smoothing)
 
-    @deprecated(version='1.2.0', reason=DEPRECATION_MSG)
     def execute_trajectory_from_poses_and_joints(self, list_pose_joints, list_type=None, dist_smoothing=0.0):
         """
+        .. deprecated:: 1.2.0
+           You should use :func:`execute_trajectory` with `PoseObject` and `JointsPosition` objects.
+
         Execute trajectory from list of poses and joints
 
         Example: ::
@@ -916,6 +956,8 @@ class NiryoRobot(object):
         :type dist_smoothing: float
         :rtype: None
         """
+        warnings.warn("You should use execute_trajectory with PoseObject and JointsPosition objects.",
+                      DeprecationWarning)
         if list_type is None:
             list_type = ['pose']
         for i, pose_or_joint in enumerate(list_pose_joints):
