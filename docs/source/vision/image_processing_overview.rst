@@ -15,8 +15,6 @@ its functions are detailed in :doc:`Functions documentation <image_processing_ap
 Play with Robot video stream
 -------------------------------------
 
-We are firstly going to take a look at robot's functions which
-can be find at :ref:`API - Vision<source/api_doc/api:Vision>`
 
 Get & display image from stream
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -247,7 +245,7 @@ the following: ::
 Find object center position
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 In order to catch an object, we need to find a pose from where the
-end effector can grasp the object. The following method 
+end effector can grasp the object. The following method
 uses contours which have been found in the previous section and finds their
 barycenter and orientation via the functions
 :meth:`~.vision.image_functions.get_contour_barycenter` &

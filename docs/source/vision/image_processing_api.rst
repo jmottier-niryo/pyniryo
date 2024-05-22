@@ -15,44 +15,45 @@ These functions are divided in subsections:
   add text to image, ...
 
 
+.. py:currentmodule:: pyniryo
 
 Pure image processing
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. automethod:: vision.image_functions.threshold_hsv
-.. automethod:: vision.image_functions.debug_threshold_color
-.. automethod:: vision.image_functions.morphological_transformations
-.. automethod:: vision.image_functions.get_contour_barycenter
-.. automethod:: vision.image_functions.get_contour_angle
-.. automethod:: vision.image_functions.biggest_contour_finder
-.. automethod:: vision.image_functions.biggest_contours_finder
-.. automethod:: vision.image_functions.draw_contours
-.. automethod:: vision.image_functions.draw_barycenter
-.. automethod:: vision.image_functions.draw_angle
+.. automethod:: pyniryo.vision.image_functions.threshold_hsv
+.. automethod:: pyniryo.vision.image_functions.debug_threshold_color
+.. automethod:: pyniryo.vision.image_functions.morphological_transformations
+.. automethod:: pyniryo.vision.image_functions.get_contour_barycenter
+.. automethod:: pyniryo.vision.image_functions.get_contour_angle
+.. automethod:: pyniryo.vision.image_functions.biggest_contour_finder
+.. automethod:: pyniryo.vision.image_functions.biggest_contours_finder
+.. automethod:: pyniryo.vision.image_functions.draw_contours
+.. automethod:: pyniryo.vision.image_functions.draw_barycenter
+.. automethod:: pyniryo.vision.image_functions.draw_angle
 
 Workspaces wise
 ^^^^^^^^^^^^^^^^^^^^
 
-.. automethod:: vision.image_functions.extract_img_workspace
-.. automethod:: vision.image_functions.debug_markers
-.. automethod:: vision.image_functions.relative_pos_from_pixels
+.. automethod:: pyniryo.vision.image_functions.extract_img_workspace
+.. automethod:: pyniryo.vision.image_functions.debug_markers
+.. automethod:: pyniryo.vision.image_functions.relative_pos_from_pixels
 
 Show
 ^^^^^^^^^^^^^^^^^^^^
 
-.. automethod:: vision.image_functions.show_img_and_check_close
-.. automethod:: vision.image_functions.show_img
-.. automethod:: vision.image_functions.show_img_and_wait_close
+.. automethod:: pyniryo.vision.image_functions.show_img_and_check_close
+.. automethod:: pyniryo.vision.image_functions.show_img
+.. automethod:: pyniryo.vision.image_functions.show_img_and_wait_close
 
 Image Editing
 ^^^^^^^^^^^^^^^^^^^^
 
-.. automethod:: vision.image_functions.compress_image
-.. automethod:: vision.image_functions.uncompress_image
-.. automethod:: vision.image_functions.add_annotation_to_image
-.. automethod:: vision.image_functions.undistort_image
-.. automethod:: vision.image_functions.resize_img
-.. automethod:: vision.image_functions.concat_imgs
+.. automethod:: pyniryo.vision.image_functions.compress_image
+.. automethod:: pyniryo.vision.image_functions.uncompress_image
+.. automethod:: pyniryo.vision.image_functions.add_annotation_to_image
+.. automethod:: pyniryo.vision.image_functions.undistort_image
+.. automethod:: pyniryo.vision.image_functions.resize_img
+.. automethod:: pyniryo.vision.image_functions.concat_imgs
 
 Enums Image Processing
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -61,13 +62,13 @@ Enums are used to pass specific parameters to functions.
 
 List of enums:
 
-* :class:`~.vision.enums.ColorHSV`
-* :class:`~.vision.enums.ColorHSVPrime`
-* :class:`~.vision.enums.ObjectType`
-* :class:`~.vision.enums.MorphoType`
-* :class:`~.vision.enums.KernelType`
+* :class:`~.pyniryo.vision.enums.ColorHSV`
+* :class:`~.pyniryo.vision.enums.ColorHSVPrime`
+* :class:`~.pyniryo.vision.enums.ObjectType`
+* :class:`~.pyniryo.vision.enums.MorphoType`
+* :class:`~.pyniryo.vision.enums.KernelType`
 
-.. automodule:: vision.enums
+.. automodule:: pyniryo.vision.enums
     :members:
     :undoc-members:
     :member-order: bysource

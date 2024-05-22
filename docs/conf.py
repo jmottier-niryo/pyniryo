@@ -3,7 +3,7 @@ import sys
 
 import os
 
-sys.path.append(os.path.abspath('../pyniryo'))
+sys.path.append(os.path.abspath('..'))
 # Kindda hack the import to import shared config file
 sys.path.append(os.path.abspath('.'))
 from front_end.config import shared_conf
