@@ -1,7 +1,3 @@
-# - Imports
-from __future__ import print_function
-
-# Python libraries
 import time
 import socket
 import warnings
@@ -33,35 +29,34 @@ from .exceptions import (ClientNotConnectedException,
                          NiryoRobotException,
                          TcpCommandException)
 from .objects import PoseObject, HardwareStatusObject, DigitalPinObject, AnalogPinObject, JointsPosition, PoseMetadata
+from ..utils.logging import get_logger
 from ..version import __version__
 
 
 class NiryoRobot(object):
 
-    def __init__(self, ip_address=None, verbose=True, deprecation_msg=True):
+    def __init__(self, ip_address=None, verbose=True):
         """
         :param ip_address: IP address of the robot
         :type ip_address: str
-        :param verbose: Print information regarding the connection with the robot
+        :param verbose: Enable or disable the information logs
         :type verbose: bool
-        :param deprecation_msg: Print a deprecation message when a deprecated function is called
-        :type deprecation_msg: bool
         """
         self.__ip_address = None
         self.__port = TCP_PORT
         self.__client_socket = None
-        self.__verbose = verbose
 
         self.__timeout = TCP_TIMEOUT
 
         self.__is_connected = False
 
+        self.__logger = get_logger(self.__class__.__name__)
+        if not verbose:
+            self.__logger.setLevel('WARNING')
+
         # If user give IP Address, try to connect directly
         if ip_address is not None:
             self.connect(ip_address)
-
-        if not deprecation_msg:
-            warnings.simplefilter("ignore", category=DeprecationWarning)
 
     def __del__(self):
         self.close_connection()
@@ -97,8 +92,7 @@ class NiryoRobot(object):
         self.__is_connected = True
         self.__client_socket.settimeout(None)
         self.__ip_address = ip_address
-        if self.__verbose:
-            print("\nConnected to server ({}) on port: {}\n".format(ip_address, self.__port))
+        self.__logger.info("Connected to server ({}) on port {}".format(ip_address, self.__port))
         self.__handshake()
 
     def __close_socket(self):
@@ -109,8 +103,7 @@ class NiryoRobot(object):
             except socket.error:
                 pass
             self.__is_connected = False
-            if self.__verbose:
-                print("\nDisconnected from robot\n")
+            self.__logger.info("Disconnected from robot")
 
     def close_connection(self):
         """
@@ -133,7 +126,7 @@ class NiryoRobot(object):
                 packet = dict_to_packet(ret_dict)
                 self.__client_socket.send(packet)
             except socket.error as e:
-                print(e, file=sys.stderr)
+                self.__logger.error(e)
                 raise HostNotReachableException()
 
     @staticmethod
@@ -162,7 +155,7 @@ class NiryoRobot(object):
             else:
                 received_dict, payload = receive_dict_w_payload(sckt=self.__client_socket)
         except socket.error as e:
-            print(e, file=sys.stderr)
+            self.__logger.error(e)
             raise HostNotReachableException()
         if not received_dict:
             raise HostNotReachableException()
@@ -313,11 +306,13 @@ class NiryoRobot(object):
             server_info = self.__send_n_receive(Command.HANDSHAKE, __version__)
         except NiryoRobotException as exception:
             if 'Unknown command' in str(exception):
-                print("This PyNiryo version is meant to be used on a more recent version of the Robot's system. "
-                      "To fully benefit from the server features it's advised to upgrade your Robot System.")
-        if 'message' in server_info and self.__verbose:
-            print(server_info['message'])
-            print('To disable the MOTD, use verbose=False')
+                self.__logger.info(
+                    "This PyNiryo version is meant to be used on a more recent version of the Robot's system. "
+                    "To fully benefit from the server features it's advised to upgrade your Robot System.")
+                return
+        if 'message' in server_info:
+            self.__logger.info(server_info['message'])
+            self.__logger.info('To disable the MOTD, use verbose=False')
 
     def calibrate(self, calibrate_mode):
         """
@@ -1465,10 +1460,10 @@ class NiryoRobot(object):
 
         connected_conveyors_id = self.get_connected_conveyors_id()
         if not connected_conveyors_id:
-            print("No conveyor connected !", file=sys.stderr)
+            self.__logger.error("No conveyor connected !")
             return ConveyorID.NONE
         else:
-            print("No new conveyor detected, returning last connected conveyor", file=sys.stderr)
+            self.__logger.error("No new conveyor detected, returning last connected conveyor")
             return connected_conveyors_id[-1]
 
     def unset_conveyor(self, conveyor_id):
