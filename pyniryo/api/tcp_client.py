@@ -309,9 +309,14 @@ class NiryoRobot(object):
     # - Main purpose
 
     def __handshake(self):
-        server_info = self.__send_n_receive(Command.HANDSHAKE, __version__)
-        if self.__verbose and 'motd' in server_info and server_info['motd'] != '':
-            print(server_info['motd'])
+        try:
+            server_info = self.__send_n_receive(Command.HANDSHAKE, __version__)
+        except NiryoRobotException as exception:
+            if 'Unknown command' in str(exception):
+                print("This PyNiryo version is meant to be used on a more recent version of the Robot's system. "
+                      "To fully benefit from the server features it's advised to upgrade your Robot System.")
+        if 'message' in server_info and self.__verbose:
+            print(server_info['message'])
             print('To disable the MOTD, use verbose=False')
 
     def calibrate(self, calibrate_mode):
@@ -615,6 +620,9 @@ class NiryoRobot(object):
 
     def jog_joints(self, *args):
         """
+        .. deprecated:: 1.2.0
+           You should use :func:`jog` with a :class:`JointsPosition` object.
+
         Jog robot joints'.
         Jog corresponds to a shift without motion planning.
         Values are expressed in radians.
@@ -623,11 +631,15 @@ class NiryoRobot(object):
         :type args: Union[list[float], tuple[float]]
         :rtype: None
         """
+        warnings.warn("You should use jog with a JointsPosition object.", DeprecationWarning)
         joints_offset = self.__args_joints_to_list(*args)
         self.__send_n_receive(Command.JOG_JOINTS, *joints_offset)
 
     def jog_pose(self, *args):
         """
+        .. deprecated:: 1.2.0
+           You should use :func:`jog` with a :class:`PoseObject` object.
+
         Jog robot end effector pose
         Jog corresponds to a shift without motion planning
         Arguments are [dx, dy, dz, d_roll, d_pitch, d_yaw]
@@ -637,6 +649,7 @@ class NiryoRobot(object):
         :type args: Union[list[float], tuple[float]]
         :rtype: None
         """
+        warnings.warn("You should use jog with a PoseObject object.", DeprecationWarning)
         pose_offset = self.__args_joints_to_list(*args)
         self.__send_n_receive(Command.JOG_POSE, *pose_offset)
 
