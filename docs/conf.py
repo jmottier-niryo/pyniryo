@@ -1,101 +1,34 @@
-import re
-import sys
-
-import os
-
-sys.path.append(os.path.abspath('..'))
-# Kindda hack the import to import shared config file
-sys.path.append(os.path.abspath('.'))
-from front_end.config import shared_conf
-from front_end.config import base_conf
+# Configuration file for the Sphinx documentation builder.
+#
+# For the full list of built-in configuration values, see the documentation:
+# https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 # -- Project information -----------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
+import sys
+from pathlib import Path
 
-project = u'PyNiryo'
-copyright = shared_conf.copyright
-author = shared_conf.author
+module_directory = Path(__file__).parent.parent.absolute()
+sys.path.append(str(module_directory))
 
-# The full version, including alpha/beta/rc tags
-with open('../pyniryo/version.py', 'r', encoding='utf-8') as f:
-    release = re.match(r'__version__ = ["\']((\d+\.?){3})', f.read())[1]
-
-# The short X.Y version
-version = '.'.join(release.split('.')[:-1])
+project = 'PyNiryo'
+copyright = '2024, Niryo'
+author = 'Niryo'
+release = '1.2.0'
 
 # -- General configuration ---------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = base_conf.extensions
+extensions = ['sphinx.ext.autodoc', 'sphinx_copybutton']
 
-# Avoid autosection label to trigger warning on low level titles
-autosectionlabel_maxdepth = 3
-# Avoid clash between same label in different document
-autosectionlabel_prefix_document = True
+templates_path = ['_templates']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
-# Todo_extension
-todo_include_todos = True
-todo_emit_warnings = True
-
-# Documentation infos
-source_suffix = '.rst'
-master_doc = 'index'
-
-for arg in sys.argv:
-    if not arg.startswith("language="):
-        continue
-    else:
-        language = arg.replace("language=", "")
-        break
-else:
-    language = None
-
-translation_object = {}
-translation_object["fr"] = {}
-translation_object["fr"]["PROJECT_NAME"] = "PyNiryo"
-
-translation_object["en"] = {}
-translation_object["en"]["PROJECT_NAME"] = "PyNiryo"
-
-html_context = {}
-
-html_context["BASE_FOLDER_URL"] = "https://archive-docs.niryo.com/dev/pyniryo"
-
-html_context["TRANSLATION"] = translation_object[language if language is not None else 'en']
-
-exclude_patterns = [u'_build', 'Thumbs.db', '.DS_Store']
-
-pygments_style = None
-
-add_module_names = False
+language = 'en'
 
 # -- Options for HTML output -------------------------------------------------
-html_theme = shared_conf.html_theme
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-templates_path = shared_conf.templates_path
-html_static_path = shared_conf.html_static_path
-
-html_logo = shared_conf.html_logo
-html_favicon = shared_conf.html_favicon
-
-html_css_files = shared_conf.html_css_files
-
-html_js_files = shared_conf.html_js_files
-
-html_theme_options = shared_conf.html_theme_options
-
-html_show_sphinx = shared_conf.html_show_sphinx
-
-# -- Options for intersphinx extension ---------------------------------------
-
-# Links
-extlinks = {}
-
-# -- Internationalization --
-locale_dirs = ['locale/']  # path is example but recommended.
-gettext_compact = False  # optional.
-
-# -- Options for intersphinx extension ---------------------------------------
-
-# Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {
-    'https://docs.python.org/': None,
-}
+html_theme = 'sphinx_rtd_theme'
+html_static_path = ['_static']
+html_theme_options = {"collapse_navigation": False}
