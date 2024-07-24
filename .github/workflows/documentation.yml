@@ -13,15 +13,18 @@ jobs:
       - uses: actions/setup-python@v3
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt -r docs/requirements.txt
+          scripts/setup_env.sh > /dev/null
+      - name: source venv
+        run: |
+          source venv/bin/activate
       - name: Sphinx build
         run: |
-          sphinx-build docs docs/_build
+          scripts/build_docs_versioned.py public ${{ github.ref }} $(git tag)
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/_build/
+          publish_dir: public
           force_orphan: true
