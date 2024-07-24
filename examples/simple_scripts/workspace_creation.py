@@ -12,7 +12,7 @@ if sys.version_info[0] == 2:
 else:
     input_func = input
 
-robot_ip_address = "10.10.10.10"
+robot_ip_address = '<robot_ip_address>'
 
 # Connecting to robot
 niyro_robot = NiryoRobot(robot_ip_address)

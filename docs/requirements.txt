@@ -2,3 +2,5 @@ sphinx
 sphinx-rtd-theme
 sphinx-autobuild
 sphinx-copybutton
+sphinxemoji
+sphinx-versioned-docs

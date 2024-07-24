@@ -18,80 +18,72 @@ Joints
 
 Move Joints
 ^^^^^^^^^^^^^^^^^^
-To make a moveJ, you can either provide:
 
-- 6 floats : ``j1, j2, j3, j4, j5, j6``
-- a list of 6 floats : ``[j1, j2, j3, j4, j5, j6]``
+Joints positions are represented by the object :class:`~.api.objects.JointsPosition`.
+It can take any number of joints values, but you'll have to give it 6 values in order to work with a Ned2.
+The JointsPosition is an iterable object, which means you can operate with it as if it was a list, for example
 
-It is possible to provide these parameters to the function :meth:`~.api.tcp_client.NiryoRobot.move_joints`
-or via the ``joints`` setter, at your convenience::
+To do a move joints, you can either use the :meth:`~.api.tcp_client.NiryoRobot.move` function or give a
+:class:`~.api.objects.JointsPosition` to the :meth:`~.api.tcp_client.NiryoRobot.joints` setter, at your convenience
 
-    # Moving Joints with function & 6 floats
-    robot.move_joints(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+.. code-block:: python
+  :linenos:
 
-    # Moving Joints with function & a list of floats
-    robot.move_joints([-0.5, -0.6, 0.0, 0.3, 0.0, 0.0])
+   JointsPosition(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 
-    # Moving Joints with setter & 6 floats
-    robot.joints = 0.2, -0.4, 0.0, 0.0, 0.0, 0.0
+   # with the move function:
+   robot.move(JointsPosition(0.0, 0.0, 0.0, 0.0, 0.0, 0.0))
 
-    # Moving Joints with setter & a list of floats
-    robot.joints = [-0.2, 0.3, 0.2, 0.3, -0.6, 0.0]
+   #with setter
+   robot.joints = JointsPosition(-0.2, 0.3, 0.2, 0.3, -0.6, 0.0)
 
-You should note that these 4 commands are doing exactly the same thing!
+You should note that these 2 commands are doing exactly the same thing!
 In your future scripts, chose the one you prefer, but try to remain consistent to
 keep a good readability.
 
 Get Joints
 ^^^^^^^^^^^^^^^^^^
 To get actual joint positions, you can use the function :meth:`~.api.tcp_client.NiryoRobot.get_joints`
-or the ``joints`` getter. Both will return a list of the 6 joints position::
+or the :meth:`~.api.tcp_client.NiryoRobot.joints` getter. Both will return a :class:`~.api.objects.JointsPosition` object
 
-    # Getting Joints with function
-    joints_read = robot.get_joints()
+.. code-block:: python
+  :linenos:
 
-    # Getting Joints with getter
-    joints_read = robot.joints
+   # with function
+   joints_read = robot.get_joints()
 
-.. hint::
-    As we are developing in Python, we can unpack list very easily, which means that
-    we can retrieve joints value in 6 variables by writing ``j1, j2, j3, j4, j5, j6 = robot.get_joints()``.
+   # with getter
+   joints_read = robot.joints
 
 Pose
 -------------------
 
 Move Pose
 ^^^^^^^^^^^^
-To perform a moveP, you can provide:
+To perform a moveP, you have to use the :class:`~.api.objects.PoseObject` object:
 
-- 6 floats : x, y, z, roll, pitch, yaw
-- a list of 6 floats : [x, y, z, roll, pitch, yaw]
-- a |pose_object|
+As for MoveJ, it is possible to use the :meth:`~.api.tcp_client.NiryoRobot.move` or the ``pose`` setter,
+at your convenience
 
-As for MoveJ, it is possible to provide these parameters
-to the function :meth:`~.api.tcp_client.NiryoRobot.move_pose`
-or the ``pose`` setter, at your convenience::
+.. code-block::
+  :linenos:
 
-    pose_target = [0.2, 0.0, 0.2, 0.0, 0.0, 0.0]
-    pose_target_obj = PoseObject(0.2, 0.0, 0.2, 0.0, 0.0, 0.0)
+  pose_target = PoseObject(0.2, 0.0, 0.2, 0.0, 0.0, 0.0)
 
-    # Moving Pose with function
-    robot.move_pose(0.2, 0.0, 0.2, 0.0, 0.0, 0.0)
-    robot.move_pose(pose_target)
-    robot.move_pose(pose_target_obj)
+  # Moving Pose with function
+  robot.move(pose_target)
 
-    # Moving Pose with setter
-    robot.pose = (0.2, 0.0, 0.2, 0.0, 0.0, 0.0)
-    robot.pose = pose_target
-    robot.pose = pose_target_obj
-
-Each of these 6 commands are doing the same thing.
+  # Moving Pose with setter
+  robot.pose = pose_target
 
 Get Pose
 ^^^^^^^^^^^^
-To get end effector actual pose, you can use
+To get the end effector actual pose, you can use
 the function :meth:`~.api.tcp_client.NiryoRobot.get_pose`
-or the ``pose`` getter. Both will return a |pose_object|: ::
+or the ``pose`` getter. Both will return a |pose_object|:
+
+.. code-block::
+  :linenos:
 
     # Getting Joints with function
     pose_read = robot.get_pose()
@@ -111,20 +103,17 @@ It can be converted into a list if needed with the method
 It also allows to create new |pose_object| with some offset, much easier than
 copying list and editing only 1 or 2 values.
 For instance, imagine that we want to shift the place pose by 5 centimeters at each iteration of a loop,
-you can use the :meth:`~.api.objects.PoseObject.copy_with_offsets` method::
+you can use the :meth:`~.api.objects.PoseObject.copy_with_offsets` method
 
-    pick_pose = PoseObject(
-    x=0.30, y=0.0, z=0.15,
-    roll=0, pitch=1.57, yaw=0.0
-    )
-    first_place_pose = PoseObject(
-        x=0.0, y=0.2, z=0.15,
-        roll=0, pitch=1.57, yaw=0.0
-    )
+.. code-block::
+  :linenos:
+
+    pick_pose = PoseObject(x=0.30, y=0.0, z=0.15, roll=0, pitch=1.57, yaw=0.0)
+    first_place_pose = PoseObject(x=0.0, y=0.2, z=0.15, roll=0, pitch=1.57, yaw=0.0)
     for i in range(5):
-        robot.move_pose(pick_pose)
+        robot.move(pick_pose)
         new_place_pose = first_place_pose.copy_with_offsets(x_offset=0.05 * i)
-        robot.move_pose(new_place_pose)
+        robot.move(new_place_pose)
 
 
 

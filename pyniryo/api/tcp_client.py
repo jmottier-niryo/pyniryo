@@ -5,7 +5,6 @@ import warnings
 from enum import Enum
 
 import numpy as np
-import sys
 
 # Communication imports
 from .enums_communication import (CalibrateMode,
@@ -310,6 +309,8 @@ class NiryoRobot(object):
                     "This PyNiryo version is meant to be used on a more recent version of the Robot's system. "
                     "To fully benefit from the server features it's advised to upgrade your Robot System.")
                 return
+            else:
+                raise exception from None
         if 'message' in server_info:
             self.__logger.info(server_info['message'])
             self.__logger.info('To disable the MOTD, use verbose=False')
@@ -420,42 +421,53 @@ class NiryoRobot(object):
 
     @property
     def collision_detected(self):
+        """
+        True if a collision has been detected during a previous movement
+
+        :type: bool
+        """
         return eval(self.__send_n_receive(Command.GET_COLLISION_DETECTED))
 
     def clear_collision_detected(self):
+        """
+        Reset the internal flag ``collision_detected``
+        """
         return self.__send_n_receive(Command.CLEAR_COLLISION_DETECTED)
 
     # - Joints/Pose
 
     @property
     def joints(self):
+        """
+        Robot's current joints position
+
+        :type: JointsPosition
+        """
         return self.get_joints()
 
     def get_joints(self):
         """
         Get joints value in radians
-        You can also use a getter ::
 
-            joints = robot.get_joints()
-            joints = robot.joints
-
-        :return: List of joints value
+        :return: Robot's current joints position
         :rtype: JointsPosition
         """
         return JointsPosition(*self.__send_n_receive(Command.GET_JOINTS))
 
     @property
     def pose(self):
+        """
+        Get end effector link pose.
+        x, y & z are expressed in meters / roll, pitch & yaw are expressed in radians
+
+        :type: PoseObject
+        """
         return self.get_pose()
 
     def get_pose(self):
         """
-        Get end effector link pose as [x, y, z, roll, pitch, yaw].
+        Get end effector link pose.
         x, y & z are expressed in meters / roll, pitch & yaw are expressed in radians
-        You can also use a getter ::
-
-            pose = robot.get_pose()
-            pose = robot.pose
 
         :rtype: PoseObject
         """
@@ -477,10 +489,11 @@ class NiryoRobot(object):
 
     @joints.setter
     def joints(self, *args):
-        warnings.warn("You should use move with a JointsPosition object.", DeprecationWarning)
-
-        joints = self.__args_joints_to_list(*args)
-        joints_position = JointsPosition(*joints)
+        if len(args) == 1 and isinstance(args, JointsPosition):
+            joints_position = args[0]
+        else:
+            joints = self.__args_joints_to_list(*args)
+            joints_position = JointsPosition(*joints)
         self.move(joints_position)
 
     def move_joints(self, *args):
@@ -507,8 +520,11 @@ class NiryoRobot(object):
 
     @pose.setter
     def pose(self, *args):
-        warnings.warn("You should use move with a PoseObject object.", DeprecationWarning)
-        self.move_pose(*args)
+        if len(args) == 1 and isinstance(args, PoseObject):
+            pose = args[0]
+        else:
+            pose = PoseObject(*args, metadata=PoseMetadata.v1())
+        self.move(pose)
 
     def move_pose(self, *args):
         """
@@ -571,8 +587,8 @@ class NiryoRobot(object):
 
         Examples ::
 
-            robot.move(PoseObject(0.2, 0.1, 0.3, 0.0, 0.5, 0.0), metadata=PoseMetadata.v2(frame="frame"))
-            robot.move(PoseObject(0.2, 0.1, 0.3, 0.0, 0.5, 0.0), metadata=PoseMetadata.v2(frame="frame"), linear=True)
+            robot.move(PoseObject(0.2, 0.1, 0.3, 0.0, 0.5, 0.0, metadata=PoseMetadata.v2(frame="frame")))
+            robot.move(PoseObject(0.2, 0.1, 0.3, 0.0, 0.5, 0.0), linear=True)
             robot.move(JointsPosition(0.2, 0.1, 0.3, 0.0, 0.5, 0.0))
 
         :param robot_position: either a joints position or a pose
@@ -585,7 +601,7 @@ class NiryoRobot(object):
         robot_position_dict['obj_type'] = self.__differentiate_robot_position(robot_position)
         self.__send_n_receive(Command.MOVE, robot_position_dict, linear)
 
-    def shift_pose(self, axis, shift_value):
+    def shift_pose(self, axis, shift_value, linear=False):
         """
         Shift robot end effector pose along one axis
 
@@ -593,14 +609,19 @@ class NiryoRobot(object):
         :type axis: RobotAxis
         :param shift_value: In meter for X/Y/Z and radians for roll/pitch/yaw
         :type shift_value: float
+        :param linear: Whether the movement has to be linear or not
+        :type linear: bool
         :rtype: None
         """
         self.__check_enum_belonging(axis, RobotAxis)
         shift_value = self.__transform_to_type(shift_value, float)
-        self.__send_n_receive(Command.SHIFT_POSE, axis, shift_value)
+        self.__send_n_receive(Command.SHIFT_POSE, axis, shift_value, linear)
 
     def shift_linear_pose(self, axis, shift_value):
         """
+        .. deprecated:: 1.2.0
+           You should use :func:`shift_linear` with linear=True.
+
         Shift robot end effector pose along one axis, with a linear trajectory
 
         :param axis: Axis along which the robot is shifted
@@ -609,9 +630,8 @@ class NiryoRobot(object):
         :type shift_value: float
         :rtype: None
         """
-        self.__check_enum_belonging(axis, RobotAxis)
-        shift_value = self.__transform_to_type(shift_value, float)
-        self.__send_n_receive(Command.SHIFT_LINEAR_POSE, axis, shift_value)
+        warnings.warn("You should use shift_linear with linear=True.", DeprecationWarning)
+        return self.shift_pose(axis, shift_value, linear=True)
 
     def jog_joints(self, *args):
         """
@@ -998,7 +1018,7 @@ class NiryoRobot(object):
         self.__check_type(trajectory, list)
         dict_joints = []
         for joints in trajectory:
-            if isinstance(joints, PoseObject):
+            if isinstance(joints, JointsPosition):
                 dict_joints.append(joints.to_dict())
             else:
                 dict_joints.append(JointsPosition(*joints).to_dict())
@@ -2061,9 +2081,9 @@ class NiryoRobot(object):
         self.__check_type(belong_to_workspace, bool)
         self.__send_n_receive(Command.DELETE_DYNAMIC_FRAME, frame_name, belong_to_workspace)
 
-    def move_relative(self, offset, frame="world"):
+    def move_relative(self, offset, frame="world", linear=False):
         """
-        Move robot end of a offset in a frame
+        Move robot end of an offset in a frame
 
         Example: ::
 
@@ -2073,6 +2093,8 @@ class NiryoRobot(object):
         :type offset: list[float]
         :param frame: name of local frame
         :type frame: str
+        :param linear: Whether the movement has to be linear or not
+        :type linear: bool
         :return: status, message
         :rtype: (int, str)
         """
@@ -2081,12 +2103,14 @@ class NiryoRobot(object):
         if len(offset) != 6:
             self.__raise_exception("An offset must contain 6 members: [x, y, z, roll, pitch, yaw]")
 
-        param_list = [offset, frame]
-        self.__send_n_receive(Command.MOVE_RELATIVE, *param_list)
+        self.__send_n_receive(Command.MOVE_RELATIVE, offset, frame, linear)
 
     def move_linear_relative(self, offset, frame="world"):
         """
-        Move robot end of a offset by a linear movement in a frame
+        .. deprecated:: 1.2.0
+           You should use :func:`move_relative` with linear=True.
+
+        Move robot end of an offset by a linear movement in a frame
 
         Example: ::
 
@@ -2099,13 +2123,8 @@ class NiryoRobot(object):
         :return: status, message
         :rtype: (int, str)
         """
-        self.__check_type(frame, str)
-        self.__check_type(offset, list)
-        if len(offset) != 6:
-            self.__raise_exception("An offset must contain 6 members: [x, y, z, roll, pitch, yaw]")
-
-        param_list = [offset, frame]
-        self.__send_n_receive(Command.MOVE_LINEAR_RELATIVE, *param_list)
+        warnings.warn("You should use move_relative with linear=True.", DeprecationWarning)
+        return self.move_relative(offset, frame, linear=True)
 
     # Sound
 

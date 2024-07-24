@@ -10,7 +10,7 @@ from .enums_communication import TcpVersion, LengthUnit
 
 class PoseMetadata:
     """
-    Represents all the metadatas of a PoseObject.
+    Represents all the metadata of a PoseObject.
 
     :ivar version: The version of the metadata. Each new version adds more attributes.
                    (use :func:`v1` or :func:`v2` to quickly create a default metadata instance)
@@ -31,22 +31,16 @@ class PoseMetadata:
     __DEFAULT_FRAME = ''
 
     def __init__(self, version, tcp_version, frame=__DEFAULT_FRAME, length_unit=__DEFAULT_LENGTH_UNIT):
-        """
-        :param version: The version of the metadata
-        :type version: int
-        :param tcp_version: The version of the robot's TCP orientation.
-        :type tcp_version: TcpVersion
-        :param frame: The frame of the pose.
-        :type frame: str
-        :param length_unit: The length unit of the position (x, y, z).
-        :type length_unit: LengthUnit
-        """
         self.version = version
         self.tcp_version = tcp_version
         self.frame = frame
         self.length_unit = length_unit
 
     def to_dict(self):
+        """
+        :return: A dictionary representing the object.
+        :rtype: dict
+        """
         return {
             'version': self.version,
             'tcp_version': self.tcp_version.name,
@@ -56,6 +50,13 @@ class PoseMetadata:
 
     @classmethod
     def from_dict(cls, d):
+        """
+        Creates a new object from a dictionary representing the object.
+        :param d: A dictionary representing the object.
+        :type d: dict
+        :return: A new PoseMetadata instance.
+        :rtype: PoseMetadata
+        """
         if d['version'] == 1:
             return cls.v1()
         elif d['version'] == 2:
@@ -63,16 +64,45 @@ class PoseMetadata:
 
     @classmethod
     def v1(cls, frame=__DEFAULT_FRAME):
+        """
+        Quickly creates a new PoseMetadata instance initialized as a V1 pose.
+        :param frame: The frame of the pose to create.
+        :type frame: str
+        """
         return cls(1, TcpVersion.LEGACY, frame=frame)
 
     @classmethod
     def v2(cls, tcp_version=__DEFAULT_TCP_VERSION, frame=__DEFAULT_FRAME, length_unit=__DEFAULT_LENGTH_UNIT):
+        """
+        Quickly creates a new PoseMetadata instance initialized as a V2 pose.
+
+        :param tcp_version: The version of the robot's TCP orientation. Default:
+        :type tcp_version: TcpVersion
+        :param frame: The frame of the pose to create. Default:
+        :type frame: str
+        :param length_unit: The length unit of the position (x, y, z). Default:
+        """
         return cls(2, tcp_version=tcp_version, frame=frame, length_unit=length_unit)
 
 
 class PoseObject:
     """
     Pose object which stores x, y, z, roll, pitch & yaw parameters
+
+    :param x: The x coordinate of the pose.
+    :type x: float
+    :param y: The y coordinate of the pose.
+    :type y: float
+    :param z: The z coordinate of the pose.
+    :type z: float
+    :param roll: The roll angle of the pose.
+    :type roll: float
+    :param pitch: The pitch angle of the pose.
+    :type pitch: float
+    :param yaw: The yaw angle of the pose.
+    :type yaw: float
+    :param metadata: The metadata of the pose.
+    :type metadata: PoseMetadata
     """
 
     def __init__(self, x, y, z, roll, pitch, yaw, metadata=PoseMetadata.v2()):
@@ -100,8 +130,22 @@ class PoseObject:
 
     def copy_with_offsets(self, x_offset=0., y_offset=0., z_offset=0., roll_offset=0., pitch_offset=0., yaw_offset=0.):
         """
-        Create a new pose from copying from copying actual pose with offsets
+        Create a new pose from copying actual pose with offsets
 
+        :param x_offset: Offset of the x coordinate of the new pose.
+        :type x_offset: float
+        :param y_offset: Offset of the y coordinate of the new pose.
+        :type y_offset: float
+        :param z_offset: Offset of the z coordinate of the new pose.
+        :type z_offset: float
+        :param roll_offset: Offset of the roll angle of the new pose.
+        :type roll_offset: float
+        :param pitch_offset: Offset of the pitch angle of the new pose.
+        :type pitch_offset: float
+        :param yaw_offset: Offset of the yaw angle of the new pose.
+        :type yaw_offset: float
+
+        :return: A new PoseObject with the applied offsets.
         :rtype: PoseObject
         """
         return PoseObject(self.x + x_offset,
@@ -123,14 +167,17 @@ class PoseObject:
 
     def to_list(self):
         """
-        Return a list [x, y, z, roll, pitch, yaw] corresponding to the pose's parameters
-
+        :return: A list [x, y, z, roll, pitch, yaw]
         :rtype: list[float]
         """
         list_pos = [self.x, self.y, self.z, self.roll, self.pitch, self.yaw]
         return list(map(float, list_pos))
 
     def to_dict(self):
+        """
+        :return: A dictionary representing the object.
+        :rtype: dict
+        """
         return {
             'x': self.x,
             'y': self.y,
@@ -143,12 +190,26 @@ class PoseObject:
 
     @classmethod
     def from_dict(cls, d):
+        """
+        Creates a new PoseObject from a dictionary representing the object.
+
+        :param d: A dictionary representing the object.
+        :type d: dict
+        """
         args = [d['x'], d['y'], d['z'], d['roll'], d['pitch'], d['yaw']]
         if 'metadata' in d:
             args.append(PoseMetadata.from_dict(d['metadata']))
         return cls(*args)
 
     def quaternion(self, normalization_tolerance=0.00001):
+        """
+        Convert the pose rotation (euler angles) to a quaternion.
+
+        :param normalization_tolerance: Tolerance for quaternion normalization.
+        :type normalization_tolerance: float
+        :return: A quaternion.
+        :rtype: list
+        """
         # simplified version of the tf.transformations.quaternion_from_euler function
         ai = self.roll / 2.0
         aj = self.pitch / 2.0
@@ -201,6 +262,12 @@ class JointsPositionMetadata:
 
 
 class JointsPosition:
+    """
+    Represents a robot position given by the position of each of its joints
+
+    :param joints: all the joints positions
+    :type joints: float
+    """
 
     def __init__(self, *joints, **kwargs):
         self.__joints = joints
@@ -216,15 +283,29 @@ class JointsPosition:
         return len(self.__joints)
 
     def to_list(self):
+        """
+        :return: A list containing all the joints positions.
+        :rtype: list[float]
+        """
         return list(self.__joints)
 
     def to_dict(self):
+        """
+        :return: A dictionary representing the object.
+        :rtype: dict
+        """
         d = {'joint_' + str(n): joint for n, joint in enumerate(self.__joints)}
         d['metadata'] = self.metadata.to_dict()
         return d
 
     @classmethod
     def from_dict(cls, d):
+        """
+        Creates a new JointsPosition object from a dictionary representing the object.
+
+        :param d: A dictionary representing the object.
+        :type d: dict
+        """
         joints = []
         other_args = {}
         for name, value in d.items():

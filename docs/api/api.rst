@@ -32,3 +32,5 @@ Python object classes
 .. automodule:: pyniryo.api.objects
     :members:
     :undoc-members:
+    :exclude-members: JointsPositionMetadata
+

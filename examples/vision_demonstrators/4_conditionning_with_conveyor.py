@@ -1,7 +1,7 @@
 from pyniryo import NiryoRobot, PoseObject, ConveyorID, ObjectShape, ObjectColor
 
 # -- MUST Change these variables
-robot_ip_address = "192.168.1.200"
+robot_ip_address = '<robot_ip_address>'
 workspace_name = "wks_conveyor"
 
 # -- Can change these variables

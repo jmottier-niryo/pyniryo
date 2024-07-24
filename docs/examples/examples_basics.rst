@@ -12,100 +12,105 @@ Your first move joint
 ---------------------------
 
 The following example shows a first use case.
-It's a simple MoveJ. ::
+It's a simple MoveJ.
 
-    from pyniryo import *
+.. literalinclude:: code_snippets/basic_movej.py
+   :linenos:
 
-    robot = NiryoRobot("10.10.10.10")
-
-    robot.calibrate_auto()
-
-    robot.move_joints(0.2, -0.3, 0.1, 0.0, 0.5, -0.8)
-
-    robot.close_connection()
 
 Code Details - First Move J
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-First of all, we import the library to be able to access functions. ::
+First of all, we import the library to be able to access functions.
 
-    from pyniryo import *
+.. literalinclude:: code_snippets/basic_movej.py
+   :linenos:
+   :lines: 1
 
 Then, we instantiate the connection and link the variable ``robot`` to the robot
-at the IP Address ``10.10.10.10``.  ::
+by giving its IP Address.
 
-    robot = NiryoRobot("10.10.10.10")
+.. note::
+   Don't know what's the robot IP address ? Take a look at :ref:`How to Find your Robot’s IP address <find-ip-address>`
+
+.. literalinclude:: code_snippets/basic_movej.py
+   :linenos:
+   :lineno-match:
+   :lines: 3
 
 Once the connection is done, we calibrate the robot using its
-:meth:`~.api.tcp_client.NiryoRobot.calibrate_auto` function. ::
+:meth:`~.api.tcp_client.NiryoRobot.calibrate_auto` function.
 
-    robot.calibrate_auto()
+.. literalinclude:: code_snippets/basic_movej.py
+   :linenos:
+   :lineno-match:
+   :lines: 5
 
 As the robot is now calibrated, we can do a Move Joints by giving the 6 axis positions
-in radians! To do so, we use :meth:`~.api.tcp_client.NiryoRobot.move_joints`. ::
+in radians! To do so, we use :meth:`~.api.tcp_client.NiryoRobot.move` with a :class:`~.api.objects.JointsPosition` object.
 
-    robot.move_joints(0.2, -0.3, 0.1, 0.0, 0.5, -0.8)
+.. literalinclude:: code_snippets/basic_movej.py
+   :linenos:
+   :lineno-match:
+   :lines: 7
 
 Our process is now over, we can close the connection with
-:meth:`~.api.tcp_client.NiryoRobot.quit`. ::
+:meth:`~.api.tcp_client.NiryoRobot.close_connection`.
 
-    robot.close_connection()
-
+.. literalinclude:: code_snippets/basic_movej.py
+   :linenos:
+   :lineno-match:
+   :lines: 9
 
 Your first pick and place
 -------------------------------
-In the second example, we are going to develop a pick and place algorithm. ::
+In the second example, we are going to develop a pick and place algorithm.
 
-    from pyniryo import *
-
-    robot = NiryoRobot("10.10.10.10")
-
-    robot.calibrate_auto()
-    robot.update_tool()
-
-    robot.release_with_tool()
-    robot.move_pose(0.2, -0.1, 0.25, 0.0, 1.57, 0.0)
-    robot.grasp_with_tool()
-
-    robot.move_pose(0.2, 0.1, 0.25, 0.0, 1.57, 0.0)
-    robot.release_with_tool()
-
-    robot.close_connection()
+.. literalinclude:: code_snippets/basic_pick_and_place.py
+   :linenos:
 
 Code Details - First Pick And Place
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 First of all, we import the library and start the connection between our computer
-and the robot. We also calibrate the robot. ::
+and the robot. We also calibrate the robot.
 
-    from pyniryo import *
-
-    robot = NiryoRobot("10.10.10.10")
-    robot.calibrate_auto()
+.. literalinclude:: code_snippets/basic_pick_and_place.py
+   :linenos:
+   :lineno-match:
+   :lines: 1-5
 
 Then, we equip the tool
-with :meth:`~.api.tcp_client.NiryoRobot.update_tool`. ::
+with :meth:`~.api.tcp_client.NiryoRobot.update_tool`.
 
-    robot.update_tool()
+.. literalinclude:: code_snippets/basic_pick_and_place.py
+   :linenos:
+   :lineno-match:
+   :lines: 6
 
 Now that our initialization is done, we can open the gripper (or push air from the vacuum)
 with :meth:`~.api.tcp_client.NiryoRobot.release_with_tool`,
-go to the picking pose via :meth:`~.api.tcp_client.NiryoRobot.move_pose`
+go to the picking pose via :meth:`~.api.tcp_client.NiryoRobot.move`
 & then catch an object
-with :meth:`~.api.tcp_client.NiryoRobot.grasp_with_tool`! ::
+with :meth:`~.api.tcp_client.NiryoRobot.grasp_with_tool`!
 
-    robot.release_with_tool()
-    robot.move_pose(0.2, -0.1, 0.25, 0.0, 1.57, 0.0)
-    robot.grasp_with_tool()
+.. literalinclude:: code_snippets/basic_pick_and_place.py
+   :linenos:
+   :lineno-match:
+   :lines: 8-10
 
-We now get to the place pose, and place the object. ::
+We now get to the place pose, and place the object.
 
-    robot.move_pose(0.2, 0.1, 0.25, 0.0, 1.57, 0.0)
-    robot.release_with_tool()
+.. literalinclude:: code_snippets/basic_pick_and_place.py
+   :linenos:
+   :lineno-match:
+   :lines: 12-13
 
-Our process is now over, we can close the connection. ::
+Our process is now over, we can close the connection.
 
-    robot.close_connection()
-
+.. literalinclude:: code_snippets/basic_pick_and_place.py
+   :linenos:
+   :lineno-match:
+   :lines: 15
 
 Notes
 ---------

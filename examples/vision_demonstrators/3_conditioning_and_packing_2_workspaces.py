@@ -10,7 +10,7 @@ place on the side of the working area
 from pyniryo import NiryoRobot, PoseObject, ObjectShape, ObjectColor
 
 # -- MUST Change these variables
-robot_ip_address = "10.10.10.10"  # IP address of Ned
+robot_ip_address = '<robot_ip_address>'  # IP address of the robot
 workspace_pick_name = "workspace_1"  # Robot's picking Workspace Name
 workspace_place_name = "workspace_place"  # Robot's placing Workspace Name
 

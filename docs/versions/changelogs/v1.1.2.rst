@@ -1,7 +1,7 @@
 New in version 1.1.2
 ================================
 
-Features
+|:sparkles:| Features
 -----------------------------------------------------------
 
 - New TCP functions available

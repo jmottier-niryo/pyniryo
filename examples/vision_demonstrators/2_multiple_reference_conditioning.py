@@ -12,7 +12,7 @@ Once a line is completed, objects will be pack over the lower level
 from pyniryo import NiryoRobot, PoseObject, ObjectColor
 
 # -- MUST Change these variables
-robot_ip_address = "10.10.10.10"  # IP address of Ned
+robot_ip_address = '<robot_ip_address>'  # IP address of the robot
 workspace_name = "workspace_1"  # Robot's Workspace Name
 
 # -- Can change these variables

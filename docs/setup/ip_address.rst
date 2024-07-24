@@ -1,3 +1,5 @@
+.. _find-ip-address:
+
 Find your Robot's IP address
 =================================
 

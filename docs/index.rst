@@ -1,11 +1,9 @@
-================================
-PyNiryo Documentation
-================================
-
 
 .. image:: images/PyNiryo_logo_2.png
    :width: 50%
    :align: center
+
+
 
 .. toctree::
    :caption: Versions
