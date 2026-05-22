@@ -10,7 +10,7 @@ from .enums_communication import READ_SIZE, DEFAULT_PACKET_SIZE_INFOS
 
 
 # --- RECEPTION -- #
-def receive_data(sckt, packet_size_infos, buffer_size):
+def receive_data(sckt, packet_size_infos=DEFAULT_PACKET_SIZE_INFOS, buffer_size=READ_SIZE):
     """
     Receive msg which cannot be contained in only one buffer
 
@@ -45,23 +45,21 @@ def receive_dict(sckt, packet_size_infos=DEFAULT_PACKET_SIZE_INFOS, buffer_size=
     return data_to_dict(msg)
 
 
-def receive_dict_w_payload(sckt, packet_size_infos=DEFAULT_PACKET_SIZE_INFOS, buffer_size=READ_SIZE):
+def receive_payload(sckt, payload_size, buffer_size=READ_SIZE):
     """
     Receive json through a Socket then extract payload content.
     Payload can typically be an heavy file like an image
 
     :param sckt: the socket
-    :param packet_size_infos: Format de l'objet du message : permet de savoir sur cb de bytes est codee la taille
+    :param payload_size: Size of the payload to receive
     :param buffer_size: buffer size for reading socket's buffer
     :return: dict of packet's JSON, payload
     """
-    dict_data = receive_dict(sckt, buffer_size=buffer_size, packet_size_infos=packet_size_infos)
-    payload_size = dict_data["payload_size"]
     received_payload = "" if sys.version_info[0] == 2 else b""
     while len(received_payload) < payload_size:
-        received_payload += sckt.recv(buffer_size)
+        received_payload += sckt.recv(min(buffer_size, payload_size - len(received_payload)))
 
-    return dict_data, received_payload
+    return received_payload
 
 
 # - JSON - #
