@@ -1,10 +1,12 @@
 import logging
 import time
 import socket
+import threading
 import warnings
 from contextlib import contextmanager
 
 from typing_extensions import deprecated
+from concurrent.futures import Future, ThreadPoolExecutor
 
 from enum import Enum
 
@@ -24,7 +26,7 @@ from .enums_communication import (CalibrateMode,
                                   TCP_PORT,
                                   TCP_TIMEOUT,
                                   ToolID)
-from .communication_functions import dict_to_packet, receive_dict, receive_dict_w_payload
+from .communication_functions import dict_to_packet, receive_dict, receive_payload
 
 from .exceptions import (ClientNotConnectedException,
                          HostNotReachableException,
@@ -41,9 +43,43 @@ def get_deprecation_msg(old_method, new_method):
             f' Use `{new_method}` instead.')
 
 
+class ThreadSafePendingDict:
+
+    def __init__(self):
+        self._pending = {}
+        self._lock = threading.Lock()  # This is our bouncer
+
+    def add_request(self, correlation_id, future_object):
+        with self._lock:
+            self._pending[correlation_id] = future_object
+
+    def pop_request(self, correlation_id):
+        with self._lock:
+            return self._pending.pop(correlation_id, None)
+
+    def pop_all_requests(self):
+        with self._lock:
+            all_futures = list(self._pending.values())
+            self._pending.clear()
+            return all_futures
+
+
+class ActionStatus:
+
+    def __init__(self, future):
+        self._future = future
+
+    def value(self, timeout=None):
+        return self._future.result(timeout=timeout)
+
+    @property
+    def is_done(self):
+        return self._future.done()
+
+
 class NiryoRobot(object):
 
-    def __init__(self, ip_address=None, verbose=True, logger=None):
+    def __init__(self, ip_address=None, verbose=True, logger=None, multithreading=False, asynchronous=False):
         """
         :param ip_address: IP address of the robot
         :type ip_address: str
@@ -55,10 +91,18 @@ class NiryoRobot(object):
         self.__ip_address = None
         self.__port = TCP_PORT
         self.__client_socket = None
-
+        self.__thread_dict = ThreadSafePendingDict()
+        self.__receive_thread = None
+        self.__executor = ThreadPoolExecutor(max_workers=5)
+        self.__id_counter = 0
         self.__timeout = TCP_TIMEOUT
-
+        self.__multithreading_timeout = None
+        self.__write_lock = threading.Lock()
+        self.__id_lock = threading.Lock()
         self.__is_connected = False
+
+        self.__multithreading = multithreading
+        self.__asynchronous = asynchronous
 
         if logger is None:
             self.__logger = get_logger(self.__class__.__name__)
@@ -85,6 +129,11 @@ class NiryoRobot(object):
     def __repr__(self):
         return self.__str__()
 
+    def __activate_multithreading(self):
+        self.__multithreading = True
+        self.__receive_thread = threading.Thread(target=self.__receive_loop, daemon=True, name="ReceiverThread")
+        self.__receive_thread.start()
+
     def __get_deprecation_msg(self, old_method, new_method):
         return (f'`{self.__class__.__name__}.{old_method}()` is deprecated and will be deleted in future releases.'
                 f' Use `{self.__class__.__name__}.{new_method}()` instead.')
@@ -110,7 +159,84 @@ class NiryoRobot(object):
         self.__client_socket.settimeout(None)
         self.__ip_address = ip_address
         self.__logger.info("Connected to server ({}) on port {}".format(ip_address, self.__port))
+        # Multithreading is temporarily disabled during handshake to avoid depending on the receive thread which is not yet started
+        multithreading = self.__multithreading
+        self.__multithreading = False
         self.__handshake()
+        self.__multithreading = multithreading
+        if self.__multithreading or self.__asynchronous:
+            self.__activate_multithreading()
+
+    def __receive_loop(self):
+        try:
+            while True:
+                message_dict, payload = self.__read_full_message()
+
+                if not message_dict:
+                    break
+
+                self.__process_received_message(message_dict, payload)
+        except Exception as e:
+            self.__logger.error(f"Unexpected error in receive loop: {e}")
+        finally:
+            self.__cleanup_connection()
+
+    def __read_full_message(self):
+        try:
+            received_dict = receive_dict(sckt=self.__client_socket)
+
+            if not received_dict:
+                return None, None
+
+            payload_size = received_dict.get("payload_size", 0)
+            payload = receive_payload(sckt=self.__client_socket,
+                                      payload_size=payload_size) if payload_size > 0 else None
+
+            return received_dict, payload
+
+        except socket.error as e:
+            self.__logger.error(f"Socket error while reading message: {e}")
+            return None, None
+
+    def __process_received_message(self, received_dict, payload):
+        if not self.__multithreading:
+            return
+
+        msg_id = received_dict.get("id", -1)
+        waiting_future = self.__thread_dict.pop_request(msg_id)
+        if waiting_future is None:
+            self.__logger.error(f"ID not valid or no future waiting: {msg_id}")
+            return
+
+        if received_dict.get("status") != "OK":
+            exception_to_set = NiryoRobotException(
+                f"Command {received_dict.get('command')} KO : {received_dict.get('message')}")
+            waiting_future.set_exception(exception_to_set)
+            return
+
+        list_ret_param = received_dict.get("list_ret_param", [])
+
+        if len(list_ret_param) == 1:
+            list_ret_param = list_ret_param[0]
+
+        result = list_ret_param if payload is None else (list_ret_param, payload)
+        waiting_future.set_result(result)
+
+    def __cleanup_connection(self):
+        if self.__client_socket is not None and self.__is_connected:
+            try:
+                self.__client_socket.shutdown(socket.SHUT_RDWR)
+                self.__client_socket.close()
+            except socket.error:
+                pass
+            self.__is_connected = False
+
+        hanging_futures = self.__thread_dict.pop_all_requests()
+        fallback_msg = "Connection closed before future resolved."
+
+        exception_to_set = NiryoRobotException(fallback_msg)
+        for future in hanging_futures:
+            future.set_exception(exception_to_set)
 
     def __close_socket(self):
         if self.__client_socket is not None and self.__is_connected is True:
@@ -134,6 +260,31 @@ class NiryoRobot(object):
     # -- SEND & RECEIVE
 
     # - Sending phase
+    def __send_command_multi(self, command_type, *parameter_list):
+        if self.__is_connected is False or self.__client_socket is None:
+            raise ClientNotConnectedException()
+        ret_dict = self.__build_dict(command_type, *parameter_list)
+        try:
+            disp_future = self._dispatch_msg(ret_dict)
+            return disp_future
+        except socket.error as e:
+            self.__logger.error(e)
+            self.__thread_dict.pop_request(ret_dict.get("id"))
+            raise HostNotReachableException()
+
+    def _dispatch_msg(self, msg_dict):
+        disp_future = Future()
+        with self.__id_lock:
+            current_id = self.__id_counter
+            self.__id_counter += 1
+            self.__thread_dict.add_request(current_id, disp_future)
+            msg_dict["id"] = current_id
+
+        packet = dict_to_packet(msg_dict)
+        with self.__write_lock:
+            self.__client_socket.send(packet)
+        return disp_future
+
     def __send_command(self, command_type, *parameter_list):
         if self.__is_connected is False:
             raise ClientNotConnectedException()
@@ -166,11 +317,11 @@ class NiryoRobot(object):
 
     def __receive_answer(self, with_payload):
         try:
-            if not with_payload:
-                received_dict = receive_dict(sckt=self.__client_socket)
-                payload = None
-            else:
-                received_dict, payload = receive_dict_w_payload(sckt=self.__client_socket)
+            received_dict = receive_dict(sckt=self.__client_socket)
+            payload = None
+            if with_payload:
+                payload_size = received_dict["payload_size"]
+                payload = receive_payload(sckt=self.__client_socket, payload_size=payload_size)
         except socket.error as e:
             self.__logger.error(e)
             raise HostNotReachableException()
@@ -192,9 +343,12 @@ class NiryoRobot(object):
     # - Wrapping functions
     def __send_n_receive(self, command_type, *parameter_list, **kwargs):
         with_payload = kwargs.get("with_payload", False)
-
-        self.__send_command(command_type, *parameter_list)
-        return self.__receive_answer(with_payload=with_payload)
+        if self.__multithreading:
+            pager = self.__send_command_multi(command_type, *parameter_list)
+            return pager.result(timeout=self.__multithreading_timeout)
+        else:
+            self.__send_command(command_type, *parameter_list)
+            return self.__receive_answer(with_payload)
 
     # Parameters checker
     def __check_enum_belonging(self, value, enum_):
@@ -341,6 +495,16 @@ class NiryoRobot(object):
             self.__logger.info(server_info['message'])
             self.__logger.info('To disable the MOTD, use verbose=False')
 
+    def set_multithreading_timeout(self, timeout=None):
+        """
+        Set the timeout for multithreading operations
+
+        :param timeout: Timeout value
+        :type timeout: float
+        :rtype: None
+        """
+        self.__multithreading_timeout = timeout
+
     def calibrate(self, calibrate_mode):
         """
         Calibrate (manually or automatically) motors. Automatic calibration will do nothing
@@ -395,7 +559,7 @@ class NiryoRobot(object):
         :return: ``True`` if learning mode is on
         :rtype: bool
         """
-        return self.__send_n_receive(Command.GET_LEARNING_MODE)
+        return self.__str_to_bool(self.__send_n_receive(Command.GET_LEARNING_MODE))
 
     @learning_mode.setter
     def learning_mode(self, value):
@@ -506,7 +670,6 @@ class NiryoRobot(object):
         """
         return self.get_pose()
 
-
     def get_pose(self):
         """
         Get end effector link pose.
@@ -571,7 +734,6 @@ class NiryoRobot(object):
         else:
             pose = PoseObject(*args, metadata=PoseMetadata.v1())
         self.move(pose)
-
 
     @deprecated(f'{get_deprecation_msg("move_pose", "move")}')
     def move_pose(self, *args):
@@ -643,11 +805,19 @@ class NiryoRobot(object):
         :type robot_position: Union[PoseObject, JointsPosition]
         :param linear: do a linear move (works only with a PoseObject)
         :type linear: bool
+
         :rtype: None
         """
-        robot_position_dict = robot_position.to_dict()
-        robot_position_dict['obj_type'] = self.__differentiate_robot_position(robot_position)
-        self.__send_n_receive(Command.MOVE, robot_position_dict, linear)
+
+        def pipeline():
+            robot_position_dict = robot_position.to_dict()
+            robot_position_dict['obj_type'] = self.__differentiate_robot_position(robot_position)
+            self.__send_n_receive(Command.MOVE, robot_position_dict, linear)
+
+        if self.__asynchronous:
+            future = self.__executor.submit(pipeline)
+            return ActionStatus(future)
+        return pipeline()
 
     def shift_pose(self, axis, shift_value, linear=False):
         """
@@ -659,6 +829,7 @@ class NiryoRobot(object):
         :type shift_value: float
         :param linear: Whether the movement has to be linear or not
         :type linear: bool
+
         :rtype: None
         """
         self.__check_enum_belonging(axis, RobotAxis)
@@ -719,7 +890,7 @@ class NiryoRobot(object):
         pose_offset = self.__args_joints_to_list(*args)
         self.__send_n_receive(Command.JOG_POSE, *pose_offset)
 
-    def jog(self, robot_position, reference_frame= "world"):
+    def jog(self, robot_position, reference_frame="world"):
         robot_position_dict = robot_position.to_dict()
         robot_position_dict['obj_type'] = self.__differentiate_robot_position(robot_position)
         self.__send_n_receive(Command.JOG, robot_position_dict, reference_frame)
@@ -730,13 +901,20 @@ class NiryoRobot(object):
 
         :rtype: None
         """
-        try:
-            self.__send_n_receive(Command.MOVE_TO_HOME_POSE)
-        except NiryoRobotException as e:
-            if "Unknown" in str(e):
-                self.move(JointsPosition(0.0, 0.3, -1.3, 0.0, 0.0, 0.0))
-            else:
-                raise
+
+        def pipeline():
+            try:
+                self.__send_n_receive(Command.MOVE_TO_HOME_POSE)
+            except NiryoRobotException as e:
+                if "Unknown" in str(e):
+                    self.move(JointsPosition(0.0, 0.3, -1.3, 0.0, 0.0, 0.0))
+                else:
+                    raise
+
+        if self.__asynchronous:
+            future = self.__executor.submit(pipeline)
+            return ActionStatus(future)
+        return pipeline()
 
     def get_home_pose(self):
         """
@@ -752,6 +930,7 @@ class NiryoRobot(object):
         Set the home pose
         :param args: either 6 args (1 for each joints) or a list of 6 joints or a JointsPosition instance
         :type args: Union[list[float], tuple[float], JointsPosition]
+
         :rtype: None
         """
         if len(args) == 1 and isinstance(args[0], (JointsPosition, PoseObject)):
@@ -788,6 +967,7 @@ class NiryoRobot(object):
 
         :param args: either 6 args (1 for each joints) or a list of 6 joints or a JointsPosition instance
         :type args: Union[list[float], tuple[float], JointsPosition]
+
         :rtype: PoseObject
         """
         if len(args) == 1 and isinstance(args[0], JointsPosition):
@@ -831,6 +1011,7 @@ class NiryoRobot(object):
 
         :param pose_name: Pose name in robot's memory
         :type pose_name: str
+
         :return: Pose associated to pose_name
         :rtype: PoseObject
         """
@@ -846,6 +1027,7 @@ class NiryoRobot(object):
         :type pose_name: str
         :param args: either 6 args (1 for each coordinates) or a list of 6 coordinates or a PoseObject
         :type args: Union[list[float], tuple[float], PoseObject]
+
         :rtype: None
         """
         self.__check_type(pose_name, str)
@@ -861,6 +1043,7 @@ class NiryoRobot(object):
         Delete pose from robot's memory
 
         :type pose_name: str
+
         :rtype: None
         """
         self.__check_type(pose_name, str)
@@ -932,6 +1115,7 @@ class NiryoRobot(object):
 
         :param pick_position: a pick position, can be either a Pose or a JointsPosition object
         :type pick_position: Union[JointsPosition, PoseObject]
+
         :rtype: None
         """
         obj_dict = pick_position.to_dict()
@@ -950,6 +1134,7 @@ class NiryoRobot(object):
 
         :param place_position: a place position, can be either a Pose or a JointsPosition object
         :type place_position: Union[JointsPosition, PoseObject]
+
         :rtype: None
         """
         obj_dict = place_position.to_dict()
@@ -966,6 +1151,7 @@ class NiryoRobot(object):
         :type place_pos: Union[list[float], PoseObject]
         :param dist_smoothing: Distance from waypoints before smoothing trajectory
         :type dist_smoothing: float
+
         :rtype: None
         """
         if not isinstance(pick_pose, PoseObject) and not isinstance(pick_pose, JointsPosition):
@@ -989,6 +1175,7 @@ class NiryoRobot(object):
         Get trajectory saved in Ned's memory
 
         :type trajectory_name: str
+
         :return: Trajectory
         :rtype: list[Joints]
         """
@@ -1010,6 +1197,7 @@ class NiryoRobot(object):
         Execute trajectory from Ned's memory
 
         :type trajectory_name: str
+
         :rtype: None
         """
         self.__check_type(trajectory_name, str)
@@ -1023,6 +1211,7 @@ class NiryoRobot(object):
         :type robot_positions: list[Union[JointsPosition, PoseObject]]
         :param dist_smoothing: Distance from waypoints before smoothing trajectory
         :type dist_smoothing: float
+
         :rtype: None
         """
         dict_positions = []
@@ -1111,6 +1300,7 @@ class NiryoRobot(object):
         :param trajectory_name: Name you want to give to the trajectory
         :type trajectory_name: str
         :param trajectory_description: Description you want to give to the trajectory
+        :type trajectory_description: str
 
         :rtype: None
         """
@@ -1132,6 +1322,7 @@ class NiryoRobot(object):
 
         :type name: str
         :type description: str
+
         :rtype: None
         """
         self.__check_type(name, str)
@@ -1148,6 +1339,7 @@ class NiryoRobot(object):
         :type new_name: str
         :param new_description: new description you want to give the trajectory
         :type new_description: str
+
         :rtype: None
         """
         self.__check_type(name, str)
@@ -1160,6 +1352,7 @@ class NiryoRobot(object):
         Delete trajectory from robot's memory
 
         :type trajectory_name: str
+
         :rtype: None
         """
         self.__check_type(trajectory_name, str)
@@ -1191,6 +1384,7 @@ class NiryoRobot(object):
     def get_current_tool_position(self):
         """
         Get the tool current position
+
         :return: the tool position, in steps.
         :rtype: int
         """
@@ -1239,6 +1433,7 @@ class NiryoRobot(object):
         :type max_torque_percentage: int
         :param hold_torque_percentage: Hold torque percentage after closing (only for Ned2/3Pro)
         :type hold_torque_percentage: int
+
         :rtype: None
         """
         speed = self.__transform_to_type(speed, int)
@@ -1257,6 +1452,7 @@ class NiryoRobot(object):
         :type max_torque_percentage: int
         :param hold_torque_percentage: Hold torque percentage after opening (only for Ned2/3Pro)
         :type hold_torque_percentage: int
+
         :rtype: None
         """
         speed = self.__transform_to_type(speed, int)
@@ -1293,6 +1489,7 @@ class NiryoRobot(object):
 
         :param tool_id: Tool ID. If None, use the current tool id.
         :type tool_id: int | ToolID | None
+
         :return: gripper position limits (close, open), gripper torque limits (close, open)
         :rtype: ((int, int), (int, int))
         """
@@ -1327,6 +1524,7 @@ class NiryoRobot(object):
 
         :param pin_id:
         :type pin_id: PinID or str
+
         :rtype: None
         """
         self.__check_instance(pin_id, (PinID, str))
@@ -1339,6 +1537,7 @@ class NiryoRobot(object):
 
         :param pin_id:
         :type pin_id: PinID or str
+
         :rtype: None
         """
         self.__check_instance(pin_id, (PinID, str))
@@ -1351,6 +1550,7 @@ class NiryoRobot(object):
 
         :param pin_id:
         :type pin_id: PinID or str
+
         :rtype: None
         """
         self.__check_instance(pin_id, (PinID, str))
@@ -1366,6 +1566,7 @@ class NiryoRobot(object):
 
         :param enable: True to enable, False otherwise.
         :type enable: Bool
+
         :rtype: None
         """
         self.__check_instance(enable, bool)
@@ -1378,6 +1579,7 @@ class NiryoRobot(object):
 
         :param args: either 6 args (1 for each coordinates) or a list of 6 coordinates or a PoseObject
         :type args: Union[list[float], tuple[float], PoseObject]
+
         :rtype: None
         """
         tcp_transform = self.__args_pose_to_list(*args)
@@ -1419,6 +1621,7 @@ class NiryoRobot(object):
         :type pin_id: PinID or str
         :param pin_mode:
         :type pin_mode: PinMode
+
         :rtype: None
         """
         self.__check_enum_belonging(pin_mode, PinMode)
@@ -1458,6 +1661,7 @@ class NiryoRobot(object):
         :type pin_id: PinID or str
         :param digital_state:
         :type digital_state: PinState
+
         :rtype: None
         """
         self.__check_enum_belonging(digital_state, PinState)
@@ -1472,6 +1676,7 @@ class NiryoRobot(object):
 
         :param pin_id:
         :type pin_id: PinID or str
+
         :rtype: PinState
         """
         self.__check_instance(pin_id, (PinID, str))
@@ -1493,7 +1698,6 @@ class NiryoRobot(object):
             analog_io_state = robot.analog_io_state
             analog_io_state = robot.get_analog_io_state()
 
-
         :return: List of AnalogPinObject instance
         :rtype: list[AnalogPinObject]
         """
@@ -1513,6 +1717,7 @@ class NiryoRobot(object):
         :type pin_id: PinID or str
         :param value: voltage between 0 and 5V
         :type value: float
+
         :rtype: None
         """
         self.__check_instance(pin_id, (PinID, str))
@@ -1526,6 +1731,7 @@ class NiryoRobot(object):
 
         :param pin_id:
         :type pin_id: PinID or str
+
         :rtype: float
         """
         self.__check_instance(pin_id, (PinID, str))
@@ -1627,6 +1833,7 @@ class NiryoRobot(object):
         :type speed: int
         :param direction:
         :type direction: ConveyorDirection
+
         :rtype: None
         """
         self.control_conveyor(conveyor_id, control_on=True, speed=speed, direction=direction)
@@ -1637,9 +1844,15 @@ class NiryoRobot(object):
 
         :param conveyor_id:
         :type conveyor_id: ConveyorID
+
         :rtype: None
         """
-        self.control_conveyor(conveyor_id, control_on=False, speed=50, direction=ConveyorDirection.FORWARD)
+        self.control_conveyor(
+            conveyor_id,
+            control_on=False,
+            speed=50,
+            direction=ConveyorDirection.FORWARD,
+        )
 
     def control_conveyor(self, conveyor_id, control_on, speed, direction):
         """
@@ -1653,6 +1866,7 @@ class NiryoRobot(object):
         :type speed: int
         :param direction: Conveyor direction
         :type direction: ConveyorDirection
+
         :rtype: None
         """
         self.__check_enum_belonging(conveyor_id, ConveyorID)
@@ -1663,8 +1877,7 @@ class NiryoRobot(object):
         self.__send_n_receive(Command.CONTROL_CONVEYOR, conveyor_id, control_on, speed, direction)
 
     def get_connected_conveyors_id(self):
-        """
-
+        """"
         :return: List of the connected conveyors' ID
         :rtype: list[ConveyorID]
         """
@@ -1713,6 +1926,7 @@ class NiryoRobot(object):
             give a darkened image, 1 will give the original image while
             2 will enhance the brightness by a factor of 2.
         :type brightness_factor: float
+
         :rtype: None
         """
         self.__transform_to_type(brightness_factor, float)
@@ -1726,6 +1940,7 @@ class NiryoRobot(object):
         :param contrast_factor: While a factor of 1 gives original image.
             Making the factor towards 0 makes the image greyer, while factor>1 increases the contrast of the image.
         :type contrast_factor: float
+
         :rtype: None
         """
         self.__transform_to_type(contrast_factor, float)
@@ -1740,6 +1955,7 @@ class NiryoRobot(object):
             give a black and white image, 1 will give the original image while
             2 will enhance the saturation by a factor of 2.
         :type saturation_factor: float
+
         :rtype: None
         """
         self.__transform_to_type(saturation_factor, float)
@@ -1814,6 +2030,7 @@ class NiryoRobot(object):
         :type shape: ObjectShape
         :param color: color of the target
         :type color: ObjectColor
+
         :return: object_found, object_pose, object_shape, object_color
         :rtype: (bool, PoseObject, ObjectShape, ObjectColor)
         """
@@ -1839,21 +2056,28 @@ class NiryoRobot(object):
         return obj_found, pose_object, ObjectShape[shape_ret], ObjectColor[color_ret]
 
     def __move_with_vision(self, command, workspace_name, height_offset, shape, color, **kwargs):
-        self.__check_type(workspace_name, str)
-        _height_offset = self.__transform_to_type(height_offset, float)
-        self.__check_enum_belonging(shape, ObjectShape)
-        self.__check_enum_belonging(color, ObjectColor)
 
-        data_array = self.__send_n_receive(command, workspace_name, _height_offset, shape, color, **kwargs)
+        def pipeline():
+            self.__check_type(workspace_name, str)
+            _height_offset = self.__transform_to_type(height_offset, float)
+            self.__check_enum_belonging(shape, ObjectShape)
+            self.__check_enum_belonging(color, ObjectColor)
 
-        obj_found = data_array[0]
-        if obj_found is True:
-            shape_ret = data_array[1]
-            color_ret = data_array[2]
-        else:
-            shape_ret = "ANY"
-            color_ret = 'ANY'
-        return obj_found, ObjectShape[shape_ret], ObjectColor[color_ret]
+            data_array = self.__send_n_receive(command, workspace_name, _height_offset, shape, color, **kwargs)
+
+            obj_found = data_array[0]
+            if obj_found is True:
+                shape_ret = data_array[1]
+                color_ret = data_array[2]
+            else:
+                shape_ret = "ANY"
+                color_ret = 'ANY'
+            return obj_found, ObjectShape[shape_ret], ObjectColor[color_ret]
+
+        if self.__asynchronous:
+            future = self.__executor.submit(pipeline)
+            return ActionStatus(future)
+        return pipeline()
 
     def vision_pick(self,
                     workspace_name,
@@ -1890,6 +2114,7 @@ class NiryoRobot(object):
         :type color: ObjectColor
         :param obs_pose: An optional observation pose
         :type obs_pose: PoseObject
+
         :return: object_found, object_shape, object_color
         :rtype: (bool, ObjectShape, ObjectColor)
         """
@@ -1912,6 +2137,7 @@ class NiryoRobot(object):
         :type shape: ObjectShape
         :param color: color of the target
         :type color: ObjectColor
+
         :return: object_found, object_shape, object_color
         :rtype: (bool, ObjectShape, ObjectColor)
         """
@@ -1927,6 +2153,7 @@ class NiryoRobot(object):
         :type shape: ObjectShape
         :param color: color of the target
         :type color: ObjectColor
+
         :return: object_found, object_rel_pose, object_shape, object_color
         :rtype: (bool, list, str, str)
         """
@@ -2008,6 +2235,7 @@ class NiryoRobot(object):
         :type point_3: list[float]
         :param point_4:
         :type point_4: list[float]
+
         :rtype: None
         """
         self.__check_type(workspace_name, str)
@@ -2023,6 +2251,7 @@ class NiryoRobot(object):
 
         :param workspace_name:
         :type workspace_name: str
+
         :rtype: None
         """
         self.__check_type(workspace_name, str)
@@ -2038,6 +2267,7 @@ class NiryoRobot(object):
 
         :param workspace_name:
         :type workspace_name: str
+
         :rtype: float
         """
         self.__check_type(workspace_name, str)
@@ -2078,6 +2308,7 @@ class NiryoRobot(object):
 
         :param frame_name: name of the frame
         :type frame_name: str
+
         :return: name, description, position and orientation of a frame
         :rtype: list[str, str, list[float]]
         """
@@ -2114,6 +2345,7 @@ class NiryoRobot(object):
         :type pose_y: list[float] [x, y, z, roll, pitch, yaw]
         :param belong_to_workspace: indicate if the frame belong to a workspace
         :type belong_to_workspace: boolean
+
         :return: None
         """
         self.__check_type(frame_name, str)
@@ -2163,6 +2395,7 @@ class NiryoRobot(object):
         :type point_y: list[float] [x, y, z]
         :param belong_to_workspace: indicate if the frame belong to a workspace
         :type belong_to_workspace: boolean
+
         :return: None
         """
         self.__check_type(frame_name, str)
@@ -2192,6 +2425,7 @@ class NiryoRobot(object):
         :type new_frame_name: str
         :param new_description: new description of the frame
         :type new_description: str
+
         :return: None
         """
         self.__check_type(frame_name, str)
@@ -2213,6 +2447,7 @@ class NiryoRobot(object):
         :type frame_name: str
         :param belong_to_workspace: indicate if the frame belong to a workspace
         :type belong_to_workspace: boolean
+
         :return: None
         """
         self.__check_type(frame_name, str)
@@ -2295,6 +2530,7 @@ class NiryoRobot(object):
         :type start_time_sec: float
         :param end_time_sec: end the sound at this value in seconds
         :type end_time_sec: float
+
         :rtype: None
         """
         self.__check_list_belonging(sound_name, self.get_sounds())
@@ -2306,6 +2542,7 @@ class NiryoRobot(object):
 
         :param sound_volume: volume percentage of the sound (0: no sound, 100: max sound)
         :type sound_volume: int
+
         :rtype: None
         """
         self.__check_range_belonging(sound_volume, 0, 200)
@@ -2326,6 +2563,7 @@ class NiryoRobot(object):
 
         :param sound_name: name of sound
         :type sound_name: string
+
         :return: sound duration in seconds
         :rtype: float
         """
@@ -2352,6 +2590,7 @@ class NiryoRobot(object):
         :type text: string
         :param language: language of the text
         :type language: int
+
         :rtype: None
         """
         self.__send_n_receive(Command.SAY, text, language)
