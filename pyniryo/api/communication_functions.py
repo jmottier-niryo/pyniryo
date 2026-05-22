@@ -3,7 +3,6 @@ File containing functions for communication with Socket !
 """
 
 import sys
-import ast
 import json
 import struct
 
