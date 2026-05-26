@@ -1470,10 +1470,10 @@ class NiryoRobot(object):
         :param speed: Ned/One only. Moving speed (unit is 0.111 rpm)
         :type speed: int
         :param max_torque: Ned2/3Pro only. Maximum torque to apply while moving gripper (in mA).
-        A negative value will apply the force in the opposite direction.
+            A negative value will apply the force in the opposite direction.
         :type max_torque: int
         :param hold_torque: Ned2/3Pro only. Torque to apply once the gripper has stopped moving (in mA).
-        A negative value will apply the force in the opposite direction.
+            A negative value will apply the force in the opposite direction.
         :type hold_torque: int
         """
         position = self.__transform_to_type(position, int)

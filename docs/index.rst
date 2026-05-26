@@ -42,6 +42,8 @@
    :caption: API Documentation
    :maxdepth: 1
 
+   api/multithreading_asynchronous
+
    api/api
    api/vision
 
