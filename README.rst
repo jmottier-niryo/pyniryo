@@ -33,6 +33,16 @@ PyNiryo allows to write simple script in Python in order to control Niryo's robo
 To see more examples or learn more about the available functions,
 full documentation is available `here <https://niryorobotics.github.io/pyniryo>`_.
 
+.. note::
+
+    If you need the documentation for an older version, you can build it locally by
+    checking out the corresponding git tag and running:
+
+    .. code-block:: bash
+
+        pip install -r docs/requirements.txt
+        sphinx-build docs/ _build/html
+
 
 License
 -------

@@ -19,9 +19,7 @@ jobs:
       - name: Sphinx build
         run: |
           source venv/bin/activate
-          git fetch --tags --force
-          git checkout ${{ github.ref_name }}
-          scripts/build_docs_versioned.py public $(git tag --sort=-v:refname)
+          sphinx-build docs/ public
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
