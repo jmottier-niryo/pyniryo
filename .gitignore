@@ -1,0 +1,30 @@
+*.log
+*.pyc
+.cache/
+.coverage.*
+.idea/
+.vscode/
+*.egg-info/
+build/
+dist/
+docs/build/
+docs/_build
+docs/**/_autosummary/
+venv/
+wheelhouse/
+
+/examples/dev/
+dev/
+
+# Mac Stuff
+.DS_Store
+
+# -- Docs
+_build/
+*.mo
+docs_build/
+generated_pdfs/
+public/
+
+.tox/
+pyniryo/_version.py
