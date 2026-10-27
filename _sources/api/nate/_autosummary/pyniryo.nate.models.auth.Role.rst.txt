@@ -1,0 +1,48 @@
+Role
+====
+
+.. currentmodule:: pyniryo.nate.models.auth
+
+.. autoclass:: Role
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~Role.id
+   
+      ~Role.name
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Role.from_transport_model
+      
+   
+      
+      ~Role.to_transport_model
+      
+   
+   
+   

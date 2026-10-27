@@ -1,0 +1,56 @@
+MoveCommand
+===========
+
+.. currentmodule:: pyniryo.nate.components
+
+.. autoclass:: MoveCommand
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~MoveCommand.command_id
+   
+      ~MoveCommand.state
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~MoveCommand.pause
+      
+   
+      
+      ~MoveCommand.resume
+      
+   
+      
+      ~MoveCommand.stop
+      
+   
+      
+      ~MoveCommand.wait
+      
+   
+   
+   

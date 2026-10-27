@@ -1,0 +1,65 @@
+Users
+=====
+
+.. currentmodule:: pyniryo.nate.components
+
+.. autoclass:: Users
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Users.close
+      
+   
+      
+      ~Users.create
+      
+   
+      
+      ~Users.create_token
+      
+   
+      
+      ~Users.delete
+      
+   
+      
+      ~Users.get
+      
+   
+      
+      ~Users.get_all
+      
+   
+      
+      ~Users.get_tokens
+      
+   
+      
+      ~Users.update
+      
+   
+      
+      ~Users.update_password
+      
+   
+   
+   

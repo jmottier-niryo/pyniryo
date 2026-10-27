@@ -1,0 +1,48 @@
+ExecutionOutput
+===============
+
+.. currentmodule:: pyniryo.nate.models.programs
+
+.. autoclass:: ExecutionOutput
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~ExecutionOutput.output
+   
+      ~ExecutionOutput.eof
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~ExecutionOutput.from_transport_model
+      
+   
+      
+      ~ExecutionOutput.to_transport_model
+      
+   
+   
+   

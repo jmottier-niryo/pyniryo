@@ -1,0 +1,52 @@
+Token
+=====
+
+.. currentmodule:: pyniryo.nate.models.auth
+
+.. autoclass:: Token
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~Token.token
+   
+      ~Token.id
+   
+      ~Token.expires_at
+   
+      ~Token.created_at
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Token.from_transport_model
+      
+   
+      
+      ~Token.to_transport_model
+      
+   
+   
+   

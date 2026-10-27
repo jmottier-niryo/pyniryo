@@ -1,0 +1,50 @@
+EulerAngles
+===========
+
+.. currentmodule:: pyniryo.nate.models.geometry
+
+.. autoclass:: EulerAngles
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~EulerAngles.roll
+   
+      ~EulerAngles.pitch
+   
+      ~EulerAngles.yaw
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~EulerAngles.from_quaternion
+      
+   
+      
+      ~EulerAngles.to_quaternion
+      
+   
+   
+   

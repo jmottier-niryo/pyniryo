@@ -1,0 +1,50 @@
+ExecutionBaseCommand
+====================
+
+.. currentmodule:: pyniryo.nate.components
+
+.. autoclass:: ExecutionBaseCommand
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~ExecutionBaseCommand.command_id
+   
+      ~ExecutionBaseCommand.execution
+   
+      ~ExecutionBaseCommand.execution_id
+   
+      ~ExecutionBaseCommand.program_id
+   
+      ~ExecutionBaseCommand.status
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~ExecutionBaseCommand.wait
+      
+   
+   
+   

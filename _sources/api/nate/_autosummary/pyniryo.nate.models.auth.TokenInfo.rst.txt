@@ -1,0 +1,46 @@
+TokenInfo
+=========
+
+.. currentmodule:: pyniryo.nate.models.auth
+
+.. autoclass:: TokenInfo
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~TokenInfo.id
+   
+      ~TokenInfo.expires_at
+   
+      ~TokenInfo.created_at
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~TokenInfo.from_transport_model
+      
+   
+   
+   

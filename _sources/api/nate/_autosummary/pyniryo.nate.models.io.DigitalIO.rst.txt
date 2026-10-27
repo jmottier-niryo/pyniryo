@@ -1,0 +1,48 @@
+DigitalIO
+=========
+
+.. currentmodule:: pyniryo.nate.models.io
+
+.. autoclass:: DigitalIO
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~DigitalIO.id
+   
+      ~DigitalIO.value
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~DigitalIO.from_transport_model
+      
+   
+      
+      ~DigitalIO.to_transport_model
+      
+   
+   
+   

@@ -1,0 +1,232 @@
+InterfaceType
+=============
+
+.. currentmodule:: pyniryo.nate.models.network
+
+.. autoclass:: InterfaceType
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~InterfaceType.ETHERNET
+   
+      ~InterfaceType.WIFI
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+      ~InterfaceType.encode
+      
+   
+      
+      ~InterfaceType.replace
+      
+   
+      
+      ~InterfaceType.split
+      
+   
+      
+      ~InterfaceType.rsplit
+      
+   
+      
+      ~InterfaceType.join
+      
+   
+      
+      ~InterfaceType.capitalize
+      
+   
+      
+      ~InterfaceType.casefold
+      
+   
+      
+      ~InterfaceType.title
+      
+   
+      
+      ~InterfaceType.center
+      
+   
+      
+      ~InterfaceType.count
+      
+   
+      
+      ~InterfaceType.expandtabs
+      
+   
+      
+      ~InterfaceType.find
+      
+   
+      
+      ~InterfaceType.partition
+      
+   
+      
+      ~InterfaceType.index
+      
+   
+      
+      ~InterfaceType.ljust
+      
+   
+      
+      ~InterfaceType.lower
+      
+   
+      
+      ~InterfaceType.lstrip
+      
+   
+      
+      ~InterfaceType.rfind
+      
+   
+      
+      ~InterfaceType.rindex
+      
+   
+      
+      ~InterfaceType.rjust
+      
+   
+      
+      ~InterfaceType.rstrip
+      
+   
+      
+      ~InterfaceType.rpartition
+      
+   
+      
+      ~InterfaceType.splitlines
+      
+   
+      
+      ~InterfaceType.strip
+      
+   
+      
+      ~InterfaceType.swapcase
+      
+   
+      
+      ~InterfaceType.translate
+      
+   
+      
+      ~InterfaceType.upper
+      
+   
+      
+      ~InterfaceType.startswith
+      
+   
+      
+      ~InterfaceType.endswith
+      
+   
+      
+      ~InterfaceType.removeprefix
+      
+   
+      
+      ~InterfaceType.removesuffix
+      
+   
+      
+      ~InterfaceType.isascii
+      
+   
+      
+      ~InterfaceType.islower
+      
+   
+      
+      ~InterfaceType.isupper
+      
+   
+      
+      ~InterfaceType.istitle
+      
+   
+      
+      ~InterfaceType.isspace
+      
+   
+      
+      ~InterfaceType.isdecimal
+      
+   
+      
+      ~InterfaceType.isdigit
+      
+   
+      
+      ~InterfaceType.isnumeric
+      
+   
+      
+      ~InterfaceType.isalpha
+      
+   
+      
+      ~InterfaceType.isalnum
+      
+   
+      
+      ~InterfaceType.isidentifier
+      
+   
+      
+      ~InterfaceType.isprintable
+      
+   
+      
+      ~InterfaceType.zfill
+      
+   
+      
+      ~InterfaceType.format
+      
+   
+      
+      ~InterfaceType.format_map
+      
+   
+      
+      ~InterfaceType.maketrans
+      
+   
+      
+      ~InterfaceType.from_transport_model
+      
+   
+      
+   
+   
+   

@@ -1,0 +1,42 @@
+Color
+=====
+
+.. currentmodule:: pyniryo.nate.models.robot
+
+.. autoclass:: Color
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~Color.red
+   
+      ~Color.green
+   
+      ~Color.blue
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+   
+   

@@ -1,0 +1,50 @@
+DeviceIdentity
+==============
+
+.. currentmodule:: pyniryo.nate.models.device
+
+.. autoclass:: DeviceIdentity
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~DeviceIdentity.device_name
+   
+      ~DeviceIdentity.model
+   
+      ~DeviceIdentity.serial_number
+   
+      ~DeviceIdentity.software
+   
+      ~DeviceIdentity.device_id
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~DeviceIdentity.from_transport_model
+      
+   
+   
+   

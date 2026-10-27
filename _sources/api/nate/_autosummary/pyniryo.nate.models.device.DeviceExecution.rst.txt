@@ -1,0 +1,46 @@
+DeviceExecution
+===============
+
+.. currentmodule:: pyniryo.nate.models.device
+
+.. autoclass:: DeviceExecution
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~DeviceExecution.project_name
+   
+      ~DeviceExecution.program_id
+   
+      ~DeviceExecution.program_name
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~DeviceExecution.from_transport_model
+      
+   
+   
+   

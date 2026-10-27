@@ -1,0 +1,56 @@
+PID
+===
+
+.. currentmodule:: pyniryo.nate.models.robot
+
+.. autoclass:: PID
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~PID.p
+   
+      ~PID.i
+   
+      ~PID.d
+   
+      ~PID.ff
+   
+      ~PID.max_i
+   
+      ~PID.max_out
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~PID.from_transport_model
+      
+   
+      
+      ~PID.to_transport_model
+      
+   
+   
+   

@@ -1,0 +1,62 @@
+Nate
+====
+
+.. currentmodule:: pyniryo.nate
+
+.. autoclass:: Nate
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~Nate.auth
+   
+      ~Nate.users
+   
+      ~Nate.robot
+   
+      ~Nate.device
+   
+      ~Nate.firmware
+   
+      ~Nate.network
+   
+      ~Nate.programs
+   
+      ~Nate.projects
+   
+      ~Nate.motion_planner
+   
+      ~Nate.metrics
+   
+      ~Nate.io
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Nate.close
+      
+   
+   
+   

@@ -1,0 +1,46 @@
+JogLimitViolation
+=================
+
+.. currentmodule:: pyniryo.nate.models.motion
+
+.. autoclass:: JogLimitViolation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~JogLimitViolation.joint
+   
+      ~JogLimitViolation.position_limit_min
+   
+      ~JogLimitViolation.position_limit_max
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~JogLimitViolation.from_transport_model
+      
+   
+   
+   

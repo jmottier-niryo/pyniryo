@@ -1,0 +1,56 @@
+RobotConfiguration
+==================
+
+.. currentmodule:: pyniryo.nate.models.robot
+
+.. autoclass:: RobotConfiguration
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~RobotConfiguration.name
+   
+      ~RobotConfiguration.model
+   
+      ~RobotConfiguration.tool_model
+   
+      ~RobotConfiguration.hardware_mode
+   
+      ~RobotConfiguration.n_joint
+   
+      ~RobotConfiguration.joints
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~RobotConfiguration.from_transport_model
+      
+   
+      
+      ~RobotConfiguration.to_transport_model
+      
+   
+   
+   

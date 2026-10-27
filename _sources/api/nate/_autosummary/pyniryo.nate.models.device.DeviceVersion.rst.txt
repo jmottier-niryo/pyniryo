@@ -1,0 +1,44 @@
+DeviceVersion
+=============
+
+.. currentmodule:: pyniryo.nate.models.device
+
+.. autoclass:: DeviceVersion
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~DeviceVersion.api_version
+   
+      ~DeviceVersion.api_commit
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~DeviceVersion.from_transport_model
+      
+   
+   
+   

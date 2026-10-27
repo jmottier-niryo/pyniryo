@@ -1,0 +1,6 @@
+pyniryo.nate.exceptions.TlsError
+================================
+
+.. currentmodule:: pyniryo.nate.exceptions
+
+.. autoexception:: TlsError

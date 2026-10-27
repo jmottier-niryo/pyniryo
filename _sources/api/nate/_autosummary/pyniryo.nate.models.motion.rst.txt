@@ -1,0 +1,44 @@
+motion
+======
+
+.. automodule:: pyniryo.nate.models.motion
+
+   
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+
+   
+      JogLimitViolation
+   
+      JointsStamped
+   
+      MoveFeedback
+   
+      MoveState
+   
+      Planner
+   
+      Waypoint
+   
+   
+   
+
+   
+   
+   
+   
+
+   
+   
+   
+   

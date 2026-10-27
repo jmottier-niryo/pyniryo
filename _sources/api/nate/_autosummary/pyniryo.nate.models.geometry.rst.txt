@@ -1,0 +1,42 @@
+geometry
+========
+
+.. automodule:: pyniryo.nate.models.geometry
+
+   
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+
+   
+      EulerAngles
+   
+      Joints
+   
+      Point
+   
+      Pose
+   
+      Quaternion
+   
+   
+   
+
+   
+   
+   
+   
+
+   
+   
+   
+   

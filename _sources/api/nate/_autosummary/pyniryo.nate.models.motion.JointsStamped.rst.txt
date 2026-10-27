@@ -1,0 +1,52 @@
+JointsStamped
+=============
+
+.. currentmodule:: pyniryo.nate.models.motion
+
+.. autoclass:: JointsStamped
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~JointsStamped.joints
+   
+      ~JointsStamped.timestamp
+   
+      ~JointsStamped.velocities
+   
+      ~JointsStamped.accelerations
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~JointsStamped.from_transport_model
+      
+   
+      
+      ~JointsStamped.to_transport_model
+      
+   
+   
+   

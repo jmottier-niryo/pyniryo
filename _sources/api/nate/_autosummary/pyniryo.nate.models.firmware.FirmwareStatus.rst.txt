@@ -1,0 +1,236 @@
+FirmwareStatus
+==============
+
+.. currentmodule:: pyniryo.nate.models.firmware
+
+.. autoclass:: FirmwareStatus
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~FirmwareStatus.ACTIVE
+   
+      ~FirmwareStatus.DISARMED
+   
+      ~FirmwareStatus.INACTIVE
+   
+      ~FirmwareStatus.ERROR
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+      ~FirmwareStatus.encode
+      
+   
+      
+      ~FirmwareStatus.replace
+      
+   
+      
+      ~FirmwareStatus.split
+      
+   
+      
+      ~FirmwareStatus.rsplit
+      
+   
+      
+      ~FirmwareStatus.join
+      
+   
+      
+      ~FirmwareStatus.capitalize
+      
+   
+      
+      ~FirmwareStatus.casefold
+      
+   
+      
+      ~FirmwareStatus.title
+      
+   
+      
+      ~FirmwareStatus.center
+      
+   
+      
+      ~FirmwareStatus.count
+      
+   
+      
+      ~FirmwareStatus.expandtabs
+      
+   
+      
+      ~FirmwareStatus.find
+      
+   
+      
+      ~FirmwareStatus.partition
+      
+   
+      
+      ~FirmwareStatus.index
+      
+   
+      
+      ~FirmwareStatus.ljust
+      
+   
+      
+      ~FirmwareStatus.lower
+      
+   
+      
+      ~FirmwareStatus.lstrip
+      
+   
+      
+      ~FirmwareStatus.rfind
+      
+   
+      
+      ~FirmwareStatus.rindex
+      
+   
+      
+      ~FirmwareStatus.rjust
+      
+   
+      
+      ~FirmwareStatus.rstrip
+      
+   
+      
+      ~FirmwareStatus.rpartition
+      
+   
+      
+      ~FirmwareStatus.splitlines
+      
+   
+      
+      ~FirmwareStatus.strip
+      
+   
+      
+      ~FirmwareStatus.swapcase
+      
+   
+      
+      ~FirmwareStatus.translate
+      
+   
+      
+      ~FirmwareStatus.upper
+      
+   
+      
+      ~FirmwareStatus.startswith
+      
+   
+      
+      ~FirmwareStatus.endswith
+      
+   
+      
+      ~FirmwareStatus.removeprefix
+      
+   
+      
+      ~FirmwareStatus.removesuffix
+      
+   
+      
+      ~FirmwareStatus.isascii
+      
+   
+      
+      ~FirmwareStatus.islower
+      
+   
+      
+      ~FirmwareStatus.isupper
+      
+   
+      
+      ~FirmwareStatus.istitle
+      
+   
+      
+      ~FirmwareStatus.isspace
+      
+   
+      
+      ~FirmwareStatus.isdecimal
+      
+   
+      
+      ~FirmwareStatus.isdigit
+      
+   
+      
+      ~FirmwareStatus.isnumeric
+      
+   
+      
+      ~FirmwareStatus.isalpha
+      
+   
+      
+      ~FirmwareStatus.isalnum
+      
+   
+      
+      ~FirmwareStatus.isidentifier
+      
+   
+      
+      ~FirmwareStatus.isprintable
+      
+   
+      
+      ~FirmwareStatus.zfill
+      
+   
+      
+      ~FirmwareStatus.format
+      
+   
+      
+      ~FirmwareStatus.format_map
+      
+   
+      
+      ~FirmwareStatus.maketrans
+      
+   
+      
+      ~FirmwareStatus.from_transport_model
+      
+   
+      
+   
+   
+   

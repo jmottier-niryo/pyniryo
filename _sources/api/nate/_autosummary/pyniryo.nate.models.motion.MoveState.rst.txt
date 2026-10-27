@@ -1,0 +1,260 @@
+MoveState
+=========
+
+.. currentmodule:: pyniryo.nate.models.motion
+
+.. autoclass:: MoveState
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~MoveState.UNKNOWN
+   
+      ~MoveState.IDLE
+   
+      ~MoveState.PREPARING
+   
+      ~MoveState.ERR_PREPARING
+   
+      ~MoveState.GEN_TRAJ
+   
+      ~MoveState.ERR_GEN_TRAJ
+   
+      ~MoveState.LOAD_TRAJ
+   
+      ~MoveState.ERR_LOAD_TRAJ
+   
+      ~MoveState.EXEC_TRAJ
+   
+      ~MoveState.ERR_EXEC_TRAJ
+   
+      ~MoveState.DONE
+   
+      ~MoveState.PAUSED
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+      ~MoveState.encode
+      
+   
+      
+      ~MoveState.replace
+      
+   
+      
+      ~MoveState.split
+      
+   
+      
+      ~MoveState.rsplit
+      
+   
+      
+      ~MoveState.join
+      
+   
+      
+      ~MoveState.capitalize
+      
+   
+      
+      ~MoveState.casefold
+      
+   
+      
+      ~MoveState.title
+      
+   
+      
+      ~MoveState.center
+      
+   
+      
+      ~MoveState.count
+      
+   
+      
+      ~MoveState.expandtabs
+      
+   
+      
+      ~MoveState.find
+      
+   
+      
+      ~MoveState.partition
+      
+   
+      
+      ~MoveState.index
+      
+   
+      
+      ~MoveState.ljust
+      
+   
+      
+      ~MoveState.lower
+      
+   
+      
+      ~MoveState.lstrip
+      
+   
+      
+      ~MoveState.rfind
+      
+   
+      
+      ~MoveState.rindex
+      
+   
+      
+      ~MoveState.rjust
+      
+   
+      
+      ~MoveState.rstrip
+      
+   
+      
+      ~MoveState.rpartition
+      
+   
+      
+      ~MoveState.splitlines
+      
+   
+      
+      ~MoveState.strip
+      
+   
+      
+      ~MoveState.swapcase
+      
+   
+      
+      ~MoveState.translate
+      
+   
+      
+      ~MoveState.upper
+      
+   
+      
+      ~MoveState.startswith
+      
+   
+      
+      ~MoveState.endswith
+      
+   
+      
+      ~MoveState.removeprefix
+      
+   
+      
+      ~MoveState.removesuffix
+      
+   
+      
+      ~MoveState.isascii
+      
+   
+      
+      ~MoveState.islower
+      
+   
+      
+      ~MoveState.isupper
+      
+   
+      
+      ~MoveState.istitle
+      
+   
+      
+      ~MoveState.isspace
+      
+   
+      
+      ~MoveState.isdecimal
+      
+   
+      
+      ~MoveState.isdigit
+      
+   
+      
+      ~MoveState.isnumeric
+      
+   
+      
+      ~MoveState.isalpha
+      
+   
+      
+      ~MoveState.isalnum
+      
+   
+      
+      ~MoveState.isidentifier
+      
+   
+      
+      ~MoveState.isprintable
+      
+   
+      
+      ~MoveState.zfill
+      
+   
+      
+      ~MoveState.format
+      
+   
+      
+      ~MoveState.format_map
+      
+   
+      
+      ~MoveState.maketrans
+      
+   
+      
+      ~MoveState.is_error
+      
+   
+      
+      ~MoveState.is_final
+      
+   
+      
+      ~MoveState.get_exception
+      
+   
+      
+   
+   
+   

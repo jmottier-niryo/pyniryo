@@ -1,0 +1,37 @@
+UserEvent
+=========
+
+.. currentmodule:: pyniryo.nate.models.auth
+
+.. autoclass:: UserEvent
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~UserEvent.from_transport_model
+      
+   
+      
+      ~UserEvent.to_transport_model
+      
+   
+   
+   

@@ -1,0 +1,48 @@
+LedRing
+=======
+
+.. currentmodule:: pyniryo.nate.models.robot
+
+.. autoclass:: LedRing
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~LedRing.period_ms
+   
+      ~LedRing.animation
+   
+      ~LedRing.color
+   
+      ~LedRing.brightness
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~LedRing.from_transport_model
+      
+   
+   
+   

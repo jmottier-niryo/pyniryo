@@ -1,0 +1,54 @@
+Ipv4Config
+==========
+
+.. currentmodule:: pyniryo.nate.models.network
+
+.. autoclass:: Ipv4Config
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~Ipv4Config.dns
+   
+      ~Ipv4Config.gateway
+   
+      ~Ipv4Config.ip
+   
+      ~Ipv4Config.netmask
+   
+      ~Ipv4Config.dhcp
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Ipv4Config.from_transport_model
+      
+   
+      
+      ~Ipv4Config.to_transport_model
+      
+   
+   
+   

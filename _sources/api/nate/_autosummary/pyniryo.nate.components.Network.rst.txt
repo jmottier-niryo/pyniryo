@@ -1,0 +1,57 @@
+Network
+=======
+
+.. currentmodule:: pyniryo.nate.components
+
+.. autoclass:: Network
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Network.close
+      
+   
+      
+      ~Network.get_all_interfaces
+      
+   
+      
+      ~Network.get_interface_config
+      
+   
+      
+      ~Network.get_interface_state
+      
+   
+      
+      ~Network.on_interface_state
+      
+   
+      
+      ~Network.reset
+      
+   
+      
+      ~Network.set_interface_config
+      
+   
+   
+   

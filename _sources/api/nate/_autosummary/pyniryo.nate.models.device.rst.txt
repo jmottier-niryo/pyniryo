@@ -1,0 +1,54 @@
+device
+======
+
+.. automodule:: pyniryo.nate.models.device
+
+   
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+
+   
+      DeviceExecution
+   
+      DeviceIdentity
+   
+      DeviceInterface
+   
+      DeviceSoftware
+   
+      DeviceStatus
+   
+      DeviceStatusValue
+   
+      DeviceUpdate
+   
+      DeviceUpdateState
+   
+      DeviceUpdateTarget
+   
+      DeviceVersion
+   
+      NtpConfig
+   
+   
+   
+
+   
+   
+   
+   
+
+   
+   
+   
+   

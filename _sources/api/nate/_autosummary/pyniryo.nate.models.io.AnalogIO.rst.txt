@@ -1,0 +1,56 @@
+AnalogIO
+========
+
+.. currentmodule:: pyniryo.nate.models.io
+
+.. autoclass:: AnalogIO
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~AnalogIO.is_available
+   
+      ~AnalogIO.unavailable_reason
+   
+      ~AnalogIO.value
+   
+      ~AnalogIO.id
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~AnalogIO.from_a_transport_model
+      
+   
+      
+      ~AnalogIO.from_transport_model
+      
+   
+      
+      ~AnalogIO.to_transport_model
+      
+   
+   
+   

@@ -1,0 +1,52 @@
+ProgramExecutorStatus
+=====================
+
+.. currentmodule:: pyniryo.nate.models.programs
+
+.. autoclass:: ProgramExecutorStatus
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~ProgramExecutorStatus.execution
+   
+      ~ProgramExecutorStatus.status
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~ProgramExecutorStatus.from_a_transport_model
+      
+   
+      
+      ~ProgramExecutorStatus.from_transport_model
+      
+   
+      
+      ~ProgramExecutorStatus.to_transport_model
+      
+   
+   
+   

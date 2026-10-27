@@ -1,0 +1,46 @@
+DeviceInterface
+===============
+
+.. currentmodule:: pyniryo.nate.models.device
+
+.. autoclass:: DeviceInterface
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~DeviceInterface.id
+   
+      ~DeviceInterface.type
+   
+      ~DeviceInterface.ip
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~DeviceInterface.from_transport_model
+      
+   
+   
+   

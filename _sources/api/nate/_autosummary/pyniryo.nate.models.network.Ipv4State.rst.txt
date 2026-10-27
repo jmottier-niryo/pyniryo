@@ -1,0 +1,52 @@
+Ipv4State
+=========
+
+.. currentmodule:: pyniryo.nate.models.network
+
+.. autoclass:: Ipv4State
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~Ipv4State.address
+   
+      ~Ipv4State.netmask
+   
+      ~Ipv4State.gateway
+   
+      ~Ipv4State.dns
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Ipv4State.from_dict
+      
+   
+      
+      ~Ipv4State.from_transport_model
+      
+   
+   
+   

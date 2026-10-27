@@ -1,0 +1,77 @@
+IO
+==
+
+.. currentmodule:: pyniryo.nate.components
+
+.. autoclass:: IO
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~IO.close
+      
+   
+      
+      ~IO.get_all
+      
+   
+      
+      ~IO.on_analog_input
+      
+   
+      
+      ~IO.on_analog_io
+      
+   
+      
+      ~IO.on_analog_output
+      
+   
+      
+      ~IO.on_digital_input
+      
+   
+      
+      ~IO.on_digital_io
+      
+   
+      
+      ~IO.on_digital_output
+      
+   
+      
+      ~IO.set_analog_output
+      
+   
+      
+      ~IO.set_digital_output
+      
+   
+      
+      ~IO.update_states
+      
+   
+      
+      ~IO.wait_for_digital_io
+      
+   
+   
+   

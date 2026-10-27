@@ -1,0 +1,52 @@
+Quaternion
+==========
+
+.. currentmodule:: pyniryo.nate.models.geometry
+
+.. autoclass:: Quaternion
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~Quaternion.x
+   
+      ~Quaternion.y
+   
+      ~Quaternion.z
+   
+      ~Quaternion.w
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Quaternion.from_transport_model
+      
+   
+      
+      ~Quaternion.to_transport_model
+      
+   
+   
+   

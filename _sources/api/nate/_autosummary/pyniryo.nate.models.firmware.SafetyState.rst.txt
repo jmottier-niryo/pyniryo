@@ -1,0 +1,56 @@
+SafetyState
+===========
+
+.. currentmodule:: pyniryo.nate.models.firmware
+
+.. autoclass:: SafetyState
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~SafetyState.armed
+   
+      ~SafetyState.manual_mode
+   
+      ~SafetyState.movement_authorized
+   
+      ~SafetyState.protective_stop_active
+   
+      ~SafetyState.emergency_stop_active
+   
+      ~SafetyState.max_velocity_factor
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~SafetyState.from_dict
+      
+   
+      
+      ~SafetyState.from_transport_model
+      
+   
+   
+   

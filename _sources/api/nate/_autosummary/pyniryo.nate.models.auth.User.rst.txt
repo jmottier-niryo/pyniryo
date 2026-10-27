@@ -1,0 +1,52 @@
+User
+====
+
+.. currentmodule:: pyniryo.nate.models.auth
+
+.. autoclass:: User
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~User.id
+   
+      ~User.login
+   
+      ~User.name
+   
+      ~User.role
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~User.from_transport_model
+      
+   
+      
+      ~User.to_transport_model
+      
+   
+   
+   

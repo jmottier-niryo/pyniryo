@@ -1,0 +1,48 @@
+WpaEnterprise
+=============
+
+.. currentmodule:: pyniryo.nate.models.network
+
+.. autoclass:: WpaEnterprise
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~WpaEnterprise.identity
+   
+      ~WpaEnterprise.password
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~WpaEnterprise.from_transport_model
+      
+   
+      
+      ~WpaEnterprise.to_transport_model
+      
+   
+   
+   

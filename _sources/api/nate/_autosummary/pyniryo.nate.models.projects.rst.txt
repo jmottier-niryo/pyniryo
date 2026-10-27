@@ -1,0 +1,34 @@
+projects
+========
+
+.. automodule:: pyniryo.nate.models.projects
+
+   
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+
+   
+      Project
+   
+   
+   
+
+   
+   
+   
+   
+
+   
+   
+   
+   

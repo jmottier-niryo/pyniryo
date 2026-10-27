@@ -1,0 +1,48 @@
+DeviceSoftware
+==============
+
+.. currentmodule:: pyniryo.nate.models.device
+
+.. autoclass:: DeviceSoftware
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~DeviceSoftware.released_at
+   
+      ~DeviceSoftware.updated_at
+   
+      ~DeviceSoftware.version
+   
+      ~DeviceSoftware.release_id
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~DeviceSoftware.from_transport_model
+      
+   
+   
+   

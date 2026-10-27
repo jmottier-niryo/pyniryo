@@ -1,0 +1,45 @@
+Auth
+====
+
+.. currentmodule:: pyniryo.nate.components
+
+.. autoclass:: Auth
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Auth.close
+      
+   
+      
+      ~Auth.login
+      
+   
+      
+      ~Auth.on_user_logged_in
+      
+   
+      
+      ~Auth.on_user_logged_out
+      
+   
+   
+   

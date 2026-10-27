@@ -1,0 +1,48 @@
+WiFiState
+=========
+
+.. currentmodule:: pyniryo.nate.models.network
+
+.. autoclass:: WiFiState
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~WiFiState.ssid
+   
+      ~WiFiState.signal_strength
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~WiFiState.from_dict
+      
+   
+      
+      ~WiFiState.from_transport_model
+      
+   
+   
+   

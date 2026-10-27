@@ -1,0 +1,50 @@
+NtpConfig
+=========
+
+.. currentmodule:: pyniryo.nate.models.device
+
+.. autoclass:: NtpConfig
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~NtpConfig.enabled
+   
+      ~NtpConfig.synchronized
+   
+      ~NtpConfig.servers
+   
+      ~NtpConfig.pools
+   
+      ~NtpConfig.last_sync
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~NtpConfig.from_transport_model
+      
+   
+   
+   

@@ -1,0 +1,238 @@
+DeviceUpdateState
+=================
+
+.. currentmodule:: pyniryo.nate.models.device
+
+.. autoclass:: DeviceUpdateState
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~DeviceUpdateState.IDLE
+   
+      ~DeviceUpdateState.CHECKING
+   
+      ~DeviceUpdateState.DOWNLOADING
+   
+      ~DeviceUpdateState.READY
+   
+      ~DeviceUpdateState.APPLYING
+   
+      ~DeviceUpdateState.SUCCESS
+   
+      ~DeviceUpdateState.ERROR
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+      ~DeviceUpdateState.encode
+      
+   
+      
+      ~DeviceUpdateState.replace
+      
+   
+      
+      ~DeviceUpdateState.split
+      
+   
+      
+      ~DeviceUpdateState.rsplit
+      
+   
+      
+      ~DeviceUpdateState.join
+      
+   
+      
+      ~DeviceUpdateState.capitalize
+      
+   
+      
+      ~DeviceUpdateState.casefold
+      
+   
+      
+      ~DeviceUpdateState.title
+      
+   
+      
+      ~DeviceUpdateState.center
+      
+   
+      
+      ~DeviceUpdateState.count
+      
+   
+      
+      ~DeviceUpdateState.expandtabs
+      
+   
+      
+      ~DeviceUpdateState.find
+      
+   
+      
+      ~DeviceUpdateState.partition
+      
+   
+      
+      ~DeviceUpdateState.index
+      
+   
+      
+      ~DeviceUpdateState.ljust
+      
+   
+      
+      ~DeviceUpdateState.lower
+      
+   
+      
+      ~DeviceUpdateState.lstrip
+      
+   
+      
+      ~DeviceUpdateState.rfind
+      
+   
+      
+      ~DeviceUpdateState.rindex
+      
+   
+      
+      ~DeviceUpdateState.rjust
+      
+   
+      
+      ~DeviceUpdateState.rstrip
+      
+   
+      
+      ~DeviceUpdateState.rpartition
+      
+   
+      
+      ~DeviceUpdateState.splitlines
+      
+   
+      
+      ~DeviceUpdateState.strip
+      
+   
+      
+      ~DeviceUpdateState.swapcase
+      
+   
+      
+      ~DeviceUpdateState.translate
+      
+   
+      
+      ~DeviceUpdateState.upper
+      
+   
+      
+      ~DeviceUpdateState.startswith
+      
+   
+      
+      ~DeviceUpdateState.endswith
+      
+   
+      
+      ~DeviceUpdateState.removeprefix
+      
+   
+      
+      ~DeviceUpdateState.removesuffix
+      
+   
+      
+      ~DeviceUpdateState.isascii
+      
+   
+      
+      ~DeviceUpdateState.islower
+      
+   
+      
+      ~DeviceUpdateState.isupper
+      
+   
+      
+      ~DeviceUpdateState.istitle
+      
+   
+      
+      ~DeviceUpdateState.isspace
+      
+   
+      
+      ~DeviceUpdateState.isdecimal
+      
+   
+      
+      ~DeviceUpdateState.isdigit
+      
+   
+      
+      ~DeviceUpdateState.isnumeric
+      
+   
+      
+      ~DeviceUpdateState.isalpha
+      
+   
+      
+      ~DeviceUpdateState.isalnum
+      
+   
+      
+      ~DeviceUpdateState.isidentifier
+      
+   
+      
+      ~DeviceUpdateState.isprintable
+      
+   
+      
+      ~DeviceUpdateState.zfill
+      
+   
+      
+      ~DeviceUpdateState.format
+      
+   
+      
+      ~DeviceUpdateState.format_map
+      
+   
+      
+      ~DeviceUpdateState.maketrans
+      
+   
+      
+   
+   
+   

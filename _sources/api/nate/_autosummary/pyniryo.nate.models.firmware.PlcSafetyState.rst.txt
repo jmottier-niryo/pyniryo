@@ -1,0 +1,74 @@
+PlcSafetyState
+==============
+
+.. currentmodule:: pyniryo.nate.models.firmware
+
+.. autoclass:: PlcSafetyState
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~PlcSafetyState.robot_initialized
+   
+      ~PlcSafetyState.stop_request
+   
+      ~PlcSafetyState.pause_request
+   
+      ~PlcSafetyState.automatic_move_authorization
+   
+      ~PlcSafetyState.manual_move_authorization
+   
+      ~PlcSafetyState.wait_for_initialization
+   
+      ~PlcSafetyState.wait_for_automatic_restart
+   
+      ~PlcSafetyState.manual_mode
+   
+      ~PlcSafetyState.io_emergency_stop_active
+   
+      ~PlcSafetyState.io_safety_stop_active
+   
+      ~PlcSafetyState.io_initialization_button_active
+   
+      ~PlcSafetyState.io_automatic_restart_button_active
+   
+      ~PlcSafetyState.io3_positions_button_active
+   
+      ~PlcSafetyState.io_emergency_stop_output_active
+   
+      ~PlcSafetyState.io_initialization_output_active
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~PlcSafetyState.from_transport_model
+      
+   
+      
+      ~PlcSafetyState.to_transport_model
+      
+   
+   
+   

@@ -1,0 +1,56 @@
+network
+=======
+
+.. automodule:: pyniryo.nate.models.network
+
+   
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+
+   
+      EthernetConfig
+   
+      EthernetState
+   
+      InterfaceConfig
+   
+      InterfaceState
+   
+      InterfaceStatus
+   
+      InterfaceType
+   
+      Ipv4Config
+   
+      Ipv4State
+   
+      WiFiConfig
+   
+      WiFiState
+   
+      WpaEnterprise
+   
+      WpaPersonal
+   
+   
+   
+
+   
+   
+   
+   
+
+   
+   
+   
+   

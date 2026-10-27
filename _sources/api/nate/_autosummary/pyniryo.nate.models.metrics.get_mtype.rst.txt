@@ -1,0 +1,6 @@
+pyniryo.nate.models.metrics.get\_mtype
+======================================
+
+.. currentmodule:: pyniryo.nate.models.metrics
+
+.. autofunction:: get_mtype

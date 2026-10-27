@@ -1,0 +1,54 @@
+DeviceUpdate
+============
+
+.. currentmodule:: pyniryo.nate.models.device
+
+.. autoclass:: DeviceUpdate
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~DeviceUpdate.error
+   
+      ~DeviceUpdate.progress
+   
+      ~DeviceUpdate.target
+   
+      ~DeviceUpdate.state
+   
+      ~DeviceUpdate.stale
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~DeviceUpdate.from_a_transport_model
+      
+   
+      
+      ~DeviceUpdate.from_transport_model
+      
+   
+   
+   

@@ -1,0 +1,46 @@
+robot
+=====
+
+.. automodule:: pyniryo.nate.models.robot
+
+   
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+
+   
+      Color
+   
+      ControlMode
+   
+      JointConfiguration
+   
+      LedRing
+   
+      PID
+   
+      RobotConfiguration
+   
+      TrajectoryExecutorStatus
+   
+   
+   
+
+   
+   
+   
+   
+
+   
+   
+   
+   

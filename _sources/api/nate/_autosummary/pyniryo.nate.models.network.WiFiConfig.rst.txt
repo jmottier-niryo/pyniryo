@@ -1,0 +1,50 @@
+WiFiConfig
+==========
+
+.. currentmodule:: pyniryo.nate.models.network
+
+.. autoclass:: WiFiConfig
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~WiFiConfig.enterprise
+   
+      ~WiFiConfig.personal
+   
+      ~WiFiConfig.ssid
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~WiFiConfig.from_transport_model
+      
+   
+      
+      ~WiFiConfig.to_transport_model
+      
+   
+   
+   

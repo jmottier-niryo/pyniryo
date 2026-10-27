@@ -1,0 +1,52 @@
+Pose
+====
+
+.. currentmodule:: pyniryo.nate.models.geometry
+
+.. autoclass:: Pose
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~Pose.position
+   
+      ~Pose.orientation
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Pose.from_sequence
+      
+   
+      
+      ~Pose.from_transport_model
+      
+   
+      
+      ~Pose.to_transport_model
+      
+   
+   
+   

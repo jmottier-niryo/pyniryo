@@ -1,0 +1,52 @@
+ControlMode
+===========
+
+.. currentmodule:: pyniryo.nate.models.robot
+
+.. autoclass:: ControlMode
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~ControlMode.TRAJECTORY
+   
+      ~ControlMode.JOG
+   
+      ~ControlMode.SPEED
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+      ~ControlMode.from_transport_model
+      
+   
+      
+      ~ControlMode.from_a_transport_model
+      
+   
+      
+      ~ControlMode.to_transport_model
+      
+   
+   
+   

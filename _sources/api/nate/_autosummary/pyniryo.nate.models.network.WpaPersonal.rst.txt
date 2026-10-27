@@ -1,0 +1,46 @@
+WpaPersonal
+===========
+
+.. currentmodule:: pyniryo.nate.models.network
+
+.. autoclass:: WpaPersonal
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~WpaPersonal.psk
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~WpaPersonal.from_transport_model
+      
+   
+      
+      ~WpaPersonal.to_transport_model
+      
+   
+   
+   

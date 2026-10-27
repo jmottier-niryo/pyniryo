@@ -1,0 +1,81 @@
+Firmware
+========
+
+.. currentmodule:: pyniryo.nate.components
+
+.. autoclass:: Firmware
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Firmware.clear_errors
+      
+   
+      
+      ~Firmware.close
+      
+   
+      
+      ~Firmware.enable
+      
+   
+      
+      ~Firmware.get_error_report
+      
+   
+      
+      ~Firmware.get_plc_safety_state
+      
+   
+      
+      ~Firmware.get_state
+      
+   
+      
+      ~Firmware.on_plc_safety_state
+      
+   
+      
+      ~Firmware.on_state
+      
+   
+      
+      ~Firmware.restart
+      
+   
+      
+      ~Firmware.set_plc_safety_state
+      
+   
+      
+      ~Firmware.start
+      
+   
+      
+      ~Firmware.stop
+      
+   
+      
+      ~Firmware.wait_armed
+      
+   
+   
+   

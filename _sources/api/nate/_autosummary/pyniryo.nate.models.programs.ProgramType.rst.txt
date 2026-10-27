@@ -1,0 +1,246 @@
+ProgramType
+===========
+
+.. currentmodule:: pyniryo.nate.models.programs
+
+.. autoclass:: ProgramType
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~ProgramType.PYTHON39
+   
+      ~ProgramType.PYTHON310
+   
+      ~ProgramType.PYTHON311
+   
+      ~ProgramType.PYTHON312
+   
+      ~ProgramType.GOLANG
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+      ~ProgramType.encode
+      
+   
+      
+      ~ProgramType.replace
+      
+   
+      
+      ~ProgramType.split
+      
+   
+      
+      ~ProgramType.rsplit
+      
+   
+      
+      ~ProgramType.join
+      
+   
+      
+      ~ProgramType.capitalize
+      
+   
+      
+      ~ProgramType.casefold
+      
+   
+      
+      ~ProgramType.title
+      
+   
+      
+      ~ProgramType.center
+      
+   
+      
+      ~ProgramType.count
+      
+   
+      
+      ~ProgramType.expandtabs
+      
+   
+      
+      ~ProgramType.find
+      
+   
+      
+      ~ProgramType.partition
+      
+   
+      
+      ~ProgramType.index
+      
+   
+      
+      ~ProgramType.ljust
+      
+   
+      
+      ~ProgramType.lower
+      
+   
+      
+      ~ProgramType.lstrip
+      
+   
+      
+      ~ProgramType.rfind
+      
+   
+      
+      ~ProgramType.rindex
+      
+   
+      
+      ~ProgramType.rjust
+      
+   
+      
+      ~ProgramType.rstrip
+      
+   
+      
+      ~ProgramType.rpartition
+      
+   
+      
+      ~ProgramType.splitlines
+      
+   
+      
+      ~ProgramType.strip
+      
+   
+      
+      ~ProgramType.swapcase
+      
+   
+      
+      ~ProgramType.translate
+      
+   
+      
+      ~ProgramType.upper
+      
+   
+      
+      ~ProgramType.startswith
+      
+   
+      
+      ~ProgramType.endswith
+      
+   
+      
+      ~ProgramType.removeprefix
+      
+   
+      
+      ~ProgramType.removesuffix
+      
+   
+      
+      ~ProgramType.isascii
+      
+   
+      
+      ~ProgramType.islower
+      
+   
+      
+      ~ProgramType.isupper
+      
+   
+      
+      ~ProgramType.istitle
+      
+   
+      
+      ~ProgramType.isspace
+      
+   
+      
+      ~ProgramType.isdecimal
+      
+   
+      
+      ~ProgramType.isdigit
+      
+   
+      
+      ~ProgramType.isnumeric
+      
+   
+      
+      ~ProgramType.isalpha
+      
+   
+      
+      ~ProgramType.isalnum
+      
+   
+      
+      ~ProgramType.isidentifier
+      
+   
+      
+      ~ProgramType.isprintable
+      
+   
+      
+      ~ProgramType.zfill
+      
+   
+      
+      ~ProgramType.format
+      
+   
+      
+      ~ProgramType.format_map
+      
+   
+      
+      ~ProgramType.maketrans
+      
+   
+      
+      ~ProgramType.python
+      
+   
+      
+      ~ProgramType.from_transport_model
+      
+   
+      
+      ~ProgramType.to_transport_model
+      
+   
+      
+   
+   
+   

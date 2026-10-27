@@ -1,0 +1,68 @@
+exceptions
+==========
+
+.. automodule:: pyniryo.nate.exceptions
+
+   
+   
+   
+   
+
+   
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+
+   
+      get_msg_from_errors
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Exceptions
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+
+   
+      ApiError
+   
+      ClientError
+   
+      DataValidationError
+   
+      ExecuteTrajectoryError
+   
+      ExecutionStoppedError
+   
+      GenerateTrajectoryError
+   
+      InternalError
+   
+      LoadTrajectoryError
+   
+      PrepareTrajectoryError
+   
+      PyNiryoError
+   
+      ServerError
+   
+      TlsError
+   
+      TransportError
+   
+   
+   

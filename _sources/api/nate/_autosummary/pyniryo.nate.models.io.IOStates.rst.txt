@@ -1,0 +1,52 @@
+IOStates
+========
+
+.. currentmodule:: pyniryo.nate.models.io
+
+.. autoclass:: IOStates
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~IOStates.digital_inputs
+   
+      ~IOStates.digital_outputs
+   
+      ~IOStates.analog_inputs
+   
+      ~IOStates.analog_outputs
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~IOStates.from_transport_model
+      
+   
+      
+      ~IOStates.to_transport_model
+      
+   
+   
+   

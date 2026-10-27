@@ -1,0 +1,177 @@
+Robot
+=====
+
+.. currentmodule:: pyniryo.nate.components
+
+.. autoclass:: Robot
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Robot.close
+      
+   
+      
+      ~Robot.delete_tcp_frame
+      
+   
+      
+      ~Robot.execute_trajectory
+      
+   
+      
+      ~Robot.executor_status
+      
+   
+      
+      ~Robot.get_all_frames
+      
+   
+      
+      ~Robot.get_commands
+      
+   
+      
+      ~Robot.get_configuration
+      
+   
+      
+      ~Robot.get_control_mode
+      
+   
+      
+      ~Robot.get_frame_pose
+      
+   
+      
+      ~Robot.get_joints
+      
+   
+      
+      ~Robot.get_next_trajectory_waypoint
+      
+   
+      
+      ~Robot.get_target_speed
+      
+   
+      
+      ~Robot.get_urdf
+      
+   
+      
+      ~Robot.jog_cartesian
+      
+   
+      
+      ~Robot.jog_cartesian_increment
+      
+   
+      
+      ~Robot.jog_joints
+      
+   
+      
+      ~Robot.jog_joints_increment
+      
+   
+      
+      ~Robot.jog_mode
+      
+   
+      
+      ~Robot.move
+      
+   
+      
+      ~Robot.move_joints
+      
+   
+      
+      ~Robot.move_pose
+      
+   
+      
+      ~Robot.on_control_mode
+      
+   
+      
+      ~Robot.on_frame_pose
+      
+   
+      
+      ~Robot.on_jog_limit_violation
+      
+   
+      
+      ~Robot.on_joints
+      
+   
+      
+      ~Robot.on_led_ring
+      
+   
+      
+      ~Robot.on_move_feedback
+      
+   
+      
+      ~Robot.on_speed_factor
+      
+   
+      
+      ~Robot.on_target_speed_factor
+      
+   
+      
+      ~Robot.pause
+      
+   
+      
+      ~Robot.resume
+      
+   
+      
+      ~Robot.set_control_mode
+      
+   
+      
+      ~Robot.set_frame
+      
+   
+      
+      ~Robot.set_target_speed
+      
+   
+      
+      ~Robot.set_tcp_frame
+      
+   
+      
+      ~Robot.stop
+      
+   
+      
+      ~Robot.stop_jog
+      
+   
+   
+   

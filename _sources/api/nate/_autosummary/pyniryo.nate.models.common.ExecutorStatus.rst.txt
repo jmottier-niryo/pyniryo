@@ -1,0 +1,262 @@
+ExecutorStatus
+==============
+
+.. currentmodule:: pyniryo.nate.models.common
+
+.. autoclass:: ExecutorStatus
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~ExecutorStatus.IDLE
+   
+      ~ExecutorStatus.PENDING
+   
+      ~ExecutorStatus.RUNNING
+   
+      ~ExecutorStatus.COMPLETED
+   
+      ~ExecutorStatus.FAILED
+   
+      ~ExecutorStatus.PAUSED
+   
+      ~ExecutorStatus.STOPPED
+   
+      ~ExecutorStatus.SAFETY_STOPPED
+   
+      ~ExecutorStatus.SAFETY_PAUSED
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+      ~ExecutorStatus.encode
+      
+   
+      
+      ~ExecutorStatus.replace
+      
+   
+      
+      ~ExecutorStatus.split
+      
+   
+      
+      ~ExecutorStatus.rsplit
+      
+   
+      
+      ~ExecutorStatus.join
+      
+   
+      
+      ~ExecutorStatus.capitalize
+      
+   
+      
+      ~ExecutorStatus.casefold
+      
+   
+      
+      ~ExecutorStatus.title
+      
+   
+      
+      ~ExecutorStatus.center
+      
+   
+      
+      ~ExecutorStatus.count
+      
+   
+      
+      ~ExecutorStatus.expandtabs
+      
+   
+      
+      ~ExecutorStatus.find
+      
+   
+      
+      ~ExecutorStatus.partition
+      
+   
+      
+      ~ExecutorStatus.index
+      
+   
+      
+      ~ExecutorStatus.ljust
+      
+   
+      
+      ~ExecutorStatus.lower
+      
+   
+      
+      ~ExecutorStatus.lstrip
+      
+   
+      
+      ~ExecutorStatus.rfind
+      
+   
+      
+      ~ExecutorStatus.rindex
+      
+   
+      
+      ~ExecutorStatus.rjust
+      
+   
+      
+      ~ExecutorStatus.rstrip
+      
+   
+      
+      ~ExecutorStatus.rpartition
+      
+   
+      
+      ~ExecutorStatus.splitlines
+      
+   
+      
+      ~ExecutorStatus.strip
+      
+   
+      
+      ~ExecutorStatus.swapcase
+      
+   
+      
+      ~ExecutorStatus.translate
+      
+   
+      
+      ~ExecutorStatus.upper
+      
+   
+      
+      ~ExecutorStatus.startswith
+      
+   
+      
+      ~ExecutorStatus.endswith
+      
+   
+      
+      ~ExecutorStatus.removeprefix
+      
+   
+      
+      ~ExecutorStatus.removesuffix
+      
+   
+      
+      ~ExecutorStatus.isascii
+      
+   
+      
+      ~ExecutorStatus.islower
+      
+   
+      
+      ~ExecutorStatus.isupper
+      
+   
+      
+      ~ExecutorStatus.istitle
+      
+   
+      
+      ~ExecutorStatus.isspace
+      
+   
+      
+      ~ExecutorStatus.isdecimal
+      
+   
+      
+      ~ExecutorStatus.isdigit
+      
+   
+      
+      ~ExecutorStatus.isnumeric
+      
+   
+      
+      ~ExecutorStatus.isalpha
+      
+   
+      
+      ~ExecutorStatus.isalnum
+      
+   
+      
+      ~ExecutorStatus.isidentifier
+      
+   
+      
+      ~ExecutorStatus.isprintable
+      
+   
+      
+      ~ExecutorStatus.zfill
+      
+   
+      
+      ~ExecutorStatus.format
+      
+   
+      
+      ~ExecutorStatus.format_map
+      
+   
+      
+      ~ExecutorStatus.maketrans
+      
+   
+      
+      ~ExecutorStatus.from_transport_model
+      
+   
+      
+      ~ExecutorStatus.to_transport_model
+      
+   
+      
+      ~ExecutorStatus.is_error
+      
+   
+      
+      ~ExecutorStatus.is_stopped
+      
+   
+      
+      ~ExecutorStatus.is_final
+      
+   
+      
+   
+   
+   

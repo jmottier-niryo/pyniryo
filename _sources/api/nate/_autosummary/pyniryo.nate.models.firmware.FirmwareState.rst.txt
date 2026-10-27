@@ -1,0 +1,50 @@
+FirmwareState
+=============
+
+.. currentmodule:: pyniryo.nate.models.firmware
+
+.. autoclass:: FirmwareState
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~FirmwareState.status
+   
+      ~FirmwareState.container_status
+   
+      ~FirmwareState.safety
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~FirmwareState.from_a_transport_model
+      
+   
+      
+      ~FirmwareState.from_transport_model
+      
+   
+   
+   

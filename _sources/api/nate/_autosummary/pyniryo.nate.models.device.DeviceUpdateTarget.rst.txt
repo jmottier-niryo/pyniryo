@@ -1,0 +1,54 @@
+DeviceUpdateTarget
+==================
+
+.. currentmodule:: pyniryo.nate.models.device
+
+.. autoclass:: DeviceUpdateTarget
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~DeviceUpdateTarget.release_notes
+   
+      ~DeviceUpdateTarget.released_at
+   
+      ~DeviceUpdateTarget.size_bytes
+   
+      ~DeviceUpdateTarget.version
+   
+      ~DeviceUpdateTarget.release_id
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~DeviceUpdateTarget.from_dict
+      
+   
+      
+      ~DeviceUpdateTarget.from_transport_model
+      
+   
+   
+   

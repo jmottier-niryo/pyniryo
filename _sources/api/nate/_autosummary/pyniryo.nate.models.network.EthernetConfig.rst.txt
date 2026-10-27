@@ -1,0 +1,46 @@
+EthernetConfig
+==============
+
+.. currentmodule:: pyniryo.nate.models.network
+
+.. autoclass:: EthernetConfig
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~EthernetConfig.link_local
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~EthernetConfig.from_transport_model
+      
+   
+      
+      ~EthernetConfig.to_transport_model
+      
+   
+   
+   

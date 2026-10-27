@@ -1,0 +1,50 @@
+Metric
+======
+
+.. currentmodule:: pyniryo.nate.models.metrics
+
+.. autoclass:: Metric
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~Metric.name
+   
+      ~Metric.value
+   
+      ~Metric.type
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Metric.from_transport_model
+      
+   
+      
+      ~Metric.to_transport_model
+      
+   
+   
+   

@@ -1,0 +1,49 @@
+Metrics
+=======
+
+.. currentmodule:: pyniryo.nate.components
+
+.. autoclass:: Metrics
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Metrics.close
+      
+   
+      
+      ~Metrics.get_metrics
+      
+   
+      
+      ~Metrics.on_api_metrics
+      
+   
+      
+      ~Metrics.on_system_metrics
+      
+   
+      
+      ~Metrics.register_metrics
+      
+   
+   
+   

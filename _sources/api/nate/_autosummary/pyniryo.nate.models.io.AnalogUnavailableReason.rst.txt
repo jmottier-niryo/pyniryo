@@ -1,0 +1,232 @@
+AnalogUnavailableReason
+=======================
+
+.. currentmodule:: pyniryo.nate.models.io
+
+.. autoclass:: AnalogUnavailableReason
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~AnalogUnavailableReason.HIGH_Z
+   
+      ~AnalogUnavailableReason.RS485
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+      ~AnalogUnavailableReason.encode
+      
+   
+      
+      ~AnalogUnavailableReason.replace
+      
+   
+      
+      ~AnalogUnavailableReason.split
+      
+   
+      
+      ~AnalogUnavailableReason.rsplit
+      
+   
+      
+      ~AnalogUnavailableReason.join
+      
+   
+      
+      ~AnalogUnavailableReason.capitalize
+      
+   
+      
+      ~AnalogUnavailableReason.casefold
+      
+   
+      
+      ~AnalogUnavailableReason.title
+      
+   
+      
+      ~AnalogUnavailableReason.center
+      
+   
+      
+      ~AnalogUnavailableReason.count
+      
+   
+      
+      ~AnalogUnavailableReason.expandtabs
+      
+   
+      
+      ~AnalogUnavailableReason.find
+      
+   
+      
+      ~AnalogUnavailableReason.partition
+      
+   
+      
+      ~AnalogUnavailableReason.index
+      
+   
+      
+      ~AnalogUnavailableReason.ljust
+      
+   
+      
+      ~AnalogUnavailableReason.lower
+      
+   
+      
+      ~AnalogUnavailableReason.lstrip
+      
+   
+      
+      ~AnalogUnavailableReason.rfind
+      
+   
+      
+      ~AnalogUnavailableReason.rindex
+      
+   
+      
+      ~AnalogUnavailableReason.rjust
+      
+   
+      
+      ~AnalogUnavailableReason.rstrip
+      
+   
+      
+      ~AnalogUnavailableReason.rpartition
+      
+   
+      
+      ~AnalogUnavailableReason.splitlines
+      
+   
+      
+      ~AnalogUnavailableReason.strip
+      
+   
+      
+      ~AnalogUnavailableReason.swapcase
+      
+   
+      
+      ~AnalogUnavailableReason.translate
+      
+   
+      
+      ~AnalogUnavailableReason.upper
+      
+   
+      
+      ~AnalogUnavailableReason.startswith
+      
+   
+      
+      ~AnalogUnavailableReason.endswith
+      
+   
+      
+      ~AnalogUnavailableReason.removeprefix
+      
+   
+      
+      ~AnalogUnavailableReason.removesuffix
+      
+   
+      
+      ~AnalogUnavailableReason.isascii
+      
+   
+      
+      ~AnalogUnavailableReason.islower
+      
+   
+      
+      ~AnalogUnavailableReason.isupper
+      
+   
+      
+      ~AnalogUnavailableReason.istitle
+      
+   
+      
+      ~AnalogUnavailableReason.isspace
+      
+   
+      
+      ~AnalogUnavailableReason.isdecimal
+      
+   
+      
+      ~AnalogUnavailableReason.isdigit
+      
+   
+      
+      ~AnalogUnavailableReason.isnumeric
+      
+   
+      
+      ~AnalogUnavailableReason.isalpha
+      
+   
+      
+      ~AnalogUnavailableReason.isalnum
+      
+   
+      
+      ~AnalogUnavailableReason.isidentifier
+      
+   
+      
+      ~AnalogUnavailableReason.isprintable
+      
+   
+      
+      ~AnalogUnavailableReason.zfill
+      
+   
+      
+      ~AnalogUnavailableReason.format
+      
+   
+      
+      ~AnalogUnavailableReason.format_map
+      
+   
+      
+      ~AnalogUnavailableReason.maketrans
+      
+   
+      
+      ~AnalogUnavailableReason.from_transport_model
+      
+   
+      
+   
+   
+   

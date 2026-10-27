@@ -1,0 +1,6 @@
+pyniryo.nate.exceptions.ExecutionStoppedError
+=============================================
+
+.. currentmodule:: pyniryo.nate.exceptions
+
+.. autoexception:: ExecutionStoppedError

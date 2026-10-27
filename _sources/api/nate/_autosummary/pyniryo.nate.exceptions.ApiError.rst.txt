@@ -1,0 +1,6 @@
+pyniryo.nate.exceptions.ApiError
+================================
+
+.. currentmodule:: pyniryo.nate.exceptions
+
+.. autoexception:: ApiError

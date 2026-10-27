@@ -1,0 +1,52 @@
+Project
+=======
+
+.. currentmodule:: pyniryo.nate.models.projects
+
+.. autoclass:: Project
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~Project.id
+   
+      ~Project.name
+   
+      ~Project.description
+   
+      ~Project.active
+   
+      ~Project.updated_at
+   
+      ~Project.programs
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Project.from_transport_model
+      
+   
+   
+   

@@ -1,0 +1,93 @@
+Programs
+========
+
+.. currentmodule:: pyniryo.nate.components
+
+.. autoclass:: Programs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Programs.close
+      
+   
+      
+      ~Programs.create
+      
+   
+      
+      ~Programs.delete
+      
+   
+      
+      ~Programs.execute
+      
+   
+      
+      ~Programs.executor_status
+      
+   
+      
+      ~Programs.get
+      
+   
+      
+      ~Programs.get_all
+      
+   
+      
+      ~Programs.get_execution
+      
+   
+      
+      ~Programs.get_execution_output
+      
+   
+      
+      ~Programs.get_executions
+      
+   
+      
+      ~Programs.on_execution_output
+      
+   
+      
+      ~Programs.on_execution_status
+      
+   
+      
+      ~Programs.pause
+      
+   
+      
+      ~Programs.resume
+      
+   
+      
+      ~Programs.stop
+      
+   
+      
+      ~Programs.update
+      
+   
+   
+   

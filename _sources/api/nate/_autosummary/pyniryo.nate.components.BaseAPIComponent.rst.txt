@@ -1,0 +1,33 @@
+BaseAPIComponent
+================
+
+.. currentmodule:: pyniryo.nate.components
+
+.. autoclass:: BaseAPIComponent
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~BaseAPIComponent.close
+      
+   
+   
+   

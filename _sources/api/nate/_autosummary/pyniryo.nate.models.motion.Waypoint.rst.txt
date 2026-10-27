@@ -1,0 +1,60 @@
+Waypoint
+========
+
+.. currentmodule:: pyniryo.nate.models.motion
+
+.. autoclass:: Waypoint
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~Waypoint.acceleration_factor
+   
+      ~Waypoint.blending_radius
+   
+      ~Waypoint.frame_id
+   
+      ~Waypoint.joints
+   
+      ~Waypoint.planner
+   
+      ~Waypoint.pose
+   
+      ~Waypoint.reference_frame
+   
+      ~Waypoint.velocity_factor
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Waypoint.from_transport_model
+      
+   
+      
+      ~Waypoint.to_transport_model
+      
+   
+   
+   

@@ -1,0 +1,6 @@
+pyniryo.nate.models.metrics.parse\_mtype
+========================================
+
+.. currentmodule:: pyniryo.nate.models.metrics
+
+.. autofunction:: parse_mtype

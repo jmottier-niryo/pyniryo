@@ -1,0 +1,48 @@
+TrajectoryExecutorStatus
+========================
+
+.. currentmodule:: pyniryo.nate.models.robot
+
+.. autoclass:: TrajectoryExecutorStatus
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~TrajectoryExecutorStatus.command_id
+   
+      ~TrajectoryExecutorStatus.status
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~TrajectoryExecutorStatus.from_transport_model
+      
+   
+      
+      ~TrajectoryExecutorStatus.to_transport_model
+      
+   
+   
+   

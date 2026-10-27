@@ -1,0 +1,62 @@
+JointConfiguration
+==================
+
+.. currentmodule:: pyniryo.nate.models.robot
+
+.. autoclass:: JointConfiguration
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~JointConfiguration.name
+   
+      ~JointConfiguration.type
+   
+      ~JointConfiguration.position_limit_min
+   
+      ~JointConfiguration.position_limit_max
+   
+      ~JointConfiguration.velocity_limit
+   
+      ~JointConfiguration.acceleration_limit
+   
+      ~JointConfiguration.effort_limit
+   
+      ~JointConfiguration.pid_position
+   
+      ~JointConfiguration.pid_velocity
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~JointConfiguration.from_transport_model
+      
+   
+      
+      ~JointConfiguration.to_transport_model
+      
+   
+   
+   

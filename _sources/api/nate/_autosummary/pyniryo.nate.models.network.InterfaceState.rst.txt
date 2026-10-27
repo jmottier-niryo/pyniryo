@@ -1,0 +1,60 @@
+InterfaceState
+==============
+
+.. currentmodule:: pyniryo.nate.models.network
+
+.. autoclass:: InterfaceState
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~InterfaceState.id
+   
+      ~InterfaceState.type
+   
+      ~InterfaceState.mac_address
+   
+      ~InterfaceState.has_carrier
+   
+      ~InterfaceState.status
+   
+      ~InterfaceState.ipv4
+   
+      ~InterfaceState.ethernet
+   
+      ~InterfaceState.wifi
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~InterfaceState.from_a_transport_model
+      
+   
+      
+      ~InterfaceState.from_transport_model
+      
+   
+   
+   

@@ -1,0 +1,50 @@
+Point
+=====
+
+.. currentmodule:: pyniryo.nate.models.geometry
+
+.. autoclass:: Point
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~Point.x
+   
+      ~Point.y
+   
+      ~Point.z
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Point.from_transport_model
+      
+   
+      
+      ~Point.to_transport_model
+      
+   
+   
+   

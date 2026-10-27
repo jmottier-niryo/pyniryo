@@ -1,0 +1,60 @@
+ProgramExecution
+================
+
+.. currentmodule:: pyniryo.nate.models.programs
+
+.. autoclass:: ProgramExecution
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~ProgramExecution.program_name
+   
+      ~ProgramExecution.id
+   
+      ~ProgramExecution.program_id
+   
+      ~ProgramExecution.context
+   
+      ~ProgramExecution.started_at
+   
+      ~ProgramExecution.finished_at
+   
+      ~ProgramExecution.exit_code
+   
+      ~ProgramExecution.status
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~ProgramExecution.from_transport_model
+      
+   
+      
+      ~ProgramExecution.to_transport_model
+      
+   
+   
+   

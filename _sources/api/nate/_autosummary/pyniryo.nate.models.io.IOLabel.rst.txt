@@ -1,0 +1,280 @@
+IOLabel
+=======
+
+.. currentmodule:: pyniryo.nate.models.io
+
+.. autoclass:: IOLabel
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~IOLabel.TDI1
+   
+      ~IOLabel.TDI2
+   
+      ~IOLabel.TDO1
+   
+      ~IOLabel.TDO2
+   
+      ~IOLabel.TAI1
+   
+      ~IOLabel.TAI2
+   
+      ~IOLabel.CDI1
+   
+      ~IOLabel.CDI2
+   
+      ~IOLabel.CDI3
+   
+      ~IOLabel.CDI4
+   
+      ~IOLabel.CDI5
+   
+      ~IOLabel.CDI6
+   
+      ~IOLabel.CDI7
+   
+      ~IOLabel.CDI8
+   
+      ~IOLabel.CDO1
+   
+      ~IOLabel.CDO2
+   
+      ~IOLabel.CDO3
+   
+      ~IOLabel.CDO4
+   
+      ~IOLabel.CDO5
+   
+      ~IOLabel.CDO6
+   
+      ~IOLabel.CDO7
+   
+      ~IOLabel.CDO8
+   
+      ~IOLabel.CAI1
+   
+      ~IOLabel.CAI2
+   
+      ~IOLabel.CAO1
+   
+      ~IOLabel.CAO2
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+      ~IOLabel.encode
+      
+   
+      
+      ~IOLabel.replace
+      
+   
+      
+      ~IOLabel.split
+      
+   
+      
+      ~IOLabel.rsplit
+      
+   
+      
+      ~IOLabel.join
+      
+   
+      
+      ~IOLabel.capitalize
+      
+   
+      
+      ~IOLabel.casefold
+      
+   
+      
+      ~IOLabel.title
+      
+   
+      
+      ~IOLabel.center
+      
+   
+      
+      ~IOLabel.count
+      
+   
+      
+      ~IOLabel.expandtabs
+      
+   
+      
+      ~IOLabel.find
+      
+   
+      
+      ~IOLabel.partition
+      
+   
+      
+      ~IOLabel.index
+      
+   
+      
+      ~IOLabel.ljust
+      
+   
+      
+      ~IOLabel.lower
+      
+   
+      
+      ~IOLabel.lstrip
+      
+   
+      
+      ~IOLabel.rfind
+      
+   
+      
+      ~IOLabel.rindex
+      
+   
+      
+      ~IOLabel.rjust
+      
+   
+      
+      ~IOLabel.rstrip
+      
+   
+      
+      ~IOLabel.rpartition
+      
+   
+      
+      ~IOLabel.splitlines
+      
+   
+      
+      ~IOLabel.strip
+      
+   
+      
+      ~IOLabel.swapcase
+      
+   
+      
+      ~IOLabel.translate
+      
+   
+      
+      ~IOLabel.upper
+      
+   
+      
+      ~IOLabel.startswith
+      
+   
+      
+      ~IOLabel.endswith
+      
+   
+      
+      ~IOLabel.removeprefix
+      
+   
+      
+      ~IOLabel.removesuffix
+      
+   
+      
+      ~IOLabel.isascii
+      
+   
+      
+      ~IOLabel.islower
+      
+   
+      
+      ~IOLabel.isupper
+      
+   
+      
+      ~IOLabel.istitle
+      
+   
+      
+      ~IOLabel.isspace
+      
+   
+      
+      ~IOLabel.isdecimal
+      
+   
+      
+      ~IOLabel.isdigit
+      
+   
+      
+      ~IOLabel.isnumeric
+      
+   
+      
+      ~IOLabel.isalpha
+      
+   
+      
+      ~IOLabel.isalnum
+      
+   
+      
+      ~IOLabel.isidentifier
+      
+   
+      
+      ~IOLabel.isprintable
+      
+   
+      
+      ~IOLabel.zfill
+      
+   
+      
+      ~IOLabel.format
+      
+   
+      
+      ~IOLabel.format_map
+      
+   
+      
+      ~IOLabel.maketrans
+      
+   
+      
+      ~IOLabel.parse
+      
+   
+      
+   
+   
+   

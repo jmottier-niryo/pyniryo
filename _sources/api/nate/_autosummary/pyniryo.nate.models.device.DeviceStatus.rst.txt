@@ -1,0 +1,60 @@
+DeviceStatus
+============
+
+.. currentmodule:: pyniryo.nate.models.device
+
+.. autoclass:: DeviceStatus
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~DeviceStatus.armed
+   
+      ~DeviceStatus.client_id
+   
+      ~DeviceStatus.device_name
+   
+      ~DeviceStatus.execution
+   
+      ~DeviceStatus.hostname
+   
+      ~DeviceStatus.ip
+   
+      ~DeviceStatus.manual_mode
+   
+      ~DeviceStatus.model
+   
+      ~DeviceStatus.status
+   
+      ~DeviceStatus.interfaces
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~DeviceStatus.from_transport_model
+      
+   
+   
+   

@@ -1,0 +1,52 @@
+InterfaceConfig
+===============
+
+.. currentmodule:: pyniryo.nate.models.network
+
+.. autoclass:: InterfaceConfig
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~InterfaceConfig.ethernet
+   
+      ~InterfaceConfig.wifi
+   
+      ~InterfaceConfig.enabled
+   
+      ~InterfaceConfig.ipv4
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~InterfaceConfig.from_transport_model
+      
+   
+      
+      ~InterfaceConfig.to_transport_model
+      
+   
+   
+   

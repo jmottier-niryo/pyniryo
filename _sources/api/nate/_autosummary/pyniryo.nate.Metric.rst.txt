@@ -1,0 +1,38 @@
+Metric
+======
+
+.. currentmodule:: pyniryo.nate
+
+.. autoclass:: Metric
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~Metric.tr_value
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+   
+   

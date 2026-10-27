@@ -1,0 +1,236 @@
+DeviceStatusValue
+=================
+
+.. currentmodule:: pyniryo.nate.models.device
+
+.. autoclass:: DeviceStatusValue
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~DeviceStatusValue.AVAILABLE
+   
+      ~DeviceStatusValue.RUNNING
+   
+      ~DeviceStatusValue.IN_USE
+   
+      ~DeviceStatusValue.PROTECTIVE_STOP
+   
+      ~DeviceStatusValue.EMERGENCY_STOP
+   
+      ~DeviceStatusValue.UNKNOWN
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+      ~DeviceStatusValue.encode
+      
+   
+      
+      ~DeviceStatusValue.replace
+      
+   
+      
+      ~DeviceStatusValue.split
+      
+   
+      
+      ~DeviceStatusValue.rsplit
+      
+   
+      
+      ~DeviceStatusValue.join
+      
+   
+      
+      ~DeviceStatusValue.capitalize
+      
+   
+      
+      ~DeviceStatusValue.casefold
+      
+   
+      
+      ~DeviceStatusValue.title
+      
+   
+      
+      ~DeviceStatusValue.center
+      
+   
+      
+      ~DeviceStatusValue.count
+      
+   
+      
+      ~DeviceStatusValue.expandtabs
+      
+   
+      
+      ~DeviceStatusValue.find
+      
+   
+      
+      ~DeviceStatusValue.partition
+      
+   
+      
+      ~DeviceStatusValue.index
+      
+   
+      
+      ~DeviceStatusValue.ljust
+      
+   
+      
+      ~DeviceStatusValue.lower
+      
+   
+      
+      ~DeviceStatusValue.lstrip
+      
+   
+      
+      ~DeviceStatusValue.rfind
+      
+   
+      
+      ~DeviceStatusValue.rindex
+      
+   
+      
+      ~DeviceStatusValue.rjust
+      
+   
+      
+      ~DeviceStatusValue.rstrip
+      
+   
+      
+      ~DeviceStatusValue.rpartition
+      
+   
+      
+      ~DeviceStatusValue.splitlines
+      
+   
+      
+      ~DeviceStatusValue.strip
+      
+   
+      
+      ~DeviceStatusValue.swapcase
+      
+   
+      
+      ~DeviceStatusValue.translate
+      
+   
+      
+      ~DeviceStatusValue.upper
+      
+   
+      
+      ~DeviceStatusValue.startswith
+      
+   
+      
+      ~DeviceStatusValue.endswith
+      
+   
+      
+      ~DeviceStatusValue.removeprefix
+      
+   
+      
+      ~DeviceStatusValue.removesuffix
+      
+   
+      
+      ~DeviceStatusValue.isascii
+      
+   
+      
+      ~DeviceStatusValue.islower
+      
+   
+      
+      ~DeviceStatusValue.isupper
+      
+   
+      
+      ~DeviceStatusValue.istitle
+      
+   
+      
+      ~DeviceStatusValue.isspace
+      
+   
+      
+      ~DeviceStatusValue.isdecimal
+      
+   
+      
+      ~DeviceStatusValue.isdigit
+      
+   
+      
+      ~DeviceStatusValue.isnumeric
+      
+   
+      
+      ~DeviceStatusValue.isalpha
+      
+   
+      
+      ~DeviceStatusValue.isalnum
+      
+   
+      
+      ~DeviceStatusValue.isidentifier
+      
+   
+      
+      ~DeviceStatusValue.isprintable
+      
+   
+      
+      ~DeviceStatusValue.zfill
+      
+   
+      
+      ~DeviceStatusValue.format
+      
+   
+      
+      ~DeviceStatusValue.format_map
+      
+   
+      
+      ~DeviceStatusValue.maketrans
+      
+   
+      
+   
+   
+   

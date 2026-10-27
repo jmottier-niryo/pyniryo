@@ -1,0 +1,6 @@
+pyniryo.nate.exceptions.TransportError
+======================================
+
+.. currentmodule:: pyniryo.nate.exceptions
+
+.. autoexception:: TransportError

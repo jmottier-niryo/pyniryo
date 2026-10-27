@@ -1,0 +1,46 @@
+EthernetState
+=============
+
+.. currentmodule:: pyniryo.nate.models.network
+
+.. autoclass:: EthernetState
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~EthernetState.speed
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~EthernetState.from_dict
+      
+   
+      
+      ~EthernetState.from_transport_model
+      
+   
+   
+   

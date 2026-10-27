@@ -1,0 +1,48 @@
+MoveFeedback
+============
+
+.. currentmodule:: pyniryo.nate.models.motion
+
+.. autoclass:: MoveFeedback
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~MoveFeedback.state
+   
+      ~MoveFeedback.message
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~MoveFeedback.from_transport_model
+      
+   
+      
+      ~MoveFeedback.to_transport_model
+      
+   
+   
+   

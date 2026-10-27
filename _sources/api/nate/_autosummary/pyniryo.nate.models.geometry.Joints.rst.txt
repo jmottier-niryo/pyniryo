@@ -1,0 +1,100 @@
+Joints
+======
+
+.. currentmodule:: pyniryo.nate.models.geometry
+
+.. autoclass:: Joints
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~Joints.timestamp
+   
+      ~Joints.velocities
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Joints.append
+      
+   
+      
+      ~Joints.clear
+      
+   
+      
+      ~Joints.copy
+      
+   
+      
+      ~Joints.count
+      
+   
+      
+      ~Joints.extend
+      
+   
+      
+      ~Joints.from_a_transport_model
+      
+   
+      
+      ~Joints.from_transport_model
+      
+   
+      
+      ~Joints.index
+      
+   
+      
+      ~Joints.insert
+      
+   
+      
+      ~Joints.pop
+      
+   
+      
+      ~Joints.remove
+      
+   
+      
+      ~Joints.reverse
+      
+   
+      
+      ~Joints.sort
+      
+   
+      
+      ~Joints.to_a_transport_model
+      
+   
+      
+      ~Joints.to_transport_model
+      
+   
+   
+   

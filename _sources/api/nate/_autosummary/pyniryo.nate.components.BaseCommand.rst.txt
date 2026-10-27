@@ -1,0 +1,42 @@
+BaseCommand
+===========
+
+.. currentmodule:: pyniryo.nate.components
+
+.. autoclass:: BaseCommand
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~BaseCommand.command_id
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~BaseCommand.wait
+      
+   
+   
+   

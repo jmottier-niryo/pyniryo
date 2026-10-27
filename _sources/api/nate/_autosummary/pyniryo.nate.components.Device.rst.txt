@@ -1,0 +1,121 @@
+Device
+======
+
+.. currentmodule:: pyniryo.nate.components
+
+.. autoclass:: Device
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Device.check_update
+      
+   
+      
+      ~Device.clear_system
+      
+   
+      
+      ~Device.close
+      
+   
+      
+      ~Device.get_asyncapi_spec
+      
+   
+      
+      ~Device.get_asyncapi_ui
+      
+   
+      
+      ~Device.get_datetime
+      
+   
+      
+      ~Device.get_identity
+      
+   
+      
+      ~Device.get_ntp_config
+      
+   
+      
+      ~Device.get_openapi_spec
+      
+   
+      
+      ~Device.get_openapi_ui
+      
+   
+      
+      ~Device.get_status
+      
+   
+      
+      ~Device.get_update
+      
+   
+      
+      ~Device.get_version
+      
+   
+      
+      ~Device.id
+      
+   
+      
+      ~Device.is_healthy
+      
+   
+      
+      ~Device.is_ready
+      
+   
+      
+      ~Device.on_update_state
+      
+   
+      
+      ~Device.reboot
+      
+   
+      
+      ~Device.set_datetime
+      
+   
+      
+      ~Device.set_ntp_config
+      
+   
+      
+      ~Device.shutdown
+      
+   
+      
+      ~Device.start_update
+      
+   
+      
+      ~Device.sync_clock
+      
+   
+   
+   

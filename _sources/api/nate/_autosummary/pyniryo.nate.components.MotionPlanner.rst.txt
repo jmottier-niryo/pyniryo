@@ -1,0 +1,37 @@
+MotionPlanner
+=============
+
+.. currentmodule:: pyniryo.nate.components
+
+.. autoclass:: MotionPlanner
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~MotionPlanner.close
+      
+   
+      
+      ~MotionPlanner.generate_trajectory
+      
+   
+   
+   

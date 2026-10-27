@@ -1,0 +1,69 @@
+Projects
+========
+
+.. currentmodule:: pyniryo.nate.components
+
+.. autoclass:: Projects
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Projects.activate
+      
+   
+      
+      ~Projects.add_program
+      
+   
+      
+      ~Projects.close
+      
+   
+      
+      ~Projects.create
+      
+   
+      
+      ~Projects.create_program
+      
+   
+      
+      ~Projects.delete
+      
+   
+      
+      ~Projects.get
+      
+   
+      
+      ~Projects.get_all
+      
+   
+      
+      ~Projects.remove_program
+      
+   
+      
+      ~Projects.update
+      
+   
+   
+   

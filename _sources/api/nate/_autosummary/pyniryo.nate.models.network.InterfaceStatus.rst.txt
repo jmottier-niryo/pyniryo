@@ -1,0 +1,234 @@
+InterfaceStatus
+===============
+
+.. currentmodule:: pyniryo.nate.models.network
+
+.. autoclass:: InterfaceStatus
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~InterfaceStatus.DISABLED
+   
+      ~InterfaceStatus.ENABLED
+   
+      ~InterfaceStatus.CONNECTED
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+      ~InterfaceStatus.encode
+      
+   
+      
+      ~InterfaceStatus.replace
+      
+   
+      
+      ~InterfaceStatus.split
+      
+   
+      
+      ~InterfaceStatus.rsplit
+      
+   
+      
+      ~InterfaceStatus.join
+      
+   
+      
+      ~InterfaceStatus.capitalize
+      
+   
+      
+      ~InterfaceStatus.casefold
+      
+   
+      
+      ~InterfaceStatus.title
+      
+   
+      
+      ~InterfaceStatus.center
+      
+   
+      
+      ~InterfaceStatus.count
+      
+   
+      
+      ~InterfaceStatus.expandtabs
+      
+   
+      
+      ~InterfaceStatus.find
+      
+   
+      
+      ~InterfaceStatus.partition
+      
+   
+      
+      ~InterfaceStatus.index
+      
+   
+      
+      ~InterfaceStatus.ljust
+      
+   
+      
+      ~InterfaceStatus.lower
+      
+   
+      
+      ~InterfaceStatus.lstrip
+      
+   
+      
+      ~InterfaceStatus.rfind
+      
+   
+      
+      ~InterfaceStatus.rindex
+      
+   
+      
+      ~InterfaceStatus.rjust
+      
+   
+      
+      ~InterfaceStatus.rstrip
+      
+   
+      
+      ~InterfaceStatus.rpartition
+      
+   
+      
+      ~InterfaceStatus.splitlines
+      
+   
+      
+      ~InterfaceStatus.strip
+      
+   
+      
+      ~InterfaceStatus.swapcase
+      
+   
+      
+      ~InterfaceStatus.translate
+      
+   
+      
+      ~InterfaceStatus.upper
+      
+   
+      
+      ~InterfaceStatus.startswith
+      
+   
+      
+      ~InterfaceStatus.endswith
+      
+   
+      
+      ~InterfaceStatus.removeprefix
+      
+   
+      
+      ~InterfaceStatus.removesuffix
+      
+   
+      
+      ~InterfaceStatus.isascii
+      
+   
+      
+      ~InterfaceStatus.islower
+      
+   
+      
+      ~InterfaceStatus.isupper
+      
+   
+      
+      ~InterfaceStatus.istitle
+      
+   
+      
+      ~InterfaceStatus.isspace
+      
+   
+      
+      ~InterfaceStatus.isdecimal
+      
+   
+      
+      ~InterfaceStatus.isdigit
+      
+   
+      
+      ~InterfaceStatus.isnumeric
+      
+   
+      
+      ~InterfaceStatus.isalpha
+      
+   
+      
+      ~InterfaceStatus.isalnum
+      
+   
+      
+      ~InterfaceStatus.isidentifier
+      
+   
+      
+      ~InterfaceStatus.isprintable
+      
+   
+      
+      ~InterfaceStatus.zfill
+      
+   
+      
+      ~InterfaceStatus.format
+      
+   
+      
+      ~InterfaceStatus.format_map
+      
+   
+      
+      ~InterfaceStatus.maketrans
+      
+   
+      
+      ~InterfaceStatus.from_transport_model
+      
+   
+      
+   
+   
+   

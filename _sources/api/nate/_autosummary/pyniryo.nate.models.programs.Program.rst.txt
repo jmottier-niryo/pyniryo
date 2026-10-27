@@ -1,0 +1,50 @@
+Program
+=======
+
+.. currentmodule:: pyniryo.nate.models.programs
+
+.. autoclass:: Program
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :member-order: bysource
+
+   
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      ~Program.id
+   
+      ~Program.name
+   
+      ~Program.type
+   
+   
+   
+
+   
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+
+   
+      
+   
+      
+      ~Program.from_transport_model
+      
+   
+      
+      ~Program.to_transport_model
+      
+   
+   
+   
